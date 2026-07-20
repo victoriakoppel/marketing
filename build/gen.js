@@ -66,7 +66,8 @@ const DEPTS=[marcom,kanaly,prodakshn,prodzhekt];
 const GRAND=DEPTS.reduce((a,d)=>a+deptTotal(d),0);
 
 // ============================ card ============================
-function card(s,x,y,w,h,p,kind){
+function card(s,x,y,w,h,p,kind,sz){
+  sz=sz||1;
   const isHead=kind==="head",isSub=kind==="sublead";
   const fill=p.vacant?VACFILL:isHead?NAVY:isSub?NAVY2:CARD;
   const border=p.vacant?VACBR:isHead?NAVY:isSub?NAVY2:CARDBR;
@@ -74,7 +75,7 @@ function card(s,x,y,w,h,p,kind){
   const detailColor=(isHead||isSub)?"DCE6F5":MUTED;
   const salColor=p.assumed?((isHead||isSub)?"FFD9A6":ASSUM):((isHead||isSub)?WHITE:MONEY);
   rect(s,"roundRect",{x,y,w,h,radius:0.06,fill,line:border,lw:(isHead||isSub)?0:1,shadow:true});
-  const labelSz=isHead?13:isSub?12:10.5, detailSz=isHead?9:8, salSz=isHead?12.5:isSub?12:11;
+  const labelSz=(isHead?13:isSub?12:10.5)*sz, detailSz=(isHead?9:8)*sz, salSz=(isHead?12.5:isSub?12:11)*sz;
   const salTxt=money(p.salary)+(p.assumed?"  *":"");
   txt(s,[
     {text:p.label,options:{bold:true,fontSize:labelSz,color:labelColor,breakLine:true}},
@@ -114,22 +115,38 @@ function deptHeader(s,d){
   txt(s,[{text:"Суммы — должностной оклад (тотал), в месяц (₸).  Источник: Excel «Должностной оклад» + оргструктура по отделам (скрины).  * — имя на позиции не определено, взята максимальная стоимость по позиции (см. последний слайд).",options:{italic:true,fontSize:8.5,color:MUTED}}],{x:0.6,y:PAGEH-0.52,w:PAGEW-1.2,h:0.38,align:"left",valign:"middle"});
 })();
 
-// ============================ Marcom (3 cols, fits 6) ============================
+// ============================ Marcom (Контент 2 cols · SMM gen/orig/sport · PR) ============================
 (function(){
   const s=newSlide("F4F7FB"); deptHeader(s,marcom);
-  const hw=4.6,hh=0.80,hx=(PAGEW-hw)/2,hy=1.10; card(s,hx,hy,hw,hh,marcom.head,"head");
-  const cols=marcom.columns,nCol=cols.length,mL=0.5,mR=0.5,gap=0.4;
-  const cw=(PAGEW-mL-mR-gap*(nCol-1))/nCol;
-  const busY=1.96, titleY=2.02, colTop=2.40, cardH=0.70, gapv=0.075, pitch=cardH+gapv;
+  const hw=3.6,hh=0.72,hx=(PAGEW-hw)/2,hy=1.16; card(s,hx,hy,hw,hh,marcom.head,"head");
+  const busY=1.98, titleY=2.14, cardTop=2.56;
+  const cw=1.85, chP=1.02, pitchP=1.12, chS=0.94, pitchS=1.04, SZ=0.9;
+  const g1a=0.5, g1b=g1a+cw+0.12;
+  const s1=g1b+cw+0.40, s2=s1+cw+0.12, s3=s2+cw+0.12;
+  const prX=s3+cw+0.40;
+  const contC=(g1a+g1b+cw)/2, smmC=(s1+s3+cw)/2, prC=prX+cw/2;
   line(s,PAGEW/2,hy+hh,PAGEW/2,busY);
-  const centers=cols.map((_,i)=>mL+cw/2+i*(cw+gap));
-  line(s,centers[0],busY,centers[nCol-1],busY);
-  cols.forEach((col,i)=>{
-    const cx=mL+i*(cw+gap);
-    line(s,centers[i],busY,centers[i],titleY);
-    txt(s,[{text:col.title,options:{bold:true,fontSize:12,color:NAVY2}}],{x:cx,y:titleY,w:cw,h:0.32,align:"center",valign:"middle"});
-    col.cards.forEach((p,j)=>card(s,cx,colTop+j*pitch,cw,cardH,p,"member"));
-  });
+  line(s,contC,busY,prC,busY);
+  [contC,smmC,prC].forEach(cx=>line(s,cx,busY,cx,titleY));
+  txt(s,[{text:"Контент  (original · sport)",options:{bold:true,fontSize:12,color:NAVY2}}],{x:g1a,y:titleY,w:cw*2+0.12,h:0.32,align:"center",valign:"middle"});
+  txt(s,[{text:"SMM  (gen · original · sport)",options:{bold:true,fontSize:12,color:NAVY2}}],{x:s1,y:titleY,w:cw*3+0.24,h:0.32,align:"center",valign:"middle"});
+  txt(s,[{text:"PR",options:{bold:true,fontSize:12,color:NAVY2}}],{x:prX,y:titleY,w:cw,h:0.32,align:"center",valign:"middle"});
+  // Контент: 2 columns
+  M(["M_PROMO_1","M_PROMO_3","M_PROMO_5"]).forEach((p,j)=>card(s,g1a,cardTop+j*pitchP,cw,chP,p,"member",SZ));
+  M(["M_PROMO_2","M_PROMO_4","M_PROMO_6"]).forEach((p,j)=>card(s,g1b,cardTop+j*pitchP,cw,chP,p,"member",SZ));
+  // SMM: Head of SMM + 3 direction columns
+  const smmHeadW=2.7, smmHeadX=smmC-smmHeadW/2;
+  card(s,smmHeadX,cardTop,smmHeadW,0.74,marcom.columns[1].cards[0],"sublead",0.95); // Head of SMM Мария
+  const smmColTop=cardTop+0.74+0.34, busS=smmColTop-0.20;
+  [["Originals",s1],["Gen",s2],["Sport",s3]].forEach(([t,x])=>txt(s,[{text:t,options:{bold:true,fontSize:9,color:MUTED}}],{x,y:smmColTop-0.26,w:cw,h:0.22,align:"center",valign:"middle"}));
+  line(s,smmC,cardTop+0.74,smmC,busS);
+  line(s,s1+cw/2,busS,s3+cw/2,busS);
+  [s1,s2,s3].forEach(x=>line(s,x+cw/2,busS,x+cw/2,smmColTop));
+  M(["M_SMM_2","M_SMM_5"]).forEach((p,j)=>card(s,s1,smmColTop+j*pitchS,cw,chS,p,"member",SZ)); // Originals
+  M(["M_SMM_3"]).forEach((p,j)=>card(s,s2,smmColTop+j*pitchS,cw,chS,p,"member",SZ));           // Gen
+  M(["M_SMM_4","M_SMM_6"]).forEach((p,j)=>card(s,s3,smmColTop+j*pitchS,cw,chS,p,"member",SZ)); // Sport
+  // PR
+  card(s,prX,cardTop,cw,chP,marcom.columns[2].cards[0],"member",SZ);
 })();
 
 // ============================ Каналы (row of 5) ============================
@@ -144,21 +161,31 @@ function deptHeader(s,d){
   items.forEach((p,i)=>{ line(s,centers[i],busY,centers[i],cy); card(s,mL+i*(cw+gap),cy,cw,ch,p,"member"); });
 })();
 
-// ============================ Продакшн (two subtrees) ============================
+// ============================ Продакшн (Design: Graph+Motion · Video production) ============================
 (function(){
   const s=newSlide("F4F7FB"); deptHeader(s,prodakshn);
-  const hw=4.8,hh=0.84,hx=(PAGEW-hw)/2,hy=1.16; card(s,hx,hy,hw,hh,prodakshn.head,"head");
-  const subW=4.9,subH=0.80,leftX=0.9,rightX=PAGEW-0.9-subW,subY=2.30,busY=2.06;
-  const subs=prodakshn.subleads;
+  const hw=4.6,hh=0.72,hx=(PAGEW-hw)/2,hy=1.16; card(s,hx,hy,hw,hh,prodakshn.head,"head");
+  const busY=1.98, artC=3.3, prodC=10.0, subH=0.72, subY=2.20;
+  const subW=4.4, subWr=3.6;
   line(s,PAGEW/2,hy+hh,PAGEW/2,busY);
-  const lc=leftX+subW/2,rc=rightX+subW/2;
-  line(s,lc,busY,rc,busY); line(s,lc,busY,lc,subY); line(s,rc,busY,rc,subY);
-  card(s,leftX,subY,subW,subH,subs[0],"sublead"); card(s,rightX,subY,subW,subH,subs[1],"sublead");
-  const cardH=0.68,gapv=0.075,pitch=cardH+gapv,repTop=subY+subH+0.20;
-  [[subs[0],leftX],[subs[1],rightX]].forEach(([sub,sx])=>{
-    line(s,sx+subW/2,subY+subH,sx+subW/2,repTop);
-    sub.reports.forEach((p,j)=>card(s,sx,repTop+j*pitch,subW,cardH,p,"member"));
-  });
+  line(s,artC,busY,prodC,busY); line(s,artC,busY,artC,subY); line(s,prodC,busY,prodC,subY);
+  card(s,artC-subW/2,subY,subW,subH,prodakshn.subleads[0],"sublead");   // Senior art
+  card(s,prodC-subWr/2,subY,subWr,subH,prodakshn.subleads[1],"sublead"); // Senior production
+  const labY=subY+subH+0.08;
+  txt(s,[{text:"Design",options:{bold:true,fontSize:12,color:NAVY2}}],{x:artC-subW/2,y:labY,w:subW,h:0.28,align:"center",valign:"middle"});
+  txt(s,[{text:"Video production",options:{bold:true,fontSize:12,color:NAVY2}}],{x:prodC-subWr/2,y:labY,w:subWr,h:0.28,align:"center",valign:"middle"});
+  const dTop=labY+0.40, dH=0.72, dPitch=0.86, dCW=2.1;
+  const gX=artC-subW/2, mX=gX+dCW+0.20;   // Graph col, Motion col
+  const dbus=dTop-0.16;
+  line(s,artC,subY+subH,artC,dbus);
+  line(s,gX+dCW/2,dbus,mX+dCW/2,dbus);
+  [gX,mX].forEach(x=>line(s,x+dCW/2,dbus,x+dCW/2,dTop));
+  M(["P_ART_1","P_ART_2","P_ART_3"]).forEach((p,j)=>card(s,gX,dTop+j*dPitch,dCW,dH,p,"member",0.95)); // Graph
+  M(["P_ART_4","P_ART_5"]).forEach((p,j)=>card(s,mX,dTop+j*dPitch,dCW,dH,p,"member",0.95));            // Motion
+  // Video production column
+  const vX=prodC-subWr/2, vTop=dTop, vH=0.72, vPitch=0.86;
+  line(s,prodC,subY+subH,prodC,vTop-0.06);
+  M(["P_PROD_1","P_PROD_2","P_PROD_3","P_PROD_4"]).forEach((p,j)=>card(s,vX,vTop+j*vPitch,subWr,vH,p,"member"));
 })();
 
 // ============================ Проджект (row of 4) ============================
@@ -182,7 +209,6 @@ function deptHeader(s,d){
     ["SMM Original / Gen / Sport (4 позиции)","SMM менеджер — макс. из 4",money(867456)],
     ["Graph / Graph Спорт (3 позиции)","Дизайнер — макс. из 5",money(940000)],
     ["Motion (2 позиции)","Видеодизайнер (Motion) — единственная ставка",money(877000)],
-    ["Мобилограф / монтажёр (4 позиции)","Видеограф — макс. из 5",money(1498769)],
     ["PPC (1)","Трафик менеджер — макс. из 2",money(1124000)],
     ["CVM (?) — планируемая позиция","CVM ≈ CRM менеджер",money(867456)],
   ];
