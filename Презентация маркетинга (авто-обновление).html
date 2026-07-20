@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Структура маркетинга — ФОТ (авто-обновление)</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,'Liberation Sans',sans-serif}
+  body{background:#e9eef4;color:#1f2a37}
+  .bar{position:sticky;top:0;z-index:50;background:#1F3A5F;color:#fff;padding:10px 18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+  .bar h1{font-size:16px;font-weight:700}
+  .bar .grand{margin-left:auto;font-size:15px}
+  .bar .grand b{font-size:20px}
+  .bar button{background:#2E5C8A;color:#fff;border:0;border-radius:6px;padding:7px 12px;font-size:13px;cursor:pointer}
+  .bar button:hover{background:#3a70a8}
+  .wrap{max-width:1320px;margin:0 auto;padding:18px}
+  details{background:#fff;border-radius:8px;margin-bottom:16px;box-shadow:0 1px 4px rgba(120,135,150,.25);overflow:hidden}
+  summary{cursor:pointer;padding:12px 16px;font-weight:700;color:#1F3A5F;font-size:15px;background:#f4f7fb;user-select:none}
+  .panel{padding:12px 16px}
+  table.edit{border-collapse:collapse;width:100%;font-size:12px}
+  table.edit th{background:#1F3A5F;color:#fff;padding:6px 8px;text-align:left;position:sticky;top:56px}
+  table.edit td{border:1px solid #dbe4f0;padding:2px 6px;vertical-align:middle}
+  table.edit tr.dep td{background:#eaf1fb;font-weight:700;color:#1F3A5F}
+  table.edit input[type=text]{width:100%;border:1px solid transparent;background:transparent;font-size:12px;padding:3px}
+  table.edit input[type=text]:focus{border-color:#8fb3e0;background:#fff;outline:none}
+  table.edit input.sal{width:120px;text-align:right;border:1px solid #cbd7e6;border-radius:4px;padding:3px 6px;font-weight:700;color:#0000cc}
+  table.edit input.sal:focus{outline:2px solid #8fb3e0}
+  table.edit td.key{color:#8a97a6;font-size:10px;font-family:monospace}
+  .hint{font-size:12px;color:#5b6b7c;margin:2px 0 10px}
+  .paste{display:flex;gap:8px;align-items:flex-start;margin-top:10px;flex-wrap:wrap}
+  .paste textarea{flex:1;min-width:260px;height:56px;border:1px solid #cbd7e6;border-radius:6px;padding:6px;font-size:12px}
+  .slides{display:flex;flex-direction:column;gap:18px}
+  .slideWrap{background:#fff;border-radius:8px;box-shadow:0 1px 5px rgba(120,135,150,.3);overflow:hidden}
+  .stageBox{width:100%;overflow:hidden}
+  .stage{width:1280px;height:720px;position:relative;transform-origin:top left}
+  .rc{position:absolute}
+  .tx{position:absolute;display:flex;flex-direction:column;font-size:0;overflow:hidden}
+  @media print{
+    .bar,.editor,summary{display:none!important}
+    body{background:#fff}
+    .wrap{max-width:none;padding:0}
+    .slideWrap{break-inside:avoid;box-shadow:none;border-radius:0;margin:0}
+    .slides{gap:0}
+  }
+</style>
+</head>
+<body>
+<div class="bar">
+  <h1>Структура маркетинга — ФОТ</h1>
+  <span class="grand">Итого по 4 отделам: <b id="grandTotal">—</b></span>
+  <button onclick="document.getElementById('ed').open=!document.getElementById('ed').open">Показать/скрыть таблицу</button>
+  <button onclick="window.print()">Печать / PDF</button>
+  <button onclick="presentFS()">На весь экран</button>
+</div>
+
+<div class="wrap">
+  <details id="ed" class="editor" open>
+    <summary>✏️ Таблица данных — меняйте здесь, слайды ниже обновятся сами</summary>
+    <div class="panel">
+      <div class="hint">Правьте «Оклад» (и при желании текст). Всё внизу пересчитывается мгновенно. Отмеченные «макс.» — где имя не определено, взята максимальная стоимость по позиции.</div>
+      <div class="paste">
+        <textarea id="pasteBox" placeholder="Или: скопируйте в Excel столбец «Оклад» (ячейки G3:G38) и вставьте сюда — 36 чисел по порядку."></textarea>
+        <button onclick="applyPaste()" style="background:#2E5C8A;color:#fff;border:0;border-radius:6px;padding:8px 12px;cursor:pointer;height:40px">Обновить из Excel</button>
+      </div>
+      <div id="tableHost"></div>
+    </div>
+  </details>
+
+  <div class="slides" id="slides"></div>
+</div>
+
+<script>
+/* ================= palette & helpers ================= */
+const NAVY="1F3A5F",NAVY2="2E5C8A",CARD="EAF1FB",CARDBR="C7D8EE",MUTED="5B6B7C",
+      MONEY="0F6E4F",ASSUM="B45309",VACFILL="FBE4E4",VACBR="E3B4B4",INK="1F2A37",WHITE="FFFFFF";
+const PAGEW=13.33,PAGEH=7.5,PX=96;
+function grp(n){const s=String(Math.round(n));let o="",c=0;for(let i=s.length-1;i>=0;i--){o=s[i]+o;if(++c%3===0&&i>0)o=" "+o;}return o;}
+const money=n=>grp(n)+" ₸";
+const esc=t=>String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+/* ================= DATA (edit here / in the table) ================= */
+const DATA = [
+ {key:"M_HEAD",dept:"Marcom",block:"Руководитель",type:"head",label:"Marcom · Олег С",detail:"Столярчук Олег Валерьевич",salary:3167500,assumed:false,vacant:false},
+ {key:"M_PROMO_1",dept:"Marcom",block:"Промо / Контент",type:"member",label:"Senior Promo Original · Аида А",detail:"Әлішбай Аида Шералықызы",salary:1247076,assumed:false,vacant:false},
+ {key:"M_PROMO_2",dept:"Marcom",block:"Промо / Контент",type:"member",label:"Promo · Александр К",detail:"Казачков Александр",salary:800000,assumed:false,vacant:false},
+ {key:"M_PROMO_3",dept:"Marcom",block:"Промо / Контент",type:"member",label:"Promo · Райлана",detail:"Жанибекова Райлана Нурлановна",salary:1000162,assumed:false,vacant:false},
+ {key:"M_PROMO_4",dept:"Marcom",block:"Промо / Контент",type:"member",label:"Promo · Яков",detail:"Сорокин Яков Андреевич",salary:614931,assumed:false,vacant:false},
+ {key:"M_PROMO_5",dept:"Marcom",block:"Промо / Контент",type:"member",label:"Promo · Чолпон",detail:"Эркинова Чолпон",salary:1025642,assumed:false,vacant:false},
+ {key:"M_SMM_1",dept:"Marcom",block:"SMM",type:"member",label:"Head of SMM · Мария",detail:"Коренькова Мария Николаевна",salary:1625032,assumed:false,vacant:false},
+ {key:"M_SMM_2",dept:"Marcom",block:"SMM",type:"member",label:"SMM Original",detail:"SMM менеджер · имя н/д",salary:867456,assumed:true,vacant:false},
+ {key:"M_SMM_3",dept:"Marcom",block:"SMM",type:"member",label:"SMM Gen",detail:"SMM менеджер · имя н/д",salary:867456,assumed:true,vacant:false},
+ {key:"M_SMM_4",dept:"Marcom",block:"SMM",type:"member",label:"SMM Sport",detail:"SMM менеджер · имя н/д",salary:867456,assumed:true,vacant:false},
+ {key:"M_SMM_5",dept:"Marcom",block:"SMM",type:"member",label:"SMM Original",detail:"SMM менеджер · имя н/д",salary:867456,assumed:true,vacant:false},
+ {key:"M_SMM_6",dept:"Marcom",block:"SMM",type:"member",label:"Telegram редактор Sport",detail:"Куричев Иван Николаевич",salary:513920,assumed:false,vacant:false},
+ {key:"M_PR_1",dept:"Marcom",block:"PR",type:"member",label:"Pr manager · Аружан",detail:"PR менеджер",salary:1212314,assumed:false,vacant:false},
+ {key:"K_HEAD",dept:"Каналы коммуникации",block:"Руководитель",type:"head",label:"Head · Эдуард Д",detail:"Head каналы коммуникации",salary:2260000,assumed:false,vacant:false},
+ {key:"K_1",dept:"Каналы коммуникации",block:"—",type:"member",label:"Senior PPC · Антон Б",detail:"Senior PPC",salary:1346342,assumed:false,vacant:false},
+ {key:"K_2",dept:"Каналы коммуникации",block:"—",type:"member",label:"Media manager · Халмурад",detail:"Медиа менеджер",salary:1056850,assumed:false,vacant:false},
+ {key:"K_3",dept:"Каналы коммуникации",block:"—",type:"member",label:"Внут. маркетинг · Аида Е",detail:"Внутренний маркетинг",salary:1058434,assumed:false,vacant:false},
+ {key:"K_4",dept:"Каналы коммуникации",block:"—",type:"member",label:"PPC (1)",detail:"Трафик менеджер · имя н/д",salary:1124000,assumed:true,vacant:false},
+ {key:"K_5",dept:"Каналы коммуникации",block:"—",type:"member",label:"CVM (?)",detail:"CRM менеджер · планируется",salary:867456,assumed:true,vacant:true},
+ {key:"P_HEAD",dept:"Продакшн",block:"Руководитель",type:"head",label:"Head of creative · Катерина Р",detail:"Креативный директор",salary:2490895,assumed:false,vacant:false},
+ {key:"P_ART",dept:"Продакшн",block:"Арт",type:"sublead",label:"Senior art · Олег Н",detail:"Назаренко Олег Станиславович",salary:1494981,assumed:false,vacant:false},
+ {key:"P_PROD",dept:"Продакшн",block:"Продакшн",type:"sublead",label:"Senior production · Александр Е",detail:"Senior production",salary:1291685,assumed:false,vacant:false},
+ {key:"P_ART_1",dept:"Продакшн",block:"Арт",type:"member",label:"Graph",detail:"Дизайнер · имя н/д",salary:940000,assumed:true,vacant:false},
+ {key:"P_ART_2",dept:"Продакшн",block:"Арт",type:"member",label:"Graph",detail:"Дизайнер · имя н/д",salary:940000,assumed:true,vacant:false},
+ {key:"P_ART_3",dept:"Продакшн",block:"Арт",type:"member",label:"Graph Спорт",detail:"Дизайнер · имя н/д",salary:940000,assumed:true,vacant:false},
+ {key:"P_ART_4",dept:"Продакшн",block:"Арт",type:"member",label:"Motion",detail:"Motion-дизайнер · имя н/д",salary:877000,assumed:true,vacant:false},
+ {key:"P_ART_5",dept:"Продакшн",block:"Арт",type:"member",label:"Motion",detail:"Motion-дизайнер · имя н/д",salary:877000,assumed:true,vacant:false},
+ {key:"P_PROD_1",dept:"Продакшн",block:"Продакшн",type:"member",label:"Мобилограф / монтажёр",detail:"Видеограф · имя н/д",salary:1498769,assumed:true,vacant:false},
+ {key:"P_PROD_2",dept:"Продакшн",block:"Продакшн",type:"member",label:"Мобилограф / монтажёр",detail:"Видеограф · имя н/д",salary:1498769,assumed:true,vacant:false},
+ {key:"P_PROD_3",dept:"Продакшн",block:"Продакшн",type:"member",label:"Мобилограф / монтажёр",detail:"Видеограф · имя н/д",salary:1498769,assumed:true,vacant:false},
+ {key:"P_PROD_4",dept:"Продакшн",block:"Продакшн",type:"member",label:"Мобилограф / монтажёр Sport",detail:"Видеограф · имя н/д",salary:1498769,assumed:true,vacant:false},
+ {key:"PJ_HEAD",dept:"Проджект",block:"Руководитель",type:"head",label:"Head · Ольга М",detail:"Head project",salary:1291685,assumed:false,vacant:false},
+ {key:"PJ_1",dept:"Проджект",block:"—",type:"member",label:"Project manager · Аружан С",detail:"Проджект-менеджер",salary:700000,assumed:false,vacant:false},
+ {key:"PJ_2",dept:"Проджект",block:"—",type:"member",label:"Project manager · Анель",detail:"Муханова Анель Султановна",salary:741192,assumed:false,vacant:false},
+ {key:"PJ_3",dept:"Проджект",block:"—",type:"member",label:"Спецпроекты · Марина",detail:"Гяурова Марина Якубовна",salary:1000162,assumed:false,vacant:false},
+ {key:"PJ_4",dept:"Проджект",block:"—",type:"member",label:"B2B и продакшн · Олеся М",detail:"B2B и продакшн",salary:1081000,assumed:false,vacant:false},
+];
+const byKey = k => DATA.find(d=>d.key===k);
+const DEPTS = ["Marcom","Каналы коммуникации","Продакшн","Проджект"];
+const inDept = d => DATA.filter(x=>x.dept===d);
+const deptTotal = d => inDept(d).reduce((a,x)=>a+(+x.salary||0),0);
+const deptCount = d => inDept(d).length;
+const grand = () => DEPTS.reduce((a,d)=>a+deptTotal(d),0);
+
+/* ================= shape builders (ported from the deck) ================= */
+function P(key){const d=byKey(key);return {label:d.label,detail:d.detail,salary:+d.salary||0,assumed:!!d.assumed,vacant:!!d.vacant};}
+const M = keys => keys.map(P);
+
+function newSlide(bg){return {bg:bg||"FFFFFF",shapes:[]};}
+function rect(s,o){s.shapes.push({k:"rect",x:o.x,y:o.y,w:o.w,h:o.h,fill:o.fill||null,line:o.lineNone?null:(o.line||CARDBR),lw:o.lw==null?1:o.lw,radius:o.radius||0});}
+function line(s,x1,y1,x2,y2,color){s.shapes.push({k:"line",x1,y1,x2,y2,color:color||CARDBR});}
+function txt(s,runs,o){s.shapes.push({k:"text",x:o.x,y:o.y,w:o.w,h:o.h,align:o.align||"left",valign:o.valign||"middle",runs});}
+function R(t,o){o=o||{};return {t,bold:!!o.bold,italic:!!o.italic,size:o.size||12,color:o.color||INK,br:o.br!==false};}
+
+function card(s,x,y,w,h,p,kind){
+  const isHead=kind==="head",isSub=kind==="sublead";
+  const fill=p.vacant?VACFILL:isHead?NAVY:isSub?NAVY2:CARD;
+  const border=p.vacant?VACBR:isHead?NAVY:isSub?NAVY2:CARDBR;
+  const labelColor=(isHead||isSub)?WHITE:INK;
+  const detailColor=(isHead||isSub)?"DCE6F5":MUTED;
+  const salColor=p.assumed?((isHead||isSub)?"FFD9A6":ASSUM):((isHead||isSub)?WHITE:MONEY);
+  rect(s,{x,y,w,h,radius:0.06,fill,line:border,lw:(isHead||isSub)?0:1});
+  const labelSz=isHead?13:isSub?12:10.5,detailSz=isHead?9:8,salSz=isHead?12.5:isSub?12:11;
+  const salTxt=money(p.salary)+(p.assumed?"  *":"");
+  txt(s,[R(p.label,{bold:true,size:labelSz,color:labelColor,br:true}),
+         R(p.detail,{size:detailSz,italic:true,color:detailColor,br:true}),
+         R(salTxt,{bold:true,size:salSz,color:salColor,br:false})],
+      {x:x+0.08,y:y+0.05,w:w-0.16,h:h-0.1,align:"center",valign:"middle"});
+}
+function deptHeader(s,name,dep){
+  txt(s,[R(name,{bold:true,size:30,color:NAVY})],{x:0.5,y:0.28,w:7.5,h:0.62,align:"left",valign:"middle"});
+  const pw=4.55,ph=0.82,px=PAGEW-0.5-pw,py=0.24;
+  rect(s,{x:px,y:py,w:pw,h:ph,radius:0.1,fill:NAVY,lineNone:true});
+  txt(s,[R(money(deptTotal(dep)),{size:19,color:WHITE,bold:true,br:true}),
+         R("ФОТ отдела · "+deptCount(dep)+" чел. · оклады/мес",{size:9.5,color:"CADCFC"})],
+      {x:px+0.15,y:py+0.08,w:pw-0.3,h:ph-0.16,align:"right",valign:"middle"});
+}
+
+/* ---- slide 1: summary ---- */
+function slideSummary(){
+  const s=newSlide("F4F7FB");
+  txt(s,[R("Структура команды маркетинга",{bold:true,size:34,color:NAVY})],{x:0.6,y:0.5,w:12.1,h:0.7,align:"left"});
+  txt(s,[R("Отделы и ФОТ · сводка по позициям",{size:15,color:MUTED})],{x:0.62,y:1.18,w:12,h:0.4,align:"left"});
+  const gx=0.6,gy=1.9,gw=(PAGEW-2*0.6-0.4)/2,gh=1.65,gapx=0.4,gapy=0.35;
+  DEPTS.forEach((d,i)=>{
+    const col=i%2,rr=Math.floor(i/2),x=gx+col*(gw+gapx),y=gy+rr*(gh+gapy);
+    rect(s,{x,y,w:gw,h:gh,radius:0.08,fill:WHITE,line:CARDBR,lw:1});
+    rect(s,{x:x+0.28,y:y+0.32,w:0.95,h:1.0,radius:0.1,fill:NAVY,lineNone:true});
+    txt(s,[R(String(deptCount(d)),{bold:true,size:29,color:WHITE})],{x:x+0.28,y:y+0.36,w:0.95,h:0.6,align:"center"});
+    txt(s,[R("чел.",{size:9,color:"CADCFC"})],{x:x+0.28,y:y+0.98,w:0.95,h:0.28,align:"center"});
+    txt(s,[R(d,{bold:true,size:18,color:NAVY})],{x:x+1.45,y:y+0.34,w:gw-1.7,h:0.5,align:"left"});
+    txt(s,[R("ФОТ отдела:  ",{size:12,color:MUTED,br:false}),R(money(deptTotal(d)),{size:16,bold:true,color:MONEY,br:false})],{x:x+1.45,y:y+0.86,w:gw-1.6,h:0.45,align:"left"});
+  });
+  const by=gy+2*gh+gapy+0.2,bw=PAGEW-1.2,bh=0.95;
+  rect(s,{x:0.6,y:by,w:bw,h:bh,radius:0.1,fill:NAVY,lineNone:true});
+  txt(s,[R("Итого ФОТ · 4 отдела",{bold:true,size:17,color:"CADCFC"})],{x:0.9,y:by,w:6,h:bh,align:"left"});
+  txt(s,[R(money(grand()),{bold:true,size:26,color:WHITE})],{x:PAGEW-0.9-6,y:by,w:6,h:bh,align:"right"});
+  txt(s,[R("Суммы — должностной оклад (тотал), в месяц (₸).  * — имя на позиции не определено, взята максимальная стоимость по позиции.",{italic:true,size:8.5,color:MUTED})],{x:0.6,y:PAGEH-0.52,w:PAGEW-1.2,h:0.38,align:"left"});
+  return s;
+}
+/* ---- Marcom ---- */
+function slideMarcom(){
+  const s=newSlide("F4F7FB"); deptHeader(s,"Marcom","Marcom");
+  const hw=4.6,hh=0.80,hx=(PAGEW-hw)/2,hy=1.10; card(s,hx,hy,hw,hh,P("M_HEAD"),"head");
+  const cols=[{title:"Промо / Контент  (original · sport)",cards:M(["M_PROMO_1","M_PROMO_2","M_PROMO_3","M_PROMO_4","M_PROMO_5"])},
+              {title:"SMM  (gen · original · sport)",cards:M(["M_SMM_1","M_SMM_2","M_SMM_3","M_SMM_4","M_SMM_5","M_SMM_6"])},
+              {title:"PR",cards:M(["M_PR_1"])}];
+  const nCol=3,mL=0.5,gap=0.4,cw=(PAGEW-mL-0.5-gap*(nCol-1))/nCol;
+  const busY=1.96,titleY=2.02,colTop=2.40,cardH=0.70,pitch=cardH+0.075;
+  line(s,PAGEW/2,hy+hh,PAGEW/2,busY);
+  const centers=cols.map((_,i)=>mL+cw/2+i*(cw+gap));
+  line(s,centers[0],busY,centers[nCol-1],busY);
+  cols.forEach((col,i)=>{const cx=mL+i*(cw+gap);line(s,centers[i],busY,centers[i],titleY);
+    txt(s,[R(col.title,{bold:true,size:12,color:NAVY2})],{x:cx,y:titleY,w:cw,h:0.32,align:"center"});
+    col.cards.forEach((p,j)=>card(s,cx,colTop+j*pitch,cw,cardH,p,"member"));});
+  return s;
+}
+/* ---- Каналы ---- */
+function slideKanaly(){
+  const s=newSlide("F4F7FB"); deptHeader(s,"Каналы коммуникации","Каналы коммуникации");
+  const hw=4.6,hh=0.92,hx=(PAGEW-hw)/2,hy=1.55; card(s,hx,hy,hw,hh,P("K_HEAD"),"head");
+  const items=M(["K_1","K_2","K_3","K_4","K_5"]),n=5,mL=0.5,gap=0.28,cw=(PAGEW-mL-0.5-gap*(n-1))/n,ch=1.7,cy=4.0,busY=3.55;
+  line(s,PAGEW/2,hy+hh,PAGEW/2,busY);
+  const centers=items.map((_,i)=>mL+cw/2+i*(cw+gap));
+  line(s,centers[0],busY,centers[n-1],busY);
+  items.forEach((p,i)=>{line(s,centers[i],busY,centers[i],cy);card(s,mL+i*(cw+gap),cy,cw,ch,p,"member");});
+  return s;
+}
+/* ---- Продакшн ---- */
+function slideProd(){
+  const s=newSlide("F4F7FB"); deptHeader(s,"Продакшн","Продакшн");
+  const hw=4.8,hh=0.84,hx=(PAGEW-hw)/2,hy=1.16; card(s,hx,hy,hw,hh,P("P_HEAD"),"head");
+  const subW=4.9,subH=0.80,leftX=0.9,rightX=PAGEW-0.9-subW,subY=2.30,busY=2.06;
+  const subs=[{lead:P("P_ART"),reports:M(["P_ART_1","P_ART_2","P_ART_3","P_ART_4","P_ART_5"])},
+              {lead:P("P_PROD"),reports:M(["P_PROD_1","P_PROD_2","P_PROD_3","P_PROD_4"])}];
+  line(s,PAGEW/2,hy+hh,PAGEW/2,busY);
+  const lc=leftX+subW/2,rc=rightX+subW/2;
+  line(s,lc,busY,rc,busY);line(s,lc,busY,lc,subY);line(s,rc,busY,rc,subY);
+  card(s,leftX,subY,subW,subH,subs[0].lead,"sublead"); card(s,rightX,subY,subW,subH,subs[1].lead,"sublead");
+  const cardH=0.68,pitch=cardH+0.075,repTop=subY+subH+0.20;
+  [[subs[0],leftX],[subs[1],rightX]].forEach(([sub,sx])=>{
+    line(s,sx+subW/2,subY+subH,sx+subW/2,repTop);
+    sub.reports.forEach((p,j)=>card(s,sx,repTop+j*pitch,subW,cardH,p,"member"));});
+  return s;
+}
+/* ---- Проджект ---- */
+function slideProj(){
+  const s=newSlide("F4F7FB"); deptHeader(s,"Проджект","Проджект");
+  const hw=4.6,hh=0.92,hx=(PAGEW-hw)/2,hy=1.6; card(s,hx,hy,hw,hh,P("PJ_HEAD"),"head");
+  const items=M(["PJ_1","PJ_2","PJ_3","PJ_4"]),n=4,mL=0.9,gap=0.4,cw=(PAGEW-mL-0.9-gap*(n-1))/n,ch=1.7,cy=3.9,busY=3.35;
+  line(s,PAGEW/2,hy+hh,PAGEW/2,busY);
+  const centers=items.map((_,i)=>mL+cw/2+i*(cw+gap));
+  line(s,centers[0],busY,centers[n-1],busY);
+  items.forEach((p,i)=>{line(s,centers[i],busY,centers[i],cy);card(s,mL+i*(cw+gap),cy,cw,ch,p,"member");});
+  return s;
+}
+
+/* ================= render shapes -> DOM ================= */
+function renderStage(sl){
+  let h=`<div class="stage" style="background:#${sl.bg}">`;
+  for(const sh of sl.shapes){
+    if(sh.k==="rect"){
+      h+=`<div class="rc" style="left:${sh.x*PX}px;top:${sh.y*PX}px;width:${sh.w*PX}px;height:${sh.h*PX}px;`+
+         `background:${sh.fill?'#'+sh.fill:'transparent'};border:${sh.line?sh.lw+'px solid #'+sh.line:'none'};`+
+         `border-radius:${(sh.radius||0)*PX}px;box-shadow:0 1px 3px rgba(120,135,150,.35)"></div>`;
+    } else if(sh.k==="line"){
+      const x1=sh.x1*PX,y1=sh.y1*PX,x2=sh.x2*PX,y2=sh.y2*PX,len=Math.hypot(x2-x1,y2-y1),ang=Math.atan2(y2-y1,x2-x1)*180/Math.PI;
+      h+=`<div style="position:absolute;left:${x1}px;top:${y1}px;width:${len}px;height:0;border-top:1px solid #${sh.color};transform-origin:0 0;transform:rotate(${ang}deg)"></div>`;
+    } else if(sh.k==="text"){
+      const jc=sh.valign==="middle"?"center":sh.valign==="bottom"?"flex-end":"flex-start";
+      const ai=sh.align==="center"?"center":sh.align==="right"?"flex-end":"flex-start";
+      const lines=[];let cur=[];
+      for(const r of sh.runs){cur.push(r);if(r.br){lines.push(cur);cur=[];}}
+      if(cur.length)lines.push(cur);
+      let inner="";
+      for(const ln of lines){const maxsz=Math.max(...ln.map(r=>r.size))*1.333;let sp="";
+        for(const r of ln)sp+=`<span style="font-size:${r.size*1.333}px;color:#${r.color};font-weight:${r.bold?700:400};font-style:${r.italic?'italic':'normal'}">${esc(r.t)}</span>`;
+        inner+=`<div style="line-height:${(maxsz*1.16).toFixed(1)}px;width:100%;text-align:${sh.align}">${sp}</div>`;}
+      h+=`<div class="tx" style="left:${sh.x*PX}px;top:${sh.y*PX}px;width:${sh.w*PX}px;height:${sh.h*PX}px;justify-content:${jc};align-items:${ai}">${inner}</div>`;
+    }
+  }
+  return h+`</div>`;
+}
+function fitStages(){
+  document.querySelectorAll('.stageBox').forEach(box=>{
+    const stage=box.querySelector('.stage');const scale=box.clientWidth/1280;
+    stage.style.transform=`scale(${scale})`;box.style.height=(720*scale)+"px";
+  });
+}
+function renderSlides(){
+  const builders=[slideSummary,slideMarcom,slideKanaly,slideProd,slideProj];
+  document.getElementById('slides').innerHTML=builders.map(b=>`<div class="slideWrap"><div class="stageBox">${renderStage(b())}</div></div>`).join("");
+  document.getElementById('grandTotal').textContent=money(grand());
+  fitStages();
+}
+
+/* ================= editable table ================= */
+function buildTable(){
+  let h='<table class="edit"><thead><tr><th>Позиция (строка 1)</th><th>Подпись (строка 2)</th><th style="text-align:right">Оклад, ₸</th><th>макс.</th><th>вак.</th><th>Ключ</th></tr></thead><tbody>';
+  let curDept=null;
+  DATA.forEach((d,i)=>{
+    if(d.dept!==curDept){curDept=d.dept;h+=`<tr class="dep"><td colspan="6">${esc(d.dept)} — ФОТ <span data-deptsum="${esc(d.dept)}">${money(deptTotal(d.dept))}</span> · ${deptCount(d.dept)} чел.</td></tr>`;}
+    h+=`<tr>
+      <td><input type="text" value="${esc(d.label)}" oninput="upd(${i},'label',this.value)"></td>
+      <td><input type="text" value="${esc(d.detail)}" oninput="upd(${i},'detail',this.value)"></td>
+      <td><input class="sal" type="text" inputmode="numeric" value="${grp(d.salary)}" oninput="updSal(${i},this.value)"></td>
+      <td style="text-align:center"><input type="checkbox" ${d.assumed?'checked':''} onchange="upd(${i},'assumed',this.checked)"></td>
+      <td style="text-align:center"><input type="checkbox" ${d.vacant?'checked':''} onchange="upd(${i},'vacant',this.checked)"></td>
+      <td class="key">${esc(d.key)}</td></tr>`;
+  });
+  h+='</tbody></table>';
+  document.getElementById('tableHost').innerHTML=h;
+}
+function refreshDeptSums(){
+  document.querySelectorAll('[data-deptsum]').forEach(el=>{el.textContent=money(deptTotal(el.getAttribute('data-deptsum')));});
+}
+function upd(i,field,val){DATA[i][field]=val;renderSlides();refreshDeptSums();}
+function updSal(i,val){const n=parseInt(String(val).replace(/[^\d]/g,''),10)||0;DATA[i].salary=n;renderSlides();refreshDeptSums();}
+function applyPaste(){
+  const raw=document.getElementById('pasteBox').value.trim();
+  if(!raw){alert('Вставьте столбец «Оклад» (G3:G38) из Excel.');return;}
+  const nums=raw.split(/\r?\n/).map(l=>l.replace(/[^\d]/g,'')).filter(x=>x.length).map(x=>parseInt(x,10));
+  if(nums.length!==DATA.length){alert('Ожидалось '+DATA.length+' чисел (по одному на позицию), а получено '+nums.length+'. Скопируйте ровно ячейки G3:G38.');return;}
+  nums.forEach((n,i)=>DATA[i].salary=n);
+  buildTable();renderSlides();
+  document.getElementById('pasteBox').value='';
+}
+function presentFS(){const el=document.documentElement;(el.requestFullscreen||el.webkitRequestFullscreen||function(){}).call(el);}
+
+buildTable();renderSlides();
+window.addEventListener('resize',fitStages);
+window.addEventListener('beforeprint',fitStages);
+window.addEventListener('afterprint',fitStages);
+</script>
+</body>
+</html>
