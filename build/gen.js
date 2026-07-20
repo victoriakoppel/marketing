@@ -152,16 +152,20 @@ function deptHeader(s,d){
   card(s,prX,cardTop,cw,chP,marcom.columns[2].cards[0],"member",SZ);
 })();
 
-// ============================ Каналы (row of 5) ============================
+// ============================ Каналы (Senior PPC→PPC · Media→CVM · Внут маркетинг) ============================
 (function(){
   const s=newSlide("F4F7FB"); deptHeader(s,kanaly);
-  const hw=4.6,hh=0.92,hx=(PAGEW-hw)/2,hy=1.55; card(s,hx,hy,hw,hh,kanaly.head,"head");
-  const items=kanaly.row,n=items.length,mL=0.5,mR=0.5,gap=0.28;
-  const cw=(PAGEW-mL-mR-gap*(n-1))/n,ch=1.7,cy=4.0,busY=3.55;
+  const hw=4.6,hh=0.80,hx=(PAGEW-hw)/2,hy=1.15; card(s,hx,hy,hw,hh,kanaly.head,"head");
+  const managers=M(["K_1","K_2","K_3"]); // Senior PPC · Media manager · Внут. маркетинг
+  const n=3,mL=1.4,gap=0.6,cw=(PAGEW-mL*2-gap*(n-1))/n;
+  const mgrH=1.35,mgrY=2.6,busY=2.15;
   line(s,PAGEW/2,hy+hh,PAGEW/2,busY);
-  const centers=items.map((_,i)=>mL+cw/2+i*(cw+gap));
+  const centers=managers.map((_,i)=>mL+cw/2+i*(cw+gap));
   line(s,centers[0],busY,centers[n-1],busY);
-  items.forEach((p,i)=>{ line(s,centers[i],busY,centers[i],cy); card(s,mL+i*(cw+gap),cy,cw,ch,p,"member"); });
+  managers.forEach((p,i)=>{ line(s,centers[i],busY,centers[i],mgrY); card(s,mL+i*(cw+gap),mgrY,cw,mgrH,p,"member"); });
+  const subH=1.35,subY=mgrY+mgrH+0.5;
+  line(s,centers[0],mgrY+mgrH,centers[0],subY); card(s,mL+0*(cw+gap),subY,cw,subH,P("K_4"),"member"); // PPC под Senior PPC
+  line(s,centers[1],mgrY+mgrH,centers[1],subY); card(s,mL+1*(cw+gap),subY,cw,subH,P("K_5"),"member"); // CVM под Media manager
 })();
 
 // ============================ Продакшн (Design: Graph+Motion · Video production) ============================
