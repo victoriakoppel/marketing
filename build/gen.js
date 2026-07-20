@@ -131,9 +131,12 @@ function deptHeader(s,d){
   txt(s,[{text:"Контент  (original · sport)",options:{bold:true,fontSize:12,color:NAVY2}}],{x:g1a,y:titleY,w:cw*2+0.12,h:0.32,align:"center",valign:"middle"});
   txt(s,[{text:"SMM  (gen · original · sport)",options:{bold:true,fontSize:12,color:NAVY2}}],{x:s1,y:titleY,w:cw*3+0.24,h:0.32,align:"center",valign:"middle"});
   txt(s,[{text:"PR",options:{bold:true,fontSize:12,color:NAVY2}}],{x:prX,y:titleY,w:cw,h:0.32,align:"center",valign:"middle"});
-  // Контент: 2 columns
-  M(["M_PROMO_1","M_PROMO_3","M_PROMO_5"]).forEach((p,j)=>card(s,g1a,cardTop+j*pitchP,cw,chP,p,"member",SZ));
-  M(["M_PROMO_2","M_PROMO_4","M_PROMO_6"]).forEach((p,j)=>card(s,g1b,cardTop+j*pitchP,cw,chP,p,"member",SZ));
+  // Контент: 2 direction columns (Originals / Sport)
+  const contLabY=cardTop+0.02, contTop=cardTop+0.30;
+  txt(s,[{text:"Originals",options:{bold:true,fontSize:9,color:MUTED}}],{x:g1a,y:contLabY,w:cw,h:0.22,align:"center",valign:"middle"});
+  txt(s,[{text:"Sport",options:{bold:true,fontSize:9,color:MUTED}}],{x:g1b,y:contLabY,w:cw,h:0.22,align:"center",valign:"middle"});
+  M(["M_PROMO_1","M_PROMO_3","M_PROMO_5","M_PROMO_6"]).forEach((p,j)=>card(s,g1a,contTop+j*pitchP,cw,chP,p,"member",SZ)); // Originals
+  M(["M_PROMO_2","M_PROMO_4"]).forEach((p,j)=>card(s,g1b,contTop+j*pitchP,cw,chP,p,"member",SZ));                        // Sport
   // SMM: Head of SMM + 3 direction columns
   const smmHeadW=2.7, smmHeadX=smmC-smmHeadW/2;
   card(s,smmHeadX,cardTop,smmHeadW,0.74,marcom.columns[1].cards[0],"sublead",0.95); // Head of SMM Мария

@@ -198,8 +198,11 @@ function slideMarcom(){
   txt(s,[R("Контент  (original · sport)",{bold:true,size:12,color:NAVY2})],{x:g1a,y:titleY,w:cw*2+0.12,h:0.32,align:"center"});
   txt(s,[R("SMM  (gen · original · sport)",{bold:true,size:12,color:NAVY2})],{x:s1,y:titleY,w:cw*3+0.24,h:0.32,align:"center"});
   txt(s,[R("PR",{bold:true,size:12,color:NAVY2})],{x:prX,y:titleY,w:cw,h:0.32,align:"center"});
-  M(["M_PROMO_1","M_PROMO_3","M_PROMO_5"]).forEach((p,j)=>card(s,g1a,cardTop+j*pitchP,cw,chP,p,"member",SZ));
-  M(["M_PROMO_2","M_PROMO_4","M_PROMO_6"]).forEach((p,j)=>card(s,g1b,cardTop+j*pitchP,cw,chP,p,"member",SZ));
+  const contLabY=cardTop+0.02,contTop=cardTop+0.30;
+  txt(s,[R("Originals",{bold:true,size:9,color:MUTED})],{x:g1a,y:contLabY,w:cw,h:0.22,align:"center"});
+  txt(s,[R("Sport",{bold:true,size:9,color:MUTED})],{x:g1b,y:contLabY,w:cw,h:0.22,align:"center"});
+  M(["M_PROMO_1","M_PROMO_3","M_PROMO_5","M_PROMO_6"]).forEach((p,j)=>card(s,g1a,contTop+j*pitchP,cw,chP,p,"member",SZ));
+  M(["M_PROMO_2","M_PROMO_4"]).forEach((p,j)=>card(s,g1b,contTop+j*pitchP,cw,chP,p,"member",SZ));
   const smmHeadW=2.7,smmHeadX=smmC-smmHeadW/2;
   card(s,smmHeadX,cardTop,smmHeadW,0.74,P("M_SMM_1"),"sublead",0.95);
   const smmColTop=cardTop+0.74+0.34,busS=smmColTop-0.20;
