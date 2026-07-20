@@ -86,6 +86,7 @@ const DATA = [
  {key:"M_PROMO_3",dept:"Marcom",block:"Промо / Контент",type:"member",label:"Promo · Райлана",detail:"Жанибекова Райлана Нурлановна",salary:1000162,assumed:false,vacant:false},
  {key:"M_PROMO_4",dept:"Marcom",block:"Промо / Контент",type:"member",label:"Promo · Яков",detail:"Сорокин Яков Андреевич",salary:614931,assumed:false,vacant:false},
  {key:"M_PROMO_5",dept:"Marcom",block:"Промо / Контент",type:"member",label:"Promo · Чолпон",detail:"Эркинова Чолпон",salary:1025642,assumed:false,vacant:false},
+ {key:"M_PROMO_6",dept:"Marcom",block:"Промо / Контент",type:"member",label:"Promo · Аяулым",detail:"Иманбаева Аяулым Маратовна",salary:1000162,assumed:false,vacant:false},
  {key:"M_SMM_1",dept:"Marcom",block:"SMM",type:"member",label:"Head of SMM · Мария",detail:"Коренькова Мария Николаевна",salary:1625032,assumed:false,vacant:false},
  {key:"M_SMM_2",dept:"Marcom",block:"SMM",type:"member",label:"SMM Original",detail:"SMM менеджер · имя н/д",salary:867456,assumed:true,vacant:false},
  {key:"M_SMM_3",dept:"Marcom",block:"SMM",type:"member",label:"SMM Gen",detail:"SMM менеджер · имя н/д",salary:867456,assumed:true,vacant:false},
@@ -184,7 +185,7 @@ function slideSummary(){
 function slideMarcom(){
   const s=newSlide("F4F7FB"); deptHeader(s,"Marcom","Marcom");
   const hw=4.6,hh=0.80,hx=(PAGEW-hw)/2,hy=1.10; card(s,hx,hy,hw,hh,P("M_HEAD"),"head");
-  const cols=[{title:"Промо / Контент  (original · sport)",cards:M(["M_PROMO_1","M_PROMO_2","M_PROMO_3","M_PROMO_4","M_PROMO_5"])},
+  const cols=[{title:"Промо / Контент  (original · sport)",cards:M(["M_PROMO_1","M_PROMO_2","M_PROMO_3","M_PROMO_4","M_PROMO_5","M_PROMO_6"])},
               {title:"SMM  (gen · original · sport)",cards:M(["M_SMM_1","M_SMM_2","M_SMM_3","M_SMM_4","M_SMM_5","M_SMM_6"])},
               {title:"PR",cards:M(["M_PR_1"])}];
   const nCol=3,mL=0.5,gap=0.4,cw=(PAGEW-mL-0.5-gap*(nCol-1))/nCol;

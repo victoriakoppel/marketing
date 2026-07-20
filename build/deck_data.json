@@ -41,6 +41,13 @@
   "assumed": false,
   "vacant": false
  },
+ "M_PROMO_6": {
+  "label": "Promo · Аяулым",
+  "detail": "Иманбаева Аяулым Маратовна",
+  "salary": 1000162,
+  "assumed": false,
+  "vacant": false
+ },
  "M_SMM_1": {
   "label": "Head of SMM · Мария",
   "detail": "Коренькова Мария Николаевна",

@@ -41,7 +41,7 @@ const M = keys => keys.map(P);
 
 const marcom={ name:"Marcom", head:P("M_HEAD"),
   columns:[
-    {title:"Промо / Контент  (original · sport)", cards:M(["M_PROMO_1","M_PROMO_2","M_PROMO_3","M_PROMO_4","M_PROMO_5"])},
+    {title:"Промо / Контент  (original · sport)", cards:M(["M_PROMO_1","M_PROMO_2","M_PROMO_3","M_PROMO_4","M_PROMO_5","M_PROMO_6"])},
     {title:"SMM  (gen · original · sport)",       cards:M(["M_SMM_1","M_SMM_2","M_SMM_3","M_SMM_4","M_SMM_5","M_SMM_6"])},
     {title:"PR",                                   cards:M(["M_PR_1"])},
   ],
