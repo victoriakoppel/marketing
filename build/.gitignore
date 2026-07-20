@@ -1,0 +1,8 @@
+node_modules/
+package.json
+package-lock.json
+out.pptx
+shapes.json
+proxy.html
+qa-*.png
+*.pdf

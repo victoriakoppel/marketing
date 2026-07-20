@@ -1,0 +1,254 @@
+{
+ "M_HEAD": {
+  "label": "Marcom · Олег С",
+  "detail": "Столярчук Олег Валерьевич",
+  "salary": 3167500,
+  "assumed": false,
+  "vacant": false
+ },
+ "M_PROMO_1": {
+  "label": "Senior Promo Original · Аида А",
+  "detail": "Әлішбай Аида Шералықызы",
+  "salary": 1247076,
+  "assumed": false,
+  "vacant": false
+ },
+ "M_PROMO_2": {
+  "label": "Promo · Александр К",
+  "detail": "Казачков Александр",
+  "salary": 800000,
+  "assumed": false,
+  "vacant": false
+ },
+ "M_PROMO_3": {
+  "label": "Promo · Райлана",
+  "detail": "Жанибекова Райлана Нурлановна",
+  "salary": 1000162,
+  "assumed": false,
+  "vacant": false
+ },
+ "M_PROMO_4": {
+  "label": "Promo · Яков",
+  "detail": "Сорокин Яков Андреевич",
+  "salary": 614931,
+  "assumed": false,
+  "vacant": false
+ },
+ "M_PROMO_5": {
+  "label": "Promo · Чолпон",
+  "detail": "Эркинова Чолпон",
+  "salary": 1025642,
+  "assumed": false,
+  "vacant": false
+ },
+ "M_SMM_1": {
+  "label": "Head of SMM · Мария",
+  "detail": "Коренькова Мария Николаевна",
+  "salary": 1625032,
+  "assumed": false,
+  "vacant": false
+ },
+ "M_SMM_2": {
+  "label": "SMM Original",
+  "detail": "SMM менеджер · имя н/д",
+  "salary": 867456,
+  "assumed": true,
+  "vacant": false
+ },
+ "M_SMM_3": {
+  "label": "SMM Gen",
+  "detail": "SMM менеджер · имя н/д",
+  "salary": 867456,
+  "assumed": true,
+  "vacant": false
+ },
+ "M_SMM_4": {
+  "label": "SMM Sport",
+  "detail": "SMM менеджер · имя н/д",
+  "salary": 867456,
+  "assumed": true,
+  "vacant": false
+ },
+ "M_SMM_5": {
+  "label": "SMM Original",
+  "detail": "SMM менеджер · имя н/д",
+  "salary": 867456,
+  "assumed": true,
+  "vacant": false
+ },
+ "M_SMM_6": {
+  "label": "Telegram редактор Sport",
+  "detail": "Куричев Иван Николаевич",
+  "salary": 513920,
+  "assumed": false,
+  "vacant": false
+ },
+ "M_PR_1": {
+  "label": "Pr manager · Аружан",
+  "detail": "PR менеджер",
+  "salary": 1212314,
+  "assumed": false,
+  "vacant": false
+ },
+ "K_HEAD": {
+  "label": "Head · Эдуард Д",
+  "detail": "Head каналы коммуникации",
+  "salary": 2260000,
+  "assumed": false,
+  "vacant": false
+ },
+ "K_1": {
+  "label": "Senior PPC · Антон Б",
+  "detail": "Senior PPC",
+  "salary": 1346342,
+  "assumed": false,
+  "vacant": false
+ },
+ "K_2": {
+  "label": "Media manager · Халмурад",
+  "detail": "Медиа менеджер",
+  "salary": 1056850,
+  "assumed": false,
+  "vacant": false
+ },
+ "K_3": {
+  "label": "Внут. маркетинг · Аида Е",
+  "detail": "Внутренний маркетинг",
+  "salary": 1058434,
+  "assumed": false,
+  "vacant": false
+ },
+ "K_4": {
+  "label": "PPC (1)",
+  "detail": "Трафик менеджер · имя н/д",
+  "salary": 1124000,
+  "assumed": true,
+  "vacant": false
+ },
+ "K_5": {
+  "label": "CVM (?)",
+  "detail": "CRM менеджер · планируется",
+  "salary": 867456,
+  "assumed": true,
+  "vacant": true
+ },
+ "P_HEAD": {
+  "label": "Head of creative · Катерина Р",
+  "detail": "Креативный директор",
+  "salary": 2490895,
+  "assumed": false,
+  "vacant": false
+ },
+ "P_ART": {
+  "label": "Senior art · Олег Н",
+  "detail": "Назаренко Олег Станиславович",
+  "salary": 1494981,
+  "assumed": false,
+  "vacant": false
+ },
+ "P_PROD": {
+  "label": "Senior production · Александр Е",
+  "detail": "Senior production",
+  "salary": 1291685,
+  "assumed": false,
+  "vacant": false
+ },
+ "P_ART_1": {
+  "label": "Graph",
+  "detail": "Дизайнер · имя н/д",
+  "salary": 940000,
+  "assumed": true,
+  "vacant": false
+ },
+ "P_ART_2": {
+  "label": "Graph",
+  "detail": "Дизайнер · имя н/д",
+  "salary": 940000,
+  "assumed": true,
+  "vacant": false
+ },
+ "P_ART_3": {
+  "label": "Graph Спорт",
+  "detail": "Дизайнер · имя н/д",
+  "salary": 940000,
+  "assumed": true,
+  "vacant": false
+ },
+ "P_ART_4": {
+  "label": "Motion",
+  "detail": "Motion-дизайнер · имя н/д",
+  "salary": 877000,
+  "assumed": true,
+  "vacant": false
+ },
+ "P_ART_5": {
+  "label": "Motion",
+  "detail": "Motion-дизайнер · имя н/д",
+  "salary": 877000,
+  "assumed": true,
+  "vacant": false
+ },
+ "P_PROD_1": {
+  "label": "Мобилограф / монтажёр",
+  "detail": "Видеограф · имя н/д",
+  "salary": 1498769,
+  "assumed": true,
+  "vacant": false
+ },
+ "P_PROD_2": {
+  "label": "Мобилограф / монтажёр",
+  "detail": "Видеограф · имя н/д",
+  "salary": 1498769,
+  "assumed": true,
+  "vacant": false
+ },
+ "P_PROD_3": {
+  "label": "Мобилограф / монтажёр",
+  "detail": "Видеограф · имя н/д",
+  "salary": 1498769,
+  "assumed": true,
+  "vacant": false
+ },
+ "P_PROD_4": {
+  "label": "Мобилограф / монтажёр Sport",
+  "detail": "Видеограф · имя н/д",
+  "salary": 1498769,
+  "assumed": true,
+  "vacant": false
+ },
+ "PJ_HEAD": {
+  "label": "Head · Ольга М",
+  "detail": "Head project",
+  "salary": 1291685,
+  "assumed": false,
+  "vacant": false
+ },
+ "PJ_1": {
+  "label": "Project manager · Аружан С",
+  "detail": "Проджект-менеджер",
+  "salary": 700000,
+  "assumed": false,
+  "vacant": false
+ },
+ "PJ_2": {
+  "label": "Project manager · Анель",
+  "detail": "Муханова Анель Султановна",
+  "salary": 741192,
+  "assumed": false,
+  "vacant": false
+ },
+ "PJ_3": {
+  "label": "Спецпроекты · Марина",
+  "detail": "Гяурова Марина Якубовна",
+  "salary": 1000162,
+  "assumed": false,
+  "vacant": false
+ },
+ "PJ_4": {
+  "label": "B2B и продакшн · Олеся М",
+  "detail": "B2B и продакшн",
+  "salary": 1081000,
+  "assumed": false,
+  "vacant": false
+ }
+}
