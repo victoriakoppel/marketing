@@ -50,6 +50,12 @@ ROWS = [
 ]
 DEPTS = ["Marcom","Каналы коммуникации","Продакшн","Проджект"]
 
+# Optional: drop positions by Ключ (comma-separated in REMOVE env) — used for the optimized version.
+import os as _os
+_REMOVE = set(x.strip() for x in _os.environ.get("REMOVE","").split(",") if x.strip())
+if _REMOVE:
+    ROWS = [r for r in ROWS if r[0] not in _REMOVE]
+
 NAVY="1F3A5F"; ICE="EAF1FB"; MUTED="5B6B7C"
 BLUE_INPUT="0000CC"; AMBER_FILL="FFF3E0"; VAC_FILL="FBE4E4"
 thin=Side(style="thin",color="C7D8EE")

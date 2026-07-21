@@ -34,10 +34,10 @@ function txt(s,runs,o){
 }
 
 // ============================ DATA (from Excel via deck_data.json) ============================
-const D = JSON.parse(fs.readFileSync(__dirname + "/deck_data.json", "utf8"));
+const D = JSON.parse(fs.readFileSync(process.env.DECK_DATA || (__dirname + "/deck_data.json"), "utf8"));
 function P(key){ const d=D[key]; if(!d) throw new Error("missing key in deck_data.json: "+key);
   return {label:d.label, detail:d.detail, salary:d.salary, assumed:!!d.assumed, vacant:!!d.vacant}; }
-const M = keys => keys.map(P);
+const M = keys => keys.filter(k=>D[k]).map(P); // skip removed/missing positions
 
 const marcom={ name:"Marcom", head:P("M_HEAD"),
   columns:[
@@ -131,25 +131,27 @@ function deptHeader(s,d){
   txt(s,[{text:"Контент  (original · sport)",options:{bold:true,fontSize:12,color:NAVY2}}],{x:g1a,y:titleY,w:cw*2+0.12,h:0.32,align:"center",valign:"middle"});
   txt(s,[{text:"SMM  (gen · original · sport)",options:{bold:true,fontSize:12,color:NAVY2}}],{x:s1,y:titleY,w:cw*3+0.24,h:0.32,align:"center",valign:"middle"});
   txt(s,[{text:"PR",options:{bold:true,fontSize:12,color:NAVY2}}],{x:prX,y:titleY,w:cw,h:0.32,align:"center",valign:"middle"});
-  // Контент: 2 direction columns (Originals / Sport)
+  // Контент: 2 direction columns (Originals / Sport) — skip a column if empty
   const contLabY=cardTop+0.02, contTop=cardTop+0.30;
-  txt(s,[{text:"Originals",options:{bold:true,fontSize:9,color:MUTED}}],{x:g1a,y:contLabY,w:cw,h:0.22,align:"center",valign:"middle"});
-  txt(s,[{text:"Sport",options:{bold:true,fontSize:9,color:MUTED}}],{x:g1b,y:contLabY,w:cw,h:0.22,align:"center",valign:"middle"});
-  M(["M_PROMO_1","M_PROMO_3","M_PROMO_5","M_PROMO_6"]).forEach((p,j)=>card(s,g1a,contTop+j*pitchP,cw,chP,p,"member",SZ)); // Originals
-  M(["M_PROMO_2","M_PROMO_4"]).forEach((p,j)=>card(s,g1b,contTop+j*pitchP,cw,chP,p,"member",SZ));                        // Sport
-  // SMM: Head of SMM + 3 direction columns
+  [["Originals",g1a,M(["M_PROMO_1","M_PROMO_3","M_PROMO_5","M_PROMO_6"])],["Sport",g1b,M(["M_PROMO_2","M_PROMO_4"])]].forEach(([t,x,cards])=>{
+    if(!cards.length) return;
+    txt(s,[{text:t,options:{bold:true,fontSize:9,color:MUTED}}],{x,y:contLabY,w:cw,h:0.22,align:"center",valign:"middle"});
+    cards.forEach((p,j)=>card(s,x,contTop+j*pitchP,cw,chP,p,"member",SZ));
+  });
+  // SMM: Head of SMM + up to 3 direction columns (skip empty)
   const smmHeadW=2.7, smmHeadX=smmC-smmHeadW/2;
-  card(s,smmHeadX,cardTop,smmHeadW,0.74,marcom.columns[1].cards[0],"sublead",0.95); // Head of SMM Мария
+  if(marcom.columns[1].cards.length) card(s,smmHeadX,cardTop,smmHeadW,0.74,marcom.columns[1].cards[0],"sublead",0.95); // Head of SMM Мария
   const smmColTop=cardTop+0.74+0.34, busS=smmColTop-0.20;
-  [["Originals",s1],["Gen",s2],["Sport",s3]].forEach(([t,x])=>txt(s,[{text:t,options:{bold:true,fontSize:9,color:MUTED}}],{x,y:smmColTop-0.26,w:cw,h:0.22,align:"center",valign:"middle"}));
+  const smmCols=[["Originals",s1,M(["M_SMM_2","M_SMM_5"])],["Gen",s2,M(["M_SMM_3"])],["Sport",s3,M(["M_SMM_4","M_SMM_6"])]].filter(c=>c[2].length);
   line(s,smmC,cardTop+0.74,smmC,busS);
-  line(s,s1+cw/2,busS,s3+cw/2,busS);
-  [s1,s2,s3].forEach(x=>line(s,x+cw/2,busS,x+cw/2,smmColTop));
-  M(["M_SMM_2","M_SMM_5"]).forEach((p,j)=>card(s,s1,smmColTop+j*pitchS,cw,chS,p,"member",SZ)); // Originals
-  M(["M_SMM_3"]).forEach((p,j)=>card(s,s2,smmColTop+j*pitchS,cw,chS,p,"member",SZ));           // Gen
-  M(["M_SMM_4","M_SMM_6"]).forEach((p,j)=>card(s,s3,smmColTop+j*pitchS,cw,chS,p,"member",SZ)); // Sport
+  if(smmCols.length){ const xs=smmCols.map(c=>c[1]+cw/2); line(s,Math.min(...xs),busS,Math.max(...xs),busS); }
+  smmCols.forEach(([t,x,cards])=>{
+    txt(s,[{text:t,options:{bold:true,fontSize:9,color:MUTED}}],{x,y:smmColTop-0.26,w:cw,h:0.22,align:"center",valign:"middle"});
+    line(s,x+cw/2,busS,x+cw/2,smmColTop);
+    cards.forEach((p,j)=>card(s,x,smmColTop+j*pitchS,cw,chS,p,"member",SZ));
+  });
   // PR
-  card(s,prX,cardTop,cw,chP,marcom.columns[2].cards[0],"member",SZ);
+  if(marcom.columns[2].cards.length) card(s,prX,cardTop,cw,chP,marcom.columns[2].cards[0],"member",SZ);
 })();
 
 // ============================ Каналы (Senior PPC→PPC · Media→CVM · Внут маркетинг) ============================
