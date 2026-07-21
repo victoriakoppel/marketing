@@ -197,29 +197,22 @@
  },
  "P_PROD_1": {
   "label": "Мобилограф / монтажёр",
-  "detail": "Асанов Әділ Асанұлы",
+  "detail": "Асанов Әділ · Originals",
   "salary": 1000162,
   "assumed": false,
   "vacant": false
  },
  "P_PROD_2": {
   "label": "Мобилограф / монтажёр",
-  "detail": "Шаймардан Мағжан Адилұлы",
+  "detail": "Шаймардан Мағжан · Originals",
   "salary": 751000,
   "assumed": false,
   "vacant": false
  },
  "P_PROD_3": {
   "label": "Мобилограф / монтажёр",
-  "detail": "Жұмағали Әділжан Бауыржанұлы",
+  "detail": "Жұмағали Әділжан · Sport",
   "salary": 804324,
-  "assumed": false,
-  "vacant": false
- },
- "P_PROD_4": {
-  "label": "Мобилограф / монтажёр Sport",
-  "detail": "Боровков Владимир Владимирович",
-  "salary": 523000,
   "assumed": false,
   "vacant": false
  },

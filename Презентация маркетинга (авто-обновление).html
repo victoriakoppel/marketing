@@ -108,10 +108,9 @@ const DATA = [
  {key:"P_ART_3",dept:"Продакшн",block:"Арт",type:"member",label:"Graph Спорт",detail:"Дизайнер · имя н/д",salary:940000,assumed:true,vacant:false},
  {key:"P_ART_4",dept:"Продакшн",block:"Арт",type:"member",label:"Motion",detail:"Motion-дизайнер · имя н/д",salary:877000,assumed:true,vacant:false},
  {key:"P_ART_5",dept:"Продакшн",block:"Арт",type:"member",label:"Motion",detail:"Motion-дизайнер · имя н/д",salary:877000,assumed:true,vacant:false},
- {key:"P_PROD_1",dept:"Продакшн",block:"Продакшн",type:"member",label:"Мобилограф / монтажёр",detail:"Асанов Әділ Асанұлы",salary:1000162,assumed:false,vacant:false},
- {key:"P_PROD_2",dept:"Продакшн",block:"Продакшн",type:"member",label:"Мобилограф / монтажёр",detail:"Шаймардан Мағжан Адилұлы",salary:751000,assumed:false,vacant:false},
- {key:"P_PROD_3",dept:"Продакшн",block:"Продакшн",type:"member",label:"Мобилограф / монтажёр",detail:"Жұмағали Әділжан Бауыржанұлы",salary:804324,assumed:false,vacant:false},
- {key:"P_PROD_4",dept:"Продакшн",block:"Продакшн",type:"member",label:"Мобилограф / монтажёр Sport",detail:"Боровков Владимир Владимирович",salary:523000,assumed:false,vacant:false},
+ {key:"P_PROD_1",dept:"Продакшн",block:"Продакшн",type:"member",label:"Мобилограф / монтажёр",detail:"Асанов Әділ · Originals",salary:1000162,assumed:false,vacant:false},
+ {key:"P_PROD_2",dept:"Продакшн",block:"Продакшн",type:"member",label:"Мобилограф / монтажёр",detail:"Шаймардан Мағжан · Originals",salary:751000,assumed:false,vacant:false},
+ {key:"P_PROD_3",dept:"Продакшн",block:"Продакшн",type:"member",label:"Мобилограф / монтажёр",detail:"Жұмағали Әділжан · Sport",salary:804324,assumed:false,vacant:false},
  {key:"PJ_HEAD",dept:"Проджект",block:"Руководитель",type:"head",label:"Head · Ольга М",detail:"Head project",salary:1291685,assumed:false,vacant:false},
  {key:"PJ_1",dept:"Проджект",block:"—",type:"member",label:"Project manager · Аружан С",detail:"Проджект-менеджер",salary:700000,assumed:false,vacant:false},
  {key:"PJ_2",dept:"Проджект",block:"—",type:"member",label:"Project manager · Анель",detail:"Муханова Анель Султановна",salary:741192,assumed:false,vacant:false},
@@ -251,7 +250,7 @@ function slideProd(){
   M(["P_ART_4","P_ART_5"]).forEach((p,j)=>card(s,mX,dTop+j*dPitch,dCW,dH,p,"member",0.95));
   const vX=prodC-subWr/2,vTop=dTop,vH=0.72,vPitch=0.86;
   line(s,prodC,subY+subH,prodC,vTop-0.06);
-  M(["P_PROD_1","P_PROD_2","P_PROD_3","P_PROD_4"]).forEach((p,j)=>card(s,vX,vTop+j*vPitch,subWr,vH,p,"member"));
+  M(["P_PROD_1","P_PROD_2","P_PROD_3"]).forEach((p,j)=>card(s,vX,vTop+j*vPitch,subWr,vH,p,"member"));
   return s;
 }
 /* ---- Проджект ---- */
