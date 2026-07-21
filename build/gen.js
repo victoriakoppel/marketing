@@ -52,7 +52,7 @@ const kanaly={ name:"Каналы коммуникации", head:P("K_HEAD"),
 const prodakshn={ name:"Продакшн", head:P("P_HEAD"),
   subleads:[
     Object.assign(P("P_ART"),  {reports:M(["P_ART_1","P_ART_2","P_ART_3","P_ART_4","P_ART_5"])}),
-    Object.assign(P("P_PROD"), {reports:M(["P_PROD_1","P_PROD_2","P_PROD_3"])}),
+    Object.assign(P("P_PROD"), {reports:M(["P_PROD_1","P_PROD_2","P_PROD_3","P_PROD_4"])}),
   ],
 };
 const prodzhekt={ name:"Проджект", head:P("PJ_HEAD"),
@@ -192,7 +192,7 @@ function deptHeader(s,d){
   // Video production column
   const vX=prodC-subWr/2, vTop=dTop, vH=0.72, vPitch=0.86;
   line(s,prodC,subY+subH,prodC,vTop-0.06);
-  M(["P_PROD_1","P_PROD_2","P_PROD_3"]).forEach((p,j)=>card(s,vX,vTop+j*vPitch,subWr,vH,p,"member"));
+  M(["P_PROD_1","P_PROD_2","P_PROD_3","P_PROD_4"]).forEach((p,j)=>card(s,vX,vTop+j*vPitch,subWr,vH,p,"member"));
 })();
 
 // ============================ Проджект (row of 4) ============================

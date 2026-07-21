@@ -57,28 +57,28 @@
  },
  "M_SMM_2": {
   "label": "SMM Original",
-  "detail": "SMM менеджер · имя н/д",
-  "salary": 867456,
-  "assumed": true,
+  "detail": "Шафкат Дария",
+  "salary": 741193,
+  "assumed": false,
   "vacant": false
  },
  "M_SMM_3": {
   "label": "SMM Gen",
-  "detail": "SMM менеджер · имя н/д",
-  "salary": 867456,
-  "assumed": true,
+  "detail": "Жандильдина Сабина Канатовна",
+  "salary": 814000,
+  "assumed": false,
   "vacant": false
  },
  "M_SMM_4": {
   "label": "SMM Sport",
-  "detail": "SMM менеджер · имя н/д",
+  "detail": "Шакрат Темірлан Талғатұлы",
   "salary": 867456,
   "assumed": true,
   "vacant": false
  },
  "M_SMM_5": {
   "label": "SMM Original",
-  "detail": "SMM менеджер · имя н/д",
+  "detail": "Кулбаева Салтанат Фархатқызы",
   "salary": 867456,
   "assumed": true,
   "vacant": false
@@ -155,64 +155,71 @@
  },
  "P_PROD": {
   "label": "Senior production · Александр Е",
-  "detail": "Senior production",
+  "detail": "Александр Е",
   "salary": 1291685,
   "assumed": false,
   "vacant": false
  },
  "P_ART_1": {
   "label": "Graph",
-  "detail": "Дизайнер · имя н/д",
-  "salary": 940000,
-  "assumed": true,
+  "detail": "Ахметова Раушан Нұрланқызы",
+  "salary": 815000,
+  "assumed": false,
   "vacant": false
  },
  "P_ART_2": {
   "label": "Graph",
-  "detail": "Дизайнер · имя н/д",
+  "detail": "Ли Яна Вячеславовна",
   "salary": 940000,
   "assumed": true,
   "vacant": false
  },
  "P_ART_3": {
   "label": "Graph Спорт",
-  "detail": "Дизайнер · имя н/д",
-  "salary": 940000,
-  "assumed": true,
+  "detail": "Аркениязов Ильяс Юлдашевич",
+  "salary": 678061,
+  "assumed": false,
   "vacant": false
  },
  "P_ART_4": {
-  "label": "Motion",
-  "detail": "Motion-дизайнер · имя н/д",
-  "salary": 877000,
+  "label": "Graph",
+  "detail": "Граф дизайнер",
+  "salary": 940000,
   "assumed": true,
   "vacant": false
  },
  "P_ART_5": {
   "label": "Motion",
-  "detail": "Motion-дизайнер · имя н/д",
+  "detail": "Мкпо Майкл Жозеф",
   "salary": 877000,
-  "assumed": true,
+  "assumed": false,
   "vacant": false
  },
  "P_PROD_1": {
   "label": "Мобилограф / монтажёр",
-  "detail": "Асанов Әділ · Originals",
+  "detail": "Асанов Әділ Асанұлы",
   "salary": 1000162,
   "assumed": false,
   "vacant": false
  },
  "P_PROD_2": {
   "label": "Мобилограф / монтажёр",
-  "detail": "Шаймардан Мағжан · Originals",
+  "detail": "Шаймардан Мағжан Адилұлы",
   "salary": 751000,
   "assumed": false,
   "vacant": false
  },
  "P_PROD_3": {
   "label": "Мобилограф / монтажёр",
-  "detail": "Жұмағали Әділжан · Sport",
+  "detail": "Жұмағали Әділжан Бауыржанұлы",
   "salary": 804324,
+  "assumed": false,
+  "vacant": false
+ },
+ "P_PROD_4": {
+  "label": "Мобилограф / монтажёр Sport",
+  "detail": "Жанабеков Кудайберген Канатович",
+  "salary": 1498769,
   "assumed": false,
   "vacant": false
  },
