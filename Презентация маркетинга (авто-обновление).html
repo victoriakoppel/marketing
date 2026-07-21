@@ -21,8 +21,8 @@
   table.edit th{background:#1F3A5F;color:#fff;padding:6px 8px;text-align:left;position:sticky;top:56px}
   table.edit td{border:1px solid #dbe4f0;padding:2px 6px;vertical-align:middle}
   table.edit tr.dep td{background:#eaf1fb;font-weight:700;color:#1F3A5F}
-  table.edit input[type=text]{width:100%;border:1px solid transparent;background:transparent;font-size:12px;padding:3px}
-  table.edit input[type=text]:focus{border-color:#8fb3e0;background:#fff;outline:none}
+  table.edit input[type=text]{width:100%;border:1px solid #cbd7e6;border-radius:4px;background:#fff;font-size:12px;padding:4px 6px;color:#1f2a37}
+  table.edit input[type=text]:focus{border-color:#2E5C8A;outline:2px solid #cfe0f5}
   table.edit input.sal{width:120px;text-align:right;border:1px solid #cbd7e6;border-radius:4px;padding:3px 6px;font-weight:700;color:#0000cc}
   table.edit input.sal:focus{outline:2px solid #8fb3e0}
   table.edit td.key{color:#8a97a6;font-size:10px;font-family:monospace}
@@ -57,9 +57,9 @@
   <details id="ed" class="editor" open>
     <summary>✏️ Таблица данных — меняйте здесь, слайды ниже обновятся сами</summary>
     <div class="panel">
-      <div class="hint">Правьте «Оклад» (и при желании текст). Всё внизу пересчитывается мгновенно. Отмеченные «макс.» — где имя не определено, взята максимальная стоимость по позиции.</div>
+      <div class="hint">Правьте прямо в таблице — <b>Оклад</b>, а также <b>Позицию</b> и <b>Подпись</b> (имена и должности). Всё внизу обновляется сразу. Отмеченные «макс.» — где имя не определено, взята максимальная стоимость по позиции.</div>
       <div class="paste">
-        <textarea id="pasteBox" placeholder="Или: скопируйте в Excel столбец «Оклад» (ячейки G3:G38) и вставьте сюда — 36 чисел по порядку."></textarea>
+        <textarea id="pasteBox" placeholder="Или из Excel: выделите на листе «Данные» строки целиком (A3:J38) и вставьте сюда — обновятся имена, должности и оклады.  (Только оклады — вставьте столбец G3:G38.)"></textarea>
         <button onclick="applyPaste()" style="background:#2E5C8A;color:#fff;border:0;border-radius:6px;padding:8px 12px;cursor:pointer;height:40px">Обновить из Excel</button>
       </div>
       <div id="tableHost"></div>
@@ -328,13 +328,35 @@ function refreshDeptSums(){
 function upd(i,field,val){DATA[i][field]=val;renderSlides();refreshDeptSums();}
 function updSal(i,val){const n=parseInt(String(val).replace(/[^\d]/g,''),10)||0;DATA[i].salary=n;renderSlides();refreshDeptSums();}
 function applyPaste(){
-  const raw=document.getElementById('pasteBox').value.trim();
-  if(!raw){alert('Вставьте столбец «Оклад» (G3:G38) из Excel.');return;}
-  const nums=raw.split(/\r?\n/).map(l=>l.replace(/[^\d]/g,'')).filter(x=>x.length).map(x=>parseInt(x,10));
-  if(nums.length!==DATA.length){alert('Ожидалось '+DATA.length+' чисел (по одному на позицию), а получено '+nums.length+'. Скопируйте ровно ячейки G3:G38.');return;}
+  const raw=document.getElementById('pasteBox').value.replace(/\r/g,'').trim();
+  if(!raw){alert('Вставьте данные из Excel (строки A3:J38 — с именами/должностями, или столбец G3:G38 — только оклады).');return;}
+  const lines=raw.split('\n').filter(l=>l.trim().length);
+  const keySet=new Set(DATA.map(d=>d.key));
+  // Full-row paste from «Данные» (A:J): match each row by Ключ, update label/detail/salary/flags
+  if(raw.includes('\t')){
+    let done=0;
+    lines.forEach(line=>{
+      const c=line.split('\t').map(x=>x.trim());
+      const kIdx=c.findIndex(x=>keySet.has(x));
+      if(kIdx<0) return;
+      const rec=DATA.find(d=>d.key===c[kIdx]);
+      if(!rec||c.length<10) return; // expect full A:J row (10 cols)
+      if(c[4]) rec.label=c[4];
+      if(c[5]) rec.detail=c[5];
+      const n=parseInt((c[6]||'').replace(/[^\d]/g,''),10); if(n) rec.salary=n;
+      rec.assumed=/макс/i.test(c[7]||'');
+      rec.vacant=/да/i.test(c[8]||'');
+      done++;
+    });
+    if(done){buildTable();renderSlides();document.getElementById('pasteBox').value='';alert('Обновлено позиций: '+done+' (имена, должности, оклады).');return;}
+    alert('Не нашёл столбец «Ключ». Выделите на листе «Данные» строки целиком (A3:J38) — вместе со столбцом «Ключ».');
+    return;
+  }
+  // Salary-only paste: single column of numbers in row order
+  const nums=lines.map(l=>l.replace(/[^\d]/g,'')).filter(x=>x.length).map(x=>parseInt(x,10));
+  if(nums.length!==DATA.length){alert('Ожидал '+DATA.length+' чисел (столбец «Оклад» G3:G38), получил '+nums.length+'.\nЛибо вставьте строки целиком A3:J38 — тогда обновятся и имена с должностями.');return;}
   nums.forEach((n,i)=>DATA[i].salary=n);
-  buildTable();renderSlides();
-  document.getElementById('pasteBox').value='';
+  buildTable();renderSlides();document.getElementById('pasteBox').value='';
 }
 function presentFS(){const el=document.documentElement;(el.requestFullscreen||el.webkitRequestFullscreen||function(){}).call(el);}
 
