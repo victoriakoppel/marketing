@@ -182,10 +182,10 @@
   "vacant": false
  },
  "P_ART_4": {
-  "label": "Graph",
-  "detail": "",
-  "salary": 940000,
-  "assumed": true,
+  "label": "Видеограф/видеомонтажер",
+  "detail": "Асанов Әділ Асанұлы",
+  "salary": 1000162,
+  "assumed": false,
   "vacant": false
  },
  "P_ART_5": {
@@ -196,7 +196,7 @@
   "vacant": false
  },
  "P_PROD_4": {
-  "label": "Мобилограф / монтажёр Sport",
+  "label": "Видеограф Sport",
   "detail": "Жанабеков Кудайберген Канатович",
   "salary": 1498769,
   "assumed": false,

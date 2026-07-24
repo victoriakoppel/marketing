@@ -63,6 +63,21 @@ for _pair in _os.environ.get("SALARY_OVERRIDE","").split(","):
         _OVR[_k.strip()] = int(_v.strip())
 if _OVR:
     ROWS = [ (r[:6] + (_OVR.get(r[0], r[6]),) + r[7:]) for r in ROWS ]
+# Optional: override any field(s) by Ключ via a JSON file, e.g. {"P_ART_4":{"label":"...","detail":"...","salary":123,"flag":""}}
+import json as _json
+_ovf = _os.environ.get("OVERRIDE_FILE","")
+if _ovf and _os.path.exists(_ovf):
+    _ov = _json.load(open(_ovf, encoding="utf-8"))
+    _FI = {"label":4,"detail":5,"salary":6,"flag":7,"vac":8}
+    _new = []
+    for r in ROWS:
+        if r[0] in _ov:
+            r = list(r)
+            for _k,_v in _ov[r[0]].items():
+                r[_FI[_k]] = _v
+            r = tuple(r)
+        _new.append(r)
+    ROWS = _new
 
 NAVY="1F3A5F"; ICE="EAF1FB"; MUTED="5B6B7C"
 BLUE_INPUT="0000CC"; AMBER_FILL="FFF3E0"; VAC_FILL="FBE4E4"
