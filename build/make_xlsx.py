@@ -55,6 +55,14 @@ import os as _os
 _REMOVE = set(x.strip() for x in _os.environ.get("REMOVE","").split(",") if x.strip())
 if _REMOVE:
     ROWS = [r for r in ROWS if r[0] not in _REMOVE]
+# Optional: override a salary by Ключ, e.g. SALARY_OVERRIDE="PJ_HEAD=1400000,K_1=..."
+_OVR = {}
+for _pair in _os.environ.get("SALARY_OVERRIDE","").split(","):
+    if "=" in _pair:
+        _k, _v = _pair.split("=", 1)
+        _OVR[_k.strip()] = int(_v.strip())
+if _OVR:
+    ROWS = [ (r[:6] + (_OVR.get(r[0], r[6]),) + r[7:]) for r in ROWS ]
 
 NAVY="1F3A5F"; ICE="EAF1FB"; MUTED="5B6B7C"
 BLUE_INPUT="0000CC"; AMBER_FILL="FFF3E0"; VAC_FILL="FBE4E4"
