@@ -19,22 +19,24 @@
 | **Busan 2026** | Номинация Qara Bekire на Global OTT Awards в категории Best OTT Original — против Gold Land (Disney+) и The Price of Confession (Netflix). Не выиграла | KISF, 20.06.2026 |
 | **>$100 млн** | Объём инвестиций в проект за три года — более 50 млрд тенге. Поддержка Фонда президентских инициатив Dara | Tengrinews, Kursiv |
 
-**Что не используется:** численность команды, медиа- и продакшн-бюджеты, CAC / LTV / ROMI, помесячная модель MAU, позиции в сторах по внутреннему мониторингу, объём креативов. Всё это либо NDA, либо не подтверждено публикацией.
+**Что не используется:** численность людей в командах, медиа- и продакшн-бюджеты, значения CAC / LTV / ROMI, помесячная модель MAU, позиции в сторах по внутреннему мониторингу, объём креативов. Всё это либо NDA, либо не подтверждено публикацией.
+
+**Состав подчинения** — десять функциональных руководителей — не NDA (подтверждено), поэтому он в текстах есть: это описание вашей роли, а не данные компании.
 
 ---
 
 ## Основная версия — рекомендую
 
-**2 034 знака · первый абзац 206**
+**2 186 знаков · первый абзац 232**
 
 Ни одного заполнителя, ни одной непроверяемой цифры. Первый абзац умещается в зону до «…see more». Кампания описана механикой, а не эпитетом: это единственный способ показать, за что именно дали золото.
 
 ```
-I'm CMO of Unico Play, Kazakhstan's first national streaming platform. I run the marketing organisation that launched it — brand, creative, in-house production, growth, media and social, all under one roof.
+I'm CMO of Unico Play, Kazakhstan's first national streaming platform. I run the marketing organisation that launched it — ten function heads across brand, creative, in-house production, growth, media and social, all under one roof.
 
-Global platforms will always have the bigger catalogue and the bigger budget. You don't beat them on either. You beat them on language, on cultural proximity, and on shipping creative at the speed of the content calendar instead of the agency calendar. That's why creative, production and performance sit in the same building here rather than being briefed out to three agencies.
+Creative direction, production, graphic and motion design, growth, PPC, media buying, project management, BTL and social all report into one function. Most companies our size rent three of those from agencies. Global platforms will always have the bigger catalogue and the bigger budget, and you don't beat them on either — you beat them on language, on cultural proximity, and on shipping creative at the speed of the content calendar instead of the agency calendar. That is what the in-house model is for.
 
-What that buys, concretely. To launch our original series Qara Bekire we put unbranded billboards up across the biggest cities: a jar of black caviar, the line "Try for free", a QR code. No logo, no explanation, no "watch on the platform" — black caviar as the metaphor for temptation and the price of easy money, which is what the show is about. It drew around 5,000 QR scans in its first four days.
+What it buys, concretely. To launch our original series Qara Bekire we put unbranded billboards up across the biggest cities: a jar of black caviar, the line "Try for free", a QR code. No logo, no explanation, no "watch on the platform" — black caviar as the metaphor for temptation and the price of easy money, which is what the show is about. It drew around 5,000 QR scans in its first four days.
 
 That campaign took Gold for Best Integrated Marketing Campaign and Silver for Best Key Art: Poster Campaign at the GEMA Asia Awards 2025 — the Global Entertainment Marketing Academy, formerly Promax — in categories that also had Netflix, Sony and Warner Bros. entered. They were Kazakhstan's first wins at those awards. The series itself went on to a Best OTT Original nomination at the 2026 Global OTT Awards in Busan, against Netflix and Disney+.
 
@@ -53,19 +55,19 @@ Always glad to compare notes with marketing leaders building streaming brands in
 
 > **Было:** Chief Marketing Officer with 17+ years of experience leading strategic marketing, brand development and business growth across media and entertainment.
 >
-> **Стало:** I'm CMO of Unico Play, Kazakhstan's first national streaming platform. I run the marketing organisation that launched it — brand, creative, in-house production, growth, media and social, all under one roof.
+> **Стало:** I'm CMO of Unico Play, Kazakhstan's first national streaming platform. I run the marketing organisation that launched it — ten function heads across brand, creative, in-house production, growth, media and social, all under one roof.
 
-**Лучше.** Прежний первый абзац дублировал заголовок профиля и обрывался на «strengthen» посреди фразы. Новый умещается в 206 знаков и несёт всё, что нужно за одну секунду: должность, компанию, страну, категорию и структуру подчинения. Это же попадает в сниппет Google по вашему имени.
+**Лучше.** Прежний первый абзац дублировал заголовок профиля и обрывался на «strengthen» посреди фразы. Новый умещается в 232 знака и несёт всё, что нужно за одну секунду: должность, компанию, страну, категорию и уровень роли. «Ten function heads» — это то, что превращает перечень функций в организацию: без него текст можно было прочитать и как «делаю всё это сама с двумя помощниками». Это же попадает в сниппет Google по вашему имени.
 
 **Правда.** «First national streaming platform» — формулировка Deadline, Screen Daily, Kursiv и Astana Times. Она защитима. Но по происхождению это позиционирование самой компании: Aitube.kz и NurTV существовали раньше в других моделях. Если хотите вообще не давать повода — замените на `Kazakhstan's national streaming platform, built on Kazakh-language originals`. Смысл тот же, оспорить нечего.
 
-### 2. Абзац позиции вместо облака компетенций
+### 2. Состав подчинения плюс абзац позиции — вместо облака компетенций
 
 > **Было:** My expertise includes brand strategy, go-to-market, integrated marketing, 360° campaigns and cross-functional leadership.
 >
-> **Стало:** Global platforms will always have the bigger catalogue and the bigger budget. You don't beat them on either. You beat them on language, on cultural proximity, and on shipping creative at the speed of the content calendar instead of the agency calendar.
+> **Стало:** Creative direction, production, graphic and motion design, growth, PPC, media buying, project management, BTL and social all report into one function. Most companies our size rent three of those from agencies. Global platforms will always have the bigger catalogue and the bigger budget, and you don't beat them on either — you beat them on language, on cultural proximity, and on shipping creative at the speed of the content calendar instead of the agency calendar. That is what the in-house model is for.
 
-**Лучше.** С прежней фразой невозможно не согласиться, а значит, она ничего не сообщает: те же пять компетенций заявит любой живой CMO. Новая — утверждение, с которым можно спорить, и именно поэтому его запоминают. Плюс она объясняет, зачем весь стек собран инхаус: не «так исторически сложилось», а осознанный выбор скорости против бюджета.
+**Лучше.** С прежней фразой невозможно не согласиться, а значит, она ничего не сообщает: те же пять компетенций заявит любой живой CMO. Новая — утверждение, с которым можно спорить, и именно поэтому его запоминают. Перечисленные девять направлений делают заявку конкретной: читатель видит не абстрактный «инхаус», а девять функций, которые в компании вашего размера обычно раздают трём агентствам. Дальше следует объяснение, зачем так сделано: не «исторически сложилось», а осознанный размен бюджета на скорость.
 
 **Правда.** Это ваша профессиональная позиция, а не факт о компании, — проверять тут нечего. Конкурентный контекст публичен: Netflix, Kinopoisk, ivi и MEGOGO присутствуют на рынке, а ставка Unico Play на казахский язык и локализацию описана в Deadline и Screen Daily, включая собственный ИИ-движок на 600 часов перевода и дубляжа в сутки.
 
@@ -109,12 +111,12 @@ Always glad to compare notes with marketing leaders building streaming brands in
 
 ## Две альтернативы
 
-### Короткая (1 081 знак · первый абзац 155)
+### Короткая (1 107 знаков · первый абзац 181)
 
 Если хочется, чтобы прочитали целиком и без прокрутки. Те же факты, без абзаца-позиции. Теряет запоминаемость, выигрывает в дочитываемости.
 
 ```
-I'm CMO of Unico Play, Kazakhstan's first national streaming platform — brand, creative, in-house production, growth, media and social, all under one roof.
+I'm CMO of Unico Play, Kazakhstan's first national streaming platform — ten function heads across brand, creative, in-house production, growth, media and social, all under one roof.
 
 To launch our original series Qara Bekire we ran unbranded billboards: a jar of black caviar, the line "Try for free", a QR code. No logo, no explanation. Around 5,000 QR scans in the first four days.
 
@@ -125,16 +127,25 @@ Seventeen years in marketing: seven on international brands — Coca-Cola, Phili
 Always glad to compare notes with marketing leaders building streaming brands outside the big markets.
 ```
 
-### Под executive search (2 245 знаков · первый абзац 220)
+### Под executive search (2 475 знаков · первый абзац 228)
 
 Плотная по ключевым словам, с явным перечнем зоны ответственности. Функции перечислены без цифр — описание собственной роли не NDA, в отличие от численности и бюджетов. Несёт и «CMO», и «Chief Marketing Officer», плюс OTT, SVOD, Almaty, acquisition, retention, CAC/LTV/ROMI, media buying, BTL.
 
 ```
-CMO in streaming and OTT, based in Almaty: I run the marketing organisation behind Kazakhstan's first national streaming platform, competing on language and localisation in a market Netflix, Kinopoisk and ivi are all in.
+CMO in streaming and OTT, based in Almaty: I run a ten-function marketing organisation for Kazakhstan's first national streaming platform, competing on language and localisation in a market Netflix, Kinopoisk and ivi are all in.
 
 Chief Marketing Officer at Unico Play, a Kazakh-language SVOD service launched on 12 September 2025 by Uni-Q Group. Seventeen years in marketing — seven on international brands, five in Kazakh-language digital content, now streaming.
 
-What I own, in-house rather than through agencies: brand strategy and tone of voice; integrated and 360 campaigns; originals marketing; the creative studio — graphic design, motion, video; production, including shoots of any complexity; growth and performance — subscriber acquisition, activation, retention and monetisation against CAC, LTV and ROMI; paid media and media buying across search, social, programmatic and influencers; BTL, trade and partnership activations; and social across Instagram, TikTok, YouTube and Telegram.
+Ten function heads report to me, and the work sits in-house rather than with agencies:
+
+• Growth — subscriber acquisition, activation, retention and monetisation, run against CAC, LTV and ROMI
+• PPC and paid media — search, social, programmatic, influencers and bloggers, with cross-channel tracking and attribution
+• Creative direction — brand positioning, tone of voice, integrated campaigns and originals creative
+• Graphic and motion design — a full in-house studio
+• Production — shoots of any complexity, with its own pipeline and budget
+• Project management — planning, prioritisation and resourcing across all of the above
+• BTL and trade — activations, events, special projects and cross-promo
+• Social — Instagram, TikTok, YouTube and Telegram
 
 Selected results. Unico Play passed 1.3 million monthly users within three months of launch. Our launch campaign for the original series Qara Bekire — unbranded billboards carrying a jar of black caviar, the line "Try for free" and a QR code, no logo and no explanation — drew around 5,000 QR scans in its first four days and won Gold for Best Integrated Marketing Campaign and Silver for Best Key Art: Poster Campaign at the GEMA Asia Awards 2025, the Global Entertainment Marketing Academy, formerly Promax. They were Kazakhstan's first wins at those awards, in categories that also had Netflix, Sony and Warner Bros. entered. Qara Bekire went on to a Best OTT Original nomination at the 2026 Global OTT Awards in Busan.
 
@@ -167,7 +178,7 @@ CMO at Unico Play | Kazakhstan's first national streaming platform | Brand, crea
 
 ## Что осталось за бортом и чем компенсировано
 
-- **Численность команды и десять функциональных руководителей.** Заменено на перечень функций «under one roof» и «in-house rather than through agencies». Читатель понимает объём роли, но структура не раскрывается. Если сочтёте, что состав подчинения не NDA, — `ten function heads report to me` усиливает текст сильнее всего остального, что можно добавить.
+- **Численность людей в командах.** Сам состав подчинения в текстах есть — десять функциональных руководителей названы, а в версии под executive search расписаны по направлениям. Не раскрывается только, сколько человек стоит за каждым. Этого достаточно: уровень роли читается по структуре, а не по головам.
 - **Медиа- и продакшн-бюджеты.** Заменены косвенно: публичные 50+ млрд тенге инвестиций в проект за три года дают порядок величины бизнеса. В текст я их не вставил — это инвестиции компании, а не ваш бюджет, и приписывать их себе некорректно.
 - **CAC, LTV, ROMI и динамика воронки.** В основной версии убраны, в версии под executive search оставлены как названия метрик, по которым вы отчитываетесь. Назвать метрику, по которой вас меряют, — не раскрытие данных; назвать её значение — раскрытие.
 - **Позиции в App Store и Google Play.** Убраны: они шли из внутреннего мониторинга маркетплейсов, публикации под них не нашлось. Если найдётся публичная — это хорошая строка рядом с 1,3 млн.
