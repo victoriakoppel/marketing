@@ -1,0 +1,683 @@
+<title>Орбита</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EFF3F4; --surface:#FFFFFF; --surface-2:#E5EBED; --line:#CFDADE;
+  --text:#0E181E; --muted:#5A6E77; --accent:#C4531F; --accent-soft:rgba(196,83,31,.12);
+  --teal:#1C6F68; --teal-soft:rgba(28,111,104,.12);
+  --good:#2C7A57; --warn:#9C6614; --crit:#A93A32; --grid:rgba(14,24,30,.09);
+  --shadow:0 1px 2px rgba(14,24,30,.06), 0 8px 24px rgba(14,24,30,.06);
+  --r:12px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1116; --surface:#131C22; --surface-2:#1A252C; --line:#26343C;
+    --text:#E6EEF1; --muted:#8AA0AA; --accent:#E2703A; --accent-soft:rgba(226,112,58,.16);
+    --teal:#5FB0A5; --teal-soft:rgba(95,176,165,.16);
+    --good:#5CBE8B; --warn:#E0A63C; --crit:#E0685F; --grid:rgba(230,238,241,.08);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 32px rgba(0,0,0,.28);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1116; --surface:#131C22; --surface-2:#1A252C; --line:#26343C;
+  --text:#E6EEF1; --muted:#8AA0AA; --accent:#E2703A; --accent-soft:rgba(226,112,58,.16);
+  --teal:#5FB0A5; --teal-soft:rgba(95,176,165,.16);
+  --good:#5CBE8B; --warn:#E0A63C; --crit:#E0685F; --grid:rgba(230,238,241,.08);
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 32px rgba(0,0,0,.28);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:15px; line-height:1.5;
+}
+h1,h2,h3,h4{font-family:'Archivo',system-ui,sans-serif; letter-spacing:-.015em; text-wrap:balance; margin:0}
+.num{font-family:'IBM Plex Mono',ui-monospace,monospace; font-variant-numeric:tabular-nums}
+.wrap{max-width:1320px; margin:0 auto; padding:0 20px 56px}
+
+/* ---- top bar ---- */
+.topbar{position:sticky; top:0; z-index:20; background:color-mix(in srgb,var(--bg) 88%, transparent); backdrop-filter:blur(10px); border-bottom:1px solid var(--line)}
+.topbar .wrap{padding-top:14px; padding-bottom:0}
+.brandrow{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap}
+.brand{font-size:22px; font-weight:700}
+.brand span{color:var(--accent)}
+.brandnote{color:var(--muted); font-size:12.5px; letter-spacing:.04em; text-transform:uppercase}
+.themebtn{margin-left:auto; border:1px solid var(--line); background:var(--surface); color:var(--text); border-radius:99px; padding:6px 14px; font:inherit; font-size:13px; cursor:pointer}
+.themebtn:hover{background:var(--surface-2)}
+
+.filters{display:flex; gap:14px; flex-wrap:wrap; margin:14px 0 12px}
+.field{display:flex; flex-direction:column; gap:5px}
+.field label{font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+select{
+  font:inherit; font-size:14px; color:var(--text); background:var(--surface);
+  border:1px solid var(--line); border-radius:9px; padding:8px 11px; min-width:190px; cursor:pointer;
+}
+select:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+.tabs{display:flex; gap:4px; overflow-x:auto; padding-bottom:2px}
+.tab{
+  font:inherit; font-size:14px; color:var(--muted); background:none; border:0; cursor:pointer;
+  padding:10px 14px 12px; border-bottom:2px solid transparent; white-space:nowrap;
+}
+.tab:hover{color:var(--text)}
+.tab[aria-selected="true"]{color:var(--text); border-bottom-color:var(--accent); font-weight:600}
+
+/* ---- cards ---- */
+.grid{display:grid; gap:14px; margin-top:18px}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:1000px){.g4{grid-template-columns:repeat(2,1fr)} .g3,.g2{grid-template-columns:1fr}}
+@media(max-width:560px){.g4{grid-template-columns:1fr}}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:16px 16px 14px; box-shadow:var(--shadow)}
+.card h3{font-size:13.5px; font-weight:600; color:var(--muted); letter-spacing:.01em}
+.card .sub{font-size:12px; color:var(--muted)}
+.cardhead{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:12px}
+.kpi .val{font-size:29px; font-weight:600; margin:8px 0 2px; letter-spacing:-.02em}
+.delta{font-size:12.5px; display:inline-flex; align-items:center; gap:5px}
+.up{color:var(--good)} .down{color:var(--crit)} .flat{color:var(--muted)}
+.pill{display:inline-block; font-size:11px; letter-spacing:.06em; text-transform:uppercase; padding:3px 9px; border-radius:99px; border:1px solid var(--line); color:var(--muted)}
+.pill.good{color:var(--good); border-color:color-mix(in srgb,var(--good) 40%,transparent); background:color-mix(in srgb,var(--good) 10%,transparent)}
+.pill.warn{color:var(--warn); border-color:color-mix(in srgb,var(--warn) 40%,transparent); background:color-mix(in srgb,var(--warn) 10%,transparent)}
+.pill.crit{color:var(--crit); border-color:color-mix(in srgb,var(--crit) 40%,transparent); background:color-mix(in srgb,var(--crit) 10%,transparent)}
+
+/* ---- charts ---- */
+.chartbox{position:relative}
+svg.chart{display:block; width:100%; height:auto}
+.chart .gridline{stroke:var(--grid); stroke-width:1}
+.chart .axis{fill:var(--muted); font-size:10.5px; font-family:'IBM Plex Mono',monospace}
+.chart .s1{stroke:var(--accent)} .chart .s1f{fill:var(--accent)}
+.chart .s2{stroke:var(--teal)} .chart .s2f{fill:var(--teal)}
+.chart .s3{stroke:var(--muted)} .chart .s3f{fill:var(--muted)}
+.chart .line{fill:none; stroke-width:2; stroke-linejoin:round; stroke-linecap:round}
+.chart .dash{stroke-dasharray:5 4}
+.legend{display:flex; gap:16px; flex-wrap:wrap; font-size:12px; color:var(--muted); margin-top:8px}
+.legend i{display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:6px; vertical-align:-1px}
+.tip{
+  position:absolute; pointer-events:none; opacity:0; transition:opacity .12s;
+  background:var(--surface-2); border:1px solid var(--line); border-radius:8px;
+  padding:7px 10px; font-size:12px; box-shadow:var(--shadow); white-space:nowrap; z-index:5;
+}
+
+/* ---- release ---- */
+table{width:100%; border-collapse:collapse; font-size:13.5px}
+th{text-align:left; font-weight:600; font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); padding:0 10px 8px 0; border-bottom:1px solid var(--line)}
+td{padding:9px 10px 9px 0; border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+td.n{font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums}
+tr.active td{background:var(--accent-soft)}
+.meter{height:8px; border-radius:99px; background:var(--surface-2); overflow:hidden; margin:10px 0 6px}
+.meter i{display:block; height:100%; background:var(--accent); border-radius:99px}
+.factgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:14px}
+@media(max-width:800px){.factgrid{grid-template-columns:repeat(2,1fr)}}
+.fact{background:var(--surface-2); border-radius:10px; padding:11px 12px}
+.fact b{display:block; font-size:19px; font-weight:600; margin-top:3px}
+.fact small{color:var(--muted); font-size:11.5px}
+
+/* ---- regions cartogram ---- */
+.maprow{display:grid; grid-template-columns:1.6fr 1fr; gap:14px}
+@media(max-width:960px){.maprow{grid-template-columns:1fr}}
+.carto{display:grid; grid-template-columns:repeat(7,1fr); grid-auto-rows:1fr; gap:7px}
+.tile{
+  aspect-ratio:1/1; border:1px solid var(--line); border-radius:9px; cursor:pointer;
+  font:inherit; font-size:11px; line-height:1.15; color:var(--text); padding:6px;
+  display:flex; flex-direction:column; justify-content:space-between; text-align:left;
+  background:var(--surface-2); transition:transform .12s, border-color .12s;
+}
+.tile:hover{transform:translateY(-2px); border-color:var(--accent)}
+.tile[aria-pressed="true"]{border-color:var(--accent); border-width:2px}
+.tile b{font-weight:600; font-size:11px}
+.tile span{font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--muted)}
+.ranklist{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px}
+.ranklist li{display:grid; grid-template-columns:20px 1fr auto; gap:10px; align-items:center; font-size:13.5px}
+.ranklist .bar{height:6px; border-radius:99px; background:var(--accent); min-width:3px}
+.ranklist .barwrap{background:var(--surface-2); border-radius:99px}
+.rk{color:var(--muted); font-family:'IBM Plex Mono',monospace; font-size:12px}
+
+/* ---- comparisons ---- */
+.chips{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px}
+.chip{font:inherit; font-size:13px; padding:6px 13px; border-radius:99px; border:1px solid var(--line); background:var(--surface); color:var(--muted); cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent-soft); border-color:var(--accent); color:var(--text); font-weight:500}
+.note{font-size:12.5px; color:var(--muted); margin-top:26px; padding-top:14px; border-top:1px solid var(--line)}
+[hidden]{display:none !important}
+@media(prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important}}
+</style>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brandrow">
+      <div class="brand">Орб<span>и</span>та</div>
+      <div class="brandnote">Аналитика сериалов · демо-данные</div>
+      <button class="themebtn" id="themeBtn" type="button">Тема</button>
+    </div>
+    <div class="filters">
+      <div class="field"><label for="projectSelect">Проект</label><select id="projectSelect"></select></div>
+      <div class="field"><label for="platformSelect">Платформа</label><select id="platformSelect"></select></div>
+      <div class="field"><label for="seriesSelect">Серия</label><select id="seriesSelect"></select></div>
+      <div class="field"><label for="periodSelect">Период</label><select id="periodSelect">
+        <option value="28">Последние 28 дней</option>
+        <option value="56">Последние 56 дней</option>
+        <option value="90" selected>Весь релиз (90 дней)</option>
+      </select></div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Разделы">
+      <button class="tab" role="tab" data-view="overview" aria-selected="true">Обзор</button>
+      <button class="tab" role="tab" data-view="audience" aria-selected="false">Аудитория</button>
+      <button class="tab" role="tab" data-view="release" aria-selected="false">Релизный режим</button>
+      <button class="tab" role="tab" data-view="regions" aria-selected="false">Регионы</button>
+      <button class="tab" role="tab" data-view="compare" aria-selected="false">Сравнения</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ОБЗОР -->
+  <section id="view-overview">
+    <div class="grid g4" id="kpiRow"></div>
+    <div class="grid g2">
+      <div class="card">
+        <div class="cardhead"><h3>Просмотры по дням</h3><span class="sub" id="dailyPeak"></span></div>
+        <div class="chartbox" id="dailyChart"></div>
+        <div class="legend"><span><i style="background:var(--accent)"></i>Просмотры за день</span><span><i style="background:var(--teal)"></i>Скользящее среднее, 7 дней</span></div>
+      </div>
+      <div class="card">
+        <div class="cardhead"><h3>Охват и просмотры, накопительно</h3><span class="sub">YouTube</span></div>
+        <div class="chartbox" id="cumChart"></div>
+        <div class="legend"><span><i style="background:var(--teal)"></i>Охват</span><span><i style="background:var(--accent)"></i>Просмотры</span></div>
+      </div>
+    </div>
+    <div class="grid g3">
+      <div class="card">
+        <div class="cardhead"><h3>CTR: просмотры / охват</h3><span class="sub" id="ctrAvg"></span></div>
+        <div class="chartbox" id="ctrChart"></div>
+      </div>
+      <div class="card">
+        <div class="cardhead"><h3>Удержание по сериям</h3><span class="sub">% досмотра</span></div>
+        <div class="chartbox" id="retentionChart"></div>
+      </div>
+      <div class="card">
+        <div class="cardhead"><h3>Воронка релиза</h3><span class="sub">от охвата до подписки</span></div>
+        <div class="chartbox" id="funnelChart"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- АУДИТОРИЯ -->
+  <section id="view-audience" hidden>
+    <div class="grid g3">
+      <div class="card"><div class="cardhead"><h3>Возрастная структура</h3><span class="sub" id="ageCore"></span></div><div class="chartbox" id="ageChart"></div></div>
+      <div class="card"><div class="cardhead"><h3>Устройства</h3><span class="sub">доля просмотров</span></div><div class="chartbox" id="deviceChart"></div><div class="legend" id="deviceLegend"></div></div>
+      <div class="card"><div class="cardhead"><h3>Пол аудитории</h3><span class="sub">по просмотрам</span></div><div class="chartbox" id="genderChart"></div><div class="legend" id="genderLegend"></div></div>
+    </div>
+    <div class="grid g2">
+      <div class="card"><div class="cardhead"><h3>Источники трафика</h3><span class="sub">накопительно за релиз</span></div><div class="chartbox" id="sourceChart"></div></div>
+      <div class="card"><div class="cardhead"><h3>Крупнейшие города</h3><span class="sub">просмотры YouTube</span></div><div class="chartbox" id="cityChart"></div></div>
+    </div>
+  </section>
+
+  <!-- РЕЛИЗНЫЙ РЕЖИМ -->
+  <section id="view-release" hidden>
+    <div class="grid g2">
+      <div class="card">
+        <div class="cardhead"><h3>Сценарии по проекту</h3><span class="pill" id="scenarioStatus">—</span></div>
+        <table>
+          <thead><tr><th>Сценарий</th><th>Драйверы</th><th>Просмотры</th><th>КПД</th><th>CPA</th></tr></thead>
+          <tbody id="scenarioBody"></tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="cardhead"><h3>Текущий ход релиза</h3><span class="sub">факт против сценариев</span></div>
+        <div style="font-size:20px;font-weight:600" id="fitName">—</div>
+        <div class="meter"><i id="fitMeter" style="width:0%"></i></div>
+        <p class="sub" id="fitSummary" style="margin:6px 0 0"></p>
+        <div class="factgrid">
+          <div class="fact"><small>Драйверы</small><b class="num" id="fDrivers">—</b><small id="fDriversNote"></small></div>
+          <div class="fact"><small>Уники</small><b class="num" id="fUniques">—</b><small id="fUniquesNote"></small></div>
+          <div class="fact"><small>КПД</small><b class="num" id="fKpd">—</b><small id="fKpdNote"></small></div>
+          <div class="fact"><small>CPA</small><b class="num" id="fCpa">—</b><small id="fCpaNote"></small></div>
+        </div>
+      </div>
+    </div>
+    <div class="grid g2">
+      <div class="card">
+        <div class="cardhead"><h3>Накопительные просмотры: факт и сценарии</h3><span class="sub" id="releaseDay"></span></div>
+        <div class="chartbox" id="scenarioChart"></div>
+        <div class="legend"><span><i style="background:var(--accent)"></i>Факт</span><span><i style="background:var(--teal)"></i>База</span><span><i style="background:var(--muted)"></i>Оптимистичный / пессимистичный</span></div>
+      </div>
+      <div class="card">
+        <div class="cardhead"><h3>Диагностика</h3><span class="sub">что тянет релиз</span></div>
+        <div id="diagnostics"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- РЕГИОНЫ -->
+  <section id="view-regions" hidden>
+    <div class="maprow">
+      <div class="card">
+        <div class="cardhead"><h3>Казахстан: просмотры по регионам</h3><span class="sub">схематичная карта, запад слева</span></div>
+        <div class="carto" id="carto"></div>
+      </div>
+      <div class="card">
+        <div class="cardhead"><h3 id="rankTitle">Выберите регион</h3><span class="sub" id="rankTotal"></span></div>
+        <p class="sub" id="rankHint" style="margin:0 0 12px">Нажмите на плитку слева — справа появится рейтинг проектов по просмотрам из этого региона.</p>
+        <ol class="ranklist" id="rankList"></ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- СРАВНЕНИЯ -->
+  <section id="view-compare" hidden>
+    <div class="card">
+      <div class="cardhead"><h3>Сравнение проектов</h3><span class="sub">выберите два и более</span></div>
+      <div class="chips" id="compareChips"></div>
+      <div class="grid g2" style="margin-top:0">
+        <div><div class="sub" style="margin-bottom:8px">Просмотры за релиз</div><div class="chartbox" id="cmpViews"></div></div>
+        <div><div class="sub" style="margin-bottom:8px">Стоимость привлечения, ₸</div><div class="chartbox" id="cmpCpa"></div></div>
+      </div>
+      <div style="overflow-x:auto; margin-top:18px">
+        <table><thead><tr><th>Проект</th><th>Охват</th><th>Просмотры</th><th>CTR</th><th>Удержание</th><th>Установки</th><th>CPA</th></tr></thead><tbody id="cmpBody"></tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <p class="note">Демо-прототип: все цифры сгенерированы детерминированно из названия проекта, платформы и серии — они меняются при смене фильтров, но не описывают реальные проекты. Карта регионов схематичная (плитка = регион), а не географическая.</p>
+</main>
+
+<script>
+/* ============ 1. Данные (синтетические, детерминированные) ============ */
+const PROJECTS = [
+  {id:'ayan',   name:'Аян',              tag:'Драма',      episodes:8,  budget:38_000_000},
+  {id:'kelin',  name:'Келин 2.0',        tag:'Комедия',    episodes:12, budget:24_000_000},
+  {id:'shanyq', name:'Шаңырақ',          tag:'Семейная',   episodes:10, budget:31_000_000},
+  {id:'qara',   name:'Қара жол',         tag:'Триллер',    episodes:6,  budget:44_000_000},
+  {id:'oi',     name:'Ойын басталды',    tag:'Шоу',        episodes:16, budget:19_000_000},
+];
+const PLATFORMS = [
+  {id:'yt',  name:'YouTube',        k:1},
+  {id:'fm',  name:'Freedom Media',  k:0.42},
+  {id:'soc', name:'Соцсети',        k:0.61},
+];
+const REGIONS = [
+  ['zko','ЗКО',0,1],['aty','Атырауская',0,2],['man','Мангистауская',0,3],
+  ['akt','Актюбинская',1,2],['kos','Костанайская',2,0],['sko','СКО',3,0],
+  ['akm','Акмолинская',3,1],['ast','Астана',4,1],['pav','Павлодарская',5,0],
+  ['vko','ВКО',6,0],['aba','Абай',6,1],['uly','Улытау',2,2],['kar','Карагандинская',4,2],
+  ['kyz','Кызылординская',2,3],['tur','Туркестанская',3,4],['shy','Шымкент',2,4],
+  ['zha','Жамбылская',4,4],['zhe','Жетісу',5,3],['alo','Алматинская',6,3],['alm','Алматы',5,4],
+];
+
+function hash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function rng(seed){return function(){seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+
+function build(projectId, platformId, seriesIdx, days){
+  const p = PROJECTS.find(x=>x.id===projectId), pl = PLATFORMS.find(x=>x.id===platformId);
+  const key = projectId+'|'+platformId+'|'+seriesIdx;
+  const r = rng(hash(key));
+  const scale = (0.6+r()*1.1) * pl.k * (seriesIdx>=0 ? 0.22 : 1);
+  const peak = Math.round((90_000 + r()*140_000) * scale);
+  const tau = 9 + r()*8;
+  const daily=[], reach=[];
+  const ctr0 = 0.085 + r()*0.075;
+  for(let i=0;i<days;i++){
+    const drop = (seriesIdx<0 && i%7===0 && i>0 && i/7 < p.episodes) ? 1.55 : 1;
+    const v = peak * Math.exp(-i/tau) * drop * (0.86 + r()*0.28);
+    daily.push(Math.round(v));
+    reach.push(Math.round(v / (ctr0 * (0.9 + r()*0.25))));
+  }
+  const views = daily.reduce((a,b)=>a+b,0);
+  const reachTotal = reach.reduce((a,b)=>a+b,0);
+  const retention = 0.34 + r()*0.28;
+  const avgDur = 4 + r()*9;
+  const clicks = Math.round(views * (0.012 + r()*0.018));
+  const installs = Math.round(clicks * (0.16 + r()*0.16));
+  const subs = Math.round(installs * (0.42 + r()*0.25));
+  const cpa = Math.round(p.budget * (0.35+r()*0.4) / Math.max(installs,1));
+  return {
+    project:p, platform:pl, key, daily, reach, views, reachTotal,
+    ctr: views/reachTotal, retention, avgDur, clicks, installs, subs, cpa,
+    prevViews: Math.round(views * (0.72 + r()*0.55)),
+    ages: norm([r()*0.5+0.2, r()*0.7+0.6, r()*0.8+1, r()*0.6+0.7, r()*0.4+0.35, r()*0.3+0.15], ['13–17','18–24','25–34','35–44','45–54','55+']),
+    devices: norm([r()*0.3+1.6, r()*0.2+0.35, r()*0.15+0.22, r()*0.1+0.08], ['Смартфон','ТВ','Десктоп','Планшет']),
+    gender: norm([r()*0.4+0.9, r()*0.4+0.9], ['Женщины','Мужчины']),
+    sources: norm([r()*0.4+1.2, r()*0.3+0.7, r()*0.3+0.5, r()*0.2+0.35], ['Рекомендации','Поиск','Внешние ссылки','Подписки']),
+    cities: norm([r()*.3+1.5, r()*.3+1.1, r()*.2+.7, r()*.2+.5, r()*.15+.4, r()*.15+.3, r()*.1+.25],
+                 ['Алматы','Астана','Шымкент','Караганда','Актобе','Тараз','Павлодар']),
+    retentionByEp: Array.from({length:Math.min(p.episodes,10)},(_,i)=>Math.round((retention*100) * Math.exp(-i*0.055) * (0.94+r()*0.12))),
+    r
+  };
+}
+function norm(vals, labels){
+  const s = vals.reduce((a,b)=>a+b,0);
+  return vals.map((v,i)=>({label:labels[i], share:v/s}));
+}
+const fmt = n => n>=1e6 ? (n/1e6).toFixed(n>=1e7?0:1).replace('.',',')+' млн'
+              : n>=1e3 ? Math.round(n/1e3)+' тыс' : String(Math.round(n));
+const full = n => Math.round(n).toLocaleString('ru-RU').replace(/,/g,' ');
+const pct  = x => (x*100).toFixed(1).replace('.',',')+'%';
+
+/* ============ 2. Графики (собственный SVG, без библиотек) ============ */
+const PAD={l:46,r:12,t:14,b:24};
+const cw = box => Math.max(260, Math.round(box.getBoundingClientRect().width) || 640);
+function svgEl(h,inner,w,cls){return `<svg class="chart ${cls||''}" viewBox="0 0 ${w} ${h}" role="img">${inner}</svg>`}
+function yTicks(max){const step=Math.pow(10,Math.floor(Math.log10(max||1)));let s=step;while(max/s>4)s*= (s*2/step===2||s*2/step===10)?2:2.5;return Array.from({length:Math.floor(max/s)+1},(_,i)=>i*s)}
+
+function lineChart(box, {series, labels, h=210, fmtY=fmt, hover=true}){
+  const W = cw(box);
+  const max = Math.max(...series.flatMap(s=>s.values))*1.08 || 1;
+  const n = series[0].values.length;
+  const X = i => PAD.l + i*(W-PAD.l-PAD.r)/Math.max(n-1,1);
+  const Y = v => PAD.t + (1-v/max)*(h-PAD.t-PAD.b);
+  let g='';
+  yTicks(max).forEach(t=>{ g+=`<line class="gridline" x1="${PAD.l}" x2="${W-PAD.r}" y1="${Y(t)}" y2="${Y(t)}"/><text class="axis" x="4" y="${Y(t)+3.5}">${fmtY(t)}</text>`});
+  let paths='';
+  series.forEach(s=>{
+    const d = s.values.map((v,i)=>`${i?'L':'M'}${X(i).toFixed(1)} ${Y(v).toFixed(1)}`).join(' ');
+    if(s.area) paths += `<path d="${d} L${X(n-1)} ${Y(0)} L${X(0)} ${Y(0)} Z" class="${s.cls}f" opacity=".14"/>`;
+    paths += `<path d="${d}" class="line ${s.cls} ${s.dash?'dash':''}"/>`;
+  });
+  let x='';
+  const every = Math.max(1, Math.round(n/6));
+  labels.forEach((l,i)=>{ if(i%every===0||i===n-1) x+=`<text class="axis" x="${X(i)}" y="${h-6}" text-anchor="middle">${l}</text>`});
+  box.innerHTML = svgEl(h, g+paths+x, W) + '<div class="tip"></div>' +
+    `<div class="hoverlay" style="position:absolute;inset:0"></div>`;
+  if(!hover) return;
+  const svg = box.querySelector('svg'), tip = box.querySelector('.tip'), ov = box.querySelector('.hoverlay');
+  const guide = document.createElementNS('http://www.w3.org/2000/svg','g');
+  svg.appendChild(guide);
+  ov.addEventListener('pointermove', e=>{
+    const rect = ov.getBoundingClientRect();
+    const rel = (e.clientX-rect.left)/rect.width*W;
+    const i = Math.max(0, Math.min(n-1, Math.round((rel-PAD.l)/((W-PAD.l-PAD.r)/Math.max(n-1,1)))));
+    guide.innerHTML = `<line class="gridline" x1="${X(i)}" x2="${X(i)}" y1="${PAD.t}" y2="${h-PAD.b}" stroke-width="1.5"/>` +
+      series.map(s=>`<circle cx="${X(i)}" cy="${Y(s.values[i])}" r="3.5" class="${s.cls}f"/>`).join('');
+    tip.innerHTML = `<b>${labels[i]}</b><br>` + series.map(s=>`${s.name}: <span class="num">${full(s.values[i])}</span>`).join('<br>');
+    tip.style.opacity=1;
+    tip.style.left = Math.min(rect.width-tip.offsetWidth-6, Math.max(0, X(i)/W*rect.width - tip.offsetWidth/2))+'px';
+    tip.style.top = '4px';
+  });
+  ov.addEventListener('pointerleave', ()=>{ tip.style.opacity=0; guide.innerHTML=''; });
+}
+
+function barChart(box, {labels, values, h=210, fmtY=fmt, color='s1'}){
+  const W = cw(box);
+  const max = Math.max(...values)*1.1||1, n=values.length;
+  const bw = (W-PAD.l-PAD.r)/n;
+  const Y = v => PAD.t + (1-v/max)*(h-PAD.t-PAD.b);
+  let g=''; yTicks(max).forEach(t=>{g+=`<line class="gridline" x1="${PAD.l}" x2="${W-PAD.r}" y1="${Y(t)}" y2="${Y(t)}"/><text class="axis" x="4" y="${Y(t)+3.5}">${fmtY(t)}</text>`});
+  let b='';
+  values.forEach((v,i)=>{
+    const x = PAD.l + i*bw + bw*0.18, w = bw*0.64;
+    b += `<rect x="${x.toFixed(1)}" y="${Y(v).toFixed(1)}" width="${w.toFixed(1)}" height="${(Y(0)-Y(v)).toFixed(1)}" rx="3" class="${color}f" opacity=".85"><title>${labels[i]}: ${full(v)}</title></rect>`;
+    b += `<text class="axis" x="${(x+w/2).toFixed(1)}" y="${h-6}" text-anchor="middle">${labels[i]}</text>`;
+  });
+  box.innerHTML = svgEl(h, g+b, W);
+}
+
+function hBars(box, {items, h=210, fmtV=fmt}){
+  const W = cw(box), L = 118, maxW = W - L - 66;
+  const max = Math.max(...items.map(i=>i.value))||1;
+  const rowH = (h-8)/items.length;
+  let s='';
+  items.forEach((it,i)=>{
+    const y = 4 + i*rowH, bw = maxW*it.value/max;
+    s += `<text class="axis" x="0" y="${y+rowH/2+3}" style="font-size:11.5px">${it.label}</text>`;
+    s += `<rect x="${L}" y="${y+rowH/2-6}" width="${Math.max(bw,2).toFixed(1)}" height="12" rx="6" class="${it.cls||'s1'}f" opacity="${0.9-i*0.07}"/>`;
+    s += `<text class="axis" x="${(L+bw+7).toFixed(1)}" y="${y+rowH/2+4}">${fmtV(it.value)}</text>`;
+  });
+  box.innerHTML = svgEl(h, s, W);
+}
+
+function donut(box, items, legendBox){
+  const W = cw(box), h=200, cx=W/2, cy=h/2, R=76, r0=48;
+  let a=-Math.PI/2, s='';
+  const shades=[[ 's1f',1],['s2f',.95],['s1f',.5],['s2f',.45],['s3f',.5]];
+  items.forEach((it,i)=>{
+    const a2 = a + it.share*Math.PI*2;
+    const big = it.share>0.5?1:0;
+    const p = (rad,ang)=>[cx+rad*Math.cos(ang), cy+rad*Math.sin(ang)];
+    const [x1,y1]=p(R,a),[x2,y2]=p(R,a2),[x3,y3]=p(r0,a2),[x4,y4]=p(r0,a);
+    const [c]=[shades[i%shades.length]];
+    s+=`<path d="M${x1} ${y1} A${R} ${R} 0 ${big} 1 ${x2} ${y2} L${x3} ${y3} A${r0} ${r0} 0 ${big} 0 ${x4} ${y4} Z" class="${c[0]}" opacity="${c[1]}"><title>${it.label}: ${pct(it.share)}</title></path>`;
+    a=a2;
+  });
+  const top = items.slice().sort((x,y)=>y.share-x.share)[0];
+  s+=`<text x="${cx}" y="${cy-2}" text-anchor="middle" class="axis" style="font-size:12px">${top.label}</text>`;
+  s+=`<text x="${cx}" y="${cy+18}" text-anchor="middle" fill="currentColor" style="font-size:20px;font-family:'IBM Plex Mono',monospace">${pct(top.share)}</text>`;
+  box.innerHTML = svgEl(h, s, W);
+  if(legendBox) legendBox.innerHTML = items.map((it,i)=>
+    `<span><i style="background:var(--${shades[i%shades.length][0]==='s1f'?'accent':'teal'});opacity:${shades[i%shades.length][1]}"></i>${it.label} — ${pct(it.share)}</span>`).join('');
+}
+
+function stackedBars(box, {groups, seriesLabels, h=220}){
+  const W = cw(box);
+  const n = groups.length, bw=(W-PAD.l-PAD.r)/n;
+  const max = Math.max(...groups.map(g=>g.values.reduce((a,b)=>a+b,0)))*1.08||1;
+  const Y = v => PAD.t + (1-v/max)*(h-PAD.t-PAD.b);
+  let g=''; yTicks(max).forEach(t=>{g+=`<line class="gridline" x1="${PAD.l}" x2="${W-PAD.r}" y1="${Y(t)}" y2="${Y(t)}"/><text class="axis" x="4" y="${Y(t)+3.5}">${fmt(t)}</text>`});
+  const shades=[['s1f',1],['s2f',.95],['s1f',.48],['s2f',.42]];
+  groups.forEach((grp,i)=>{
+    let acc=0;
+    grp.values.forEach((v,j)=>{
+      const y1=Y(acc+v), y2=Y(acc);
+      g+=`<rect x="${(PAD.l+i*bw+bw*.2).toFixed(1)}" y="${y1.toFixed(1)}" width="${(bw*.6).toFixed(1)}" height="${Math.max(y2-y1,0).toFixed(1)}" class="${shades[j][0]}" opacity="${shades[j][1]}"><title>${seriesLabels[j]}: ${full(v)}</title></rect>`;
+      acc+=v;
+    });
+    g+=`<text class="axis" x="${(PAD.l+i*bw+bw/2).toFixed(1)}" y="${h-6}" text-anchor="middle">${grp.label}</text>`;
+  });
+  const leg = seriesLabels.map((l,j)=>`<span><i style="background:var(--${shades[j][0]==='s1f'?'accent':'teal'});opacity:${shades[j][1]}"></i>${l}</span>`).join('');
+  box.innerHTML = svgEl(h,g,W) + `<div class="legend">${leg}</div>`;
+}
+
+function funnel(box, steps, h=210){
+  const W = cw(box), L = 116, maxW = W - L - 108;
+  const max = steps[0].value, rowH=(h-10)/steps.length;
+  let s='';
+  steps.forEach((st,i)=>{
+    const y=5+i*rowH, w=maxW*st.value/max;
+    s+=`<text class="axis" x="0" y="${y+rowH/2+3}" style="font-size:11.5px">${st.label}</text>`;
+    s+=`<rect x="${L}" y="${y+5}" width="${Math.max(w,2).toFixed(1)}" height="${(rowH-13).toFixed(1)}" rx="5" class="s1f" opacity="${(1-i*0.15).toFixed(2)}"/>`;
+    s+=`<text class="axis" x="${(L+w+7).toFixed(1)}" y="${y+rowH/2+4}">${fmt(st.value)}</text>`;
+    if(i) s+=`<text class="axis" x="${W}" y="${y+rowH/2+4}" text-anchor="end" opacity=".85">↓ ${pct(st.value/steps[i-1].value)}</text>`;
+  });
+  box.innerHTML = svgEl(h,s,W);
+}
+</script>
+
+<script>
+/* ============ 3. Состояние и отрисовка ============ */
+const $ = s => document.querySelector(s);
+const state = {project:'ayan', platform:'yt', series:-1, days:90};
+
+$('#projectSelect').innerHTML = PROJECTS.map(p=>`<option value="${p.id}">${p.name} · ${p.tag}</option>`).join('');
+$('#platformSelect').innerHTML = PLATFORMS.map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
+function fillSeries(){
+  const p = PROJECTS.find(x=>x.id===state.project);
+  $('#seriesSelect').innerHTML = `<option value="-1">Весь сезон</option>` +
+    Array.from({length:p.episodes},(_,i)=>`<option value="${i}">Серия ${i+1}</option>`).join('');
+  state.series = -1;
+}
+
+const REGION_W = {alm:1.55,ast:1.15,shy:.95,kar:.72,akt:.6,tur:.78,zha:.55,pav:.5,vko:.52,kos:.45,zko:.4,aty:.42,man:.38,akm:.4,sko:.3,kyz:.4,zhe:.35,alo:.55,aba:.3,uly:.2};
+function regionViews(projectId, platformId, regionId){
+  const r = rng(hash(projectId+platformId+regionId));
+  const base = build(projectId, platformId, -1, 90).views;
+  return Math.round(base * REGION_W[regionId]/9.5 * (0.6+r()*0.9));
+}
+
+function movAvg(a,w){return a.map((_,i)=>{const s=a.slice(Math.max(0,i-w+1),i+1);return Math.round(s.reduce((x,y)=>x+y,0)/s.length)})}
+function cum(a){let s=0;return a.map(v=>s+=v)}
+function deltaHTML(cur,prev){
+  const d=(cur-prev)/prev, cls=Math.abs(d)<0.02?'flat':(d>0?'up':'down');
+  return `<span class="delta ${cls}">${d>0?'▲':d<0?'▼':'■'} ${Math.abs(d*100).toFixed(1).replace('.',',')}% к прошлому сезону</span>`;
+}
+function spark(values,h=34){
+  const max=Math.max(...values)||1, n=values.length;
+  const d=values.map((v,i)=>`${i?'L':'M'}${(i/(n-1)*140).toFixed(1)} ${(h-4-(v/max)*(h-8)).toFixed(1)}`).join(' ');
+  return `<svg class="chart" viewBox="0 0 140 ${h}" style="height:${h}px;width:140px"><path d="${d}" class="line s1"/></svg>`;
+}
+
+function render(){
+  const d = build(state.project, state.platform, state.series, state.days);
+  const labels = d.daily.map((_,i)=>'Д'+(i+1));
+
+  /* --- KPI --- */
+  $('#kpiRow').innerHTML = [
+    {t:'Просмотры', v:fmt(d.views), sub:deltaHTML(d.views,d.prevViews), extra:spark(d.daily)},
+    {t:'Охват', v:fmt(d.reachTotal), sub:`<span class="sub">CTR ${pct(d.ctr)}</span>`},
+    {t:'Среднее удержание', v:pct(d.retention), sub:`<span class="pill ${d.retention>0.45?'good':d.retention>0.32?'warn':'crit'}">${d.retention>0.45?'выше нормы':d.retention>0.32?'в норме':'ниже нормы'}</span>`},
+    {t:'Установки приложения', v:fmt(d.installs), sub:`<span class="sub">CPA ${full(d.cpa)} ₸</span>`},
+  ].map(k=>`<div class="card kpi"><h3>${k.t}</h3><div class="val num">${k.v}</div>${k.sub}${k.extra||''}</div>`).join('');
+
+  /* --- Обзор --- */
+  lineChart($('#dailyChart'), {labels, series:[
+    {name:'Просмотры', cls:'s1', values:d.daily, area:true},
+    {name:'Среднее за 7 дней', cls:'s2', values:movAvg(d.daily,7)},
+  ]});
+  $('#dailyPeak').textContent = 'пик — день ' + (d.daily.indexOf(Math.max(...d.daily))+1);
+  lineChart($('#cumChart'), {labels, series:[
+    {name:'Охват', cls:'s2', values:cum(d.reach), area:true},
+    {name:'Просмотры', cls:'s1', values:cum(d.daily), area:true},
+  ]});
+  const ctrSeries = d.daily.map((v,i)=>+(v/d.reach[i]*100).toFixed(1));
+  lineChart($('#ctrChart'), {labels, h:190, fmtY:v=>v+'%', series:[{name:'CTR, %', cls:'s1', values:ctrSeries}]});
+  $('#ctrAvg').textContent = 'средний ' + pct(d.ctr);
+  barChart($('#retentionChart'), {h:190, fmtY:v=>v+'%', labels:d.retentionByEp.map((_,i)=>i+1), values:d.retentionByEp, color:'s2'});
+  funnel($('#funnelChart'), [
+    {label:'Охват', value:d.reachTotal},{label:'Просмотры', value:d.views},
+    {label:'Клики по ссылке', value:d.clicks},{label:'Установки', value:d.installs},{label:'Подписки', value:d.subs},
+  ], 190);
+
+  /* --- Аудитория --- */
+  barChart($('#ageChart'), {h:200, fmtY:v=>Math.round(v*100)+'%', labels:d.ages.map(a=>a.label), values:d.ages.map(a=>a.share)});
+  $('#ageCore').textContent = 'ядро ' + d.ages.slice().sort((a,b)=>b.share-a.share)[0].label;
+  donut($('#deviceChart'), d.devices, $('#deviceLegend'));
+  donut($('#genderChart'), d.gender, $('#genderLegend'));
+  const weeks = Math.max(2, Math.round(state.days/7));
+  stackedBars($('#sourceChart'), {
+    seriesLabels: d.sources.map(s=>s.label),
+    groups: Array.from({length:Math.min(weeks,13)},(_,w)=>({
+      label:'Н'+(w+1),
+      values: d.sources.map(s=>Math.round(d.daily.slice(w*7,w*7+7).reduce((a,b)=>a+b,0)*s.share))
+    }))
+  });
+  hBars($('#cityChart'), {h:200, items:d.cities.map((c,i)=>({label:c.label, value:Math.round(d.views*c.share*0.62), cls:i%2?'s2':'s1'}))});
+
+  /* --- Релизный режим --- */
+  const dayNow = Math.min(21, state.days);
+  const factCum = cum(d.daily).slice(0,dayNow);
+  const total90 = cum(d.daily)[d.daily.length-1];
+  const sr = rng(hash(d.key+'|plan'));
+  const planTotal = Math.round(total90 * (0.80 + sr()*0.45));
+  const scen = [
+    {name:'Оптимистичный', k:1.28},
+    {name:'База',          k:1.00},
+    {name:'Пессимистичный',k:0.74},
+  ].map(s=>{
+    const views = Math.round(planTotal*s.k);
+    const drivers = Math.round(views/(6+sr()*3));
+    return {...s, views, drivers, kpd:+(views/drivers).toFixed(1), cpa:Math.round(d.project.budget*0.4/Math.max(views*0.004,1))};
+  });
+  const factPace = total90;
+  const nearest = scen.reduce((a,b)=>Math.abs(b.views-factPace)<Math.abs(a.views-factPace)?b:a);
+  $('#scenarioBody').innerHTML = scen.map(s=>
+    `<tr class="${s===nearest?'active':''}"><td>${s.name}</td><td class="n">${fmt(s.drivers)}</td><td class="n">${fmt(s.views)}</td><td class="n">${s.kpd}</td><td class="n">${full(s.cpa)} ₸</td></tr>`).join('');
+  $('#scenarioStatus').textContent = 'день релиза ' + dayNow;
+  $('#scenarioStatus').className = 'pill ' + (nearest.name==='Оптимистичный'?'good':nearest.name==='База'?'':'crit');
+  $('#fitName').textContent = nearest.name;
+  const fitPctVal = Math.min(140, factPace/scen[1].views*100);
+  $('#fitMeter').style.width = Math.min(100,fitPctVal)+'%';
+  $('#fitSummary').textContent = `Темп набора соответствует ${Math.round(fitPctVal)}% базового сценария. Прогноз на 90-й день — ${fmt(factPace)} просмотров.`;
+  $('#releaseDay').textContent = `факт по ${dayNow}-й день`;
+  const setFact=(id,val,note)=>{ $(id).textContent=val; $(id+'Note').textContent=note; };
+  setFact('#fDrivers', fmt(nearest.drivers), 'план ' + fmt(scen[1].drivers));
+  setFact('#fUniques', fmt(Math.round(d.views*0.63)), 'уникальных зрителей');
+  setFact('#fKpd', nearest.kpd.toString(), 'просмотров на драйвер');
+  setFact('#fCpa', full(d.cpa)+' ₸', 'план ' + full(scen[1].cpa) + ' ₸');
+  const planK = planTotal/total90;
+  lineChart($('#scenarioChart'), {labels, series:[
+    {name:'Пессимистичный', cls:'s3', dash:true, values:cum(d.daily).map(v=>Math.round(v*planK*0.74))},
+    {name:'Оптимистичный', cls:'s3', dash:true, values:cum(d.daily).map(v=>Math.round(v*planK*1.28))},
+    {name:'База', cls:'s2', dash:true, values:cum(d.daily).map(v=>Math.round(v*planK))},
+    {name:'Факт', cls:'s1', values:cum(d.daily).map((v,i)=> i<dayNow ? factCum[i] : factCum[dayNow-1])},
+  ]});
+  const diag = [
+    {ok:d.ctr>0.11, good:`CTR ${pct(d.ctr)} — обложки и заголовки работают.`, bad:`CTR ${pct(d.ctr)} ниже целевых 11% — стоит переснять обложки первых серий.`},
+    {ok:d.retention>0.4, good:`Удержание ${pct(d.retention)} — зрители досматривают серии.`, bad:`Удержание ${pct(d.retention)} — падение начинается на 2–3 серии, проверить длину холодного открытия.`},
+    {ok:d.cpa<3500, good:`CPA ${full(d.cpa)} ₸ — платный трафик окупается.`, bad:`CPA ${full(d.cpa)} ₸ выше порога 3 500 ₸ — перераспределить бюджет в органику и PR.`},
+    {ok:d.installs/d.clicks>0.22, good:`Конверсия «клик → установка» ${pct(d.installs/d.clicks)} — лендинг не теряет трафик.`, bad:`Конверсия «клик → установка» ${pct(d.installs/d.clicks)} — теряем на лендинге, нужен прямой диплинк.`},
+  ];
+  $('#diagnostics').innerHTML = diag.map(x=>
+    `<p style="display:flex;gap:10px;align-items:flex-start;margin:0 0 12px"><span class="pill ${x.ok?'good':'crit'}">${x.ok?'ок':'риск'}</span><span>${x.ok?x.good:x.bad}</span></p>`).join('');
+
+  renderRegions();
+  renderCompare();
+}
+
+/* --- Регионы --- */
+let activeRegion = null;
+function renderRegions(){
+  const vals = {}; REGIONS.forEach(([id])=> vals[id]=regionViews(state.project,state.platform,id));
+  const max = Math.max(...Object.values(vals));
+  $('#carto').innerHTML = REGIONS.map(([id,name,col,row])=>{
+    const share = vals[id]/max;
+    return `<button class="tile" type="button" data-region="${id}" aria-pressed="${activeRegion===id}"
+      style="grid-column:${col+1};grid-row:${row+1};background:color-mix(in srgb,var(--accent) ${Math.round(share*72)}%, var(--surface-2))">
+      <b>${name}</b><span>${fmt(vals[id])}</span></button>`;
+  }).join('');
+  $('#carto').querySelectorAll('.tile').forEach(t=> t.onclick = ()=>{ activeRegion=t.dataset.region; renderRegions(); });
+  if(activeRegion){
+    const name = REGIONS.find(r=>r[0]===activeRegion)[1];
+    const rows = PROJECTS.map(p=>({label:p.name, value:regionViews(p.id,state.platform,activeRegion)})).sort((a,b)=>b.value-a.value);
+    const mx = rows[0].value;
+    $('#rankTitle').textContent = name;
+    $('#rankTotal').textContent = fmt(rows.reduce((a,b)=>a+b.value,0)) + ' просмотров';
+    $('#rankHint').hidden = true;
+    $('#rankList').innerHTML = rows.map((r,i)=>
+      `<li><span class="rk">${i+1}</span><span>${r.label}<div class="barwrap"><div class="bar" style="width:${(r.value/mx*100).toFixed(0)}%"></div></div></span><span class="num">${fmt(r.value)}</span></li>`).join('');
+  }
+}
+
+/* --- Сравнения --- */
+const cmpSel = new Set(['ayan','kelin','qara']);
+function renderCompare(){
+  $('#compareChips').innerHTML = PROJECTS.map(p=>
+    `<button class="chip" type="button" data-p="${p.id}" aria-pressed="${cmpSel.has(p.id)}">${p.name}</button>`).join('');
+  $('#compareChips').querySelectorAll('.chip').forEach(c=> c.onclick=()=>{
+    const id=c.dataset.p;
+    if(cmpSel.has(id)){ if(cmpSel.size>2) cmpSel.delete(id); } else cmpSel.add(id);
+    renderCompare();
+  });
+  const rows = PROJECTS.filter(p=>cmpSel.has(p.id)).map(p=>({p, d:build(p.id, state.platform, -1, 90)}));
+  barChart($('#cmpViews'), {h:200, labels:rows.map(r=>r.p.name), values:rows.map(r=>r.d.views)});
+  barChart($('#cmpCpa'), {h:200, fmtY:v=>fmt(v), labels:rows.map(r=>r.p.name), values:rows.map(r=>r.d.cpa), color:'s2'});
+  $('#cmpBody').innerHTML = rows.map(r=>
+    `<tr><td>${r.p.name}</td><td class="n">${fmt(r.d.reachTotal)}</td><td class="n">${fmt(r.d.views)}</td><td class="n">${pct(r.d.ctr)}</td><td class="n">${pct(r.d.retention)}</td><td class="n">${fmt(r.d.installs)}</td><td class="n">${full(r.d.cpa)} ₸</td></tr>`).join('');
+}
+
+/* --- Управление --- */
+$('#projectSelect').onchange = e => { state.project=e.target.value; fillSeries(); render(); };
+$('#platformSelect').onchange = e => { state.platform=e.target.value; render(); };
+$('#seriesSelect').onchange = e => { state.series=+e.target.value; render(); };
+$('#periodSelect').onchange = e => { state.days=+e.target.value; render(); };
+document.querySelectorAll('.tab').forEach(tab => tab.onclick = () => {
+  document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected', String(t===tab)));
+  ['overview','audience','release','regions','compare'].forEach(v =>
+    document.getElementById('view-'+v).hidden = (v !== tab.dataset.view));
+});
+$('#themeBtn').onclick = () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur==='dark' ? 'light' : cur==='light' ? '' : 'dark';
+  if(next) document.documentElement.setAttribute('data-theme', next);
+  else document.documentElement.removeAttribute('data-theme');
+  try{ localStorage.setItem('orbita-theme', next); }catch(e){}
+};
+try{ const t=localStorage.getItem('orbita-theme'); if(t) document.documentElement.setAttribute('data-theme',t); }catch(e){}
+
+let rt; addEventListener('resize', ()=>{ clearTimeout(rt); rt=setTimeout(render, 180); });
+fillSeries();
+render();
+</script>
