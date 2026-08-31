@@ -1,0 +1,42 @@
+name: Текущий кинопрокат — публикация сайта
+
+# Сайт пересобирается каждый раз, когда появляются свежие данные:
+# сразу после успешного сбора, а также при правках вручную.
+on:
+  workflow_run:
+    workflows: ["Текущий кинопрокат — ежедневный сбор"]
+    types: [completed]
+  push:
+    paths:
+      - "kinoprokat/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# публикуем по одному за раз, последняя версия побеждает
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    # только с основной ветки репозитория, как бы она ни называлась
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - name: Взять папку с сайтом
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: kinoprokat
+      - name: Опубликовать
+        id: deploy
+        uses: actions/deploy-pages@v4
