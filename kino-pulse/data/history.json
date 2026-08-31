@@ -1,0 +1,1530 @@
+{
+  "days": [
+    {
+      "date": "2026-08-18",
+      "is_demo": true,
+      "totals": {
+        "movies": 12,
+        "total_sales": 8635,
+        "avg_rating": 7.53,
+        "reviews": 9860,
+        "sessions": 221
+      },
+      "movies": [
+        {
+          "id": "зомбилэнд-3",
+          "title": "Зомбилэнд 3",
+          "total_sales": 1192,
+          "rating": 6.9,
+          "reviews_count": 541,
+          "sessions": 26
+        },
+        {
+          "id": "дюна-часть-третья",
+          "title": "Дюна: Часть третья",
+          "total_sales": 1099,
+          "rating": 8.6,
+          "reviews_count": 1472,
+          "sessions": 26
+        },
+        {
+          "id": "каират",
+          "title": "Кайрат",
+          "total_sales": 937,
+          "rating": 7.9,
+          "reviews_count": 986,
+          "sessions": 22
+        },
+        {
+          "id": "астана-ночнои-реис",
+          "title": "Астана: Ночной рейс",
+          "total_sales": 932,
+          "rating": 7.5,
+          "reviews_count": 476,
+          "sessions": 17
+        },
+        {
+          "id": "аватар-огонь-и-пепел",
+          "title": "Аватар: Огонь и пепел",
+          "total_sales": 880,
+          "rating": 8.1,
+          "reviews_count": 1900,
+          "sessions": 28
+        },
+        {
+          "id": "формула-мести",
+          "title": "Формула мести",
+          "total_sales": 812,
+          "rating": 6.5,
+          "reviews_count": 398,
+          "sessions": 19
+        },
+        {
+          "id": "головоломка-3",
+          "title": "Головоломка 3",
+          "total_sales": 675,
+          "rating": 8.4,
+          "reviews_count": 1259,
+          "sessions": 21
+        },
+        {
+          "id": "таина-дракона",
+          "title": "Тайна дракона",
+          "total_sales": 519,
+          "rating": 7.3,
+          "reviews_count": 740,
+          "sessions": 13
+        },
+        {
+          "id": "ледяное-сердце",
+          "title": "Ледяное сердце",
+          "total_sales": 501,
+          "rating": 6.9,
+          "reviews_count": 280,
+          "sessions": 13
+        },
+        {
+          "id": "последнии-рубеж",
+          "title": "Последний рубеж",
+          "total_sales": 430,
+          "rating": 6.9,
+          "reviews_count": 322,
+          "sessions": 16
+        },
+        {
+          "id": "операция-алатау",
+          "title": "Операция «Алатау»",
+          "total_sales": 370,
+          "rating": 7.6,
+          "reviews_count": 590,
+          "sessions": 12
+        },
+        {
+          "id": "свадьба-по-казахски",
+          "title": "Свадьба по-казахски",
+          "total_sales": 288,
+          "rating": 7.8,
+          "reviews_count": 896,
+          "sessions": 8
+        }
+      ]
+    },
+    {
+      "date": "2026-08-19",
+      "is_demo": true,
+      "totals": {
+        "movies": 12,
+        "total_sales": 8381,
+        "avg_rating": 7.49,
+        "reviews": 10335,
+        "sessions": 225
+      },
+      "movies": [
+        {
+          "id": "каират",
+          "title": "Кайрат",
+          "total_sales": 1056,
+          "rating": 7.9,
+          "reviews_count": 1030,
+          "sessions": 27
+        },
+        {
+          "id": "зомбилэнд-3",
+          "title": "Зомбилэнд 3",
+          "total_sales": 963,
+          "rating": 6.7,
+          "reviews_count": 583,
+          "sessions": 24
+        },
+        {
+          "id": "дюна-часть-третья",
+          "title": "Дюна: Часть третья",
+          "total_sales": 950,
+          "rating": 8.5,
+          "reviews_count": 1513,
+          "sessions": 25
+        },
+        {
+          "id": "аватар-огонь-и-пепел",
+          "title": "Аватар: Огонь и пепел",
+          "total_sales": 924,
+          "rating": 8.1,
+          "reviews_count": 1988,
+          "sessions": 28
+        },
+        {
+          "id": "головоломка-3",
+          "title": "Головоломка 3",
+          "total_sales": 789,
+          "rating": 8.4,
+          "reviews_count": 1306,
+          "sessions": 20
+        },
+        {
+          "id": "таина-дракона",
+          "title": "Тайна дракона",
+          "total_sales": 740,
+          "rating": 7.2,
+          "reviews_count": 785,
+          "sessions": 17
+        },
+        {
+          "id": "свадьба-по-казахски",
+          "title": "Свадьба по-казахски",
+          "total_sales": 730,
+          "rating": 7.8,
+          "reviews_count": 940,
+          "sessions": 21
+        },
+        {
+          "id": "последнии-рубеж",
+          "title": "Последний рубеж",
+          "total_sales": 605,
+          "rating": 6.8,
+          "reviews_count": 340,
+          "sessions": 14
+        },
+        {
+          "id": "астана-ночнои-реис",
+          "title": "Астана: Ночной рейс",
+          "total_sales": 527,
+          "rating": 7.4,
+          "reviews_count": 503,
+          "sessions": 17
+        },
+        {
+          "id": "ледяное-сердце",
+          "title": "Ледяное сердце",
+          "total_sales": 406,
+          "rating": 7.1,
+          "reviews_count": 277,
+          "sessions": 12
+        },
+        {
+          "id": "формула-мести",
+          "title": "Формула мести",
+          "total_sales": 388,
+          "rating": 6.4,
+          "reviews_count": 442,
+          "sessions": 12
+        },
+        {
+          "id": "операция-алатау",
+          "title": "Операция «Алатау»",
+          "total_sales": 303,
+          "rating": 7.6,
+          "reviews_count": 628,
+          "sessions": 8
+        }
+      ]
+    },
+    {
+      "date": "2026-08-20",
+      "is_demo": true,
+      "totals": {
+        "movies": 12,
+        "total_sales": 8083,
+        "avg_rating": 7.55,
+        "reviews": 10742,
+        "sessions": 207
+      },
+      "movies": [
+        {
+          "id": "аватар-огонь-и-пепел",
+          "title": "Аватар: Огонь и пепел",
+          "total_sales": 1069,
+          "rating": 8.1,
+          "reviews_count": 2053,
+          "sessions": 25
+        },
+        {
+          "id": "дюна-часть-третья",
+          "title": "Дюна: Часть третья",
+          "total_sales": 1008,
+          "rating": 8.6,
+          "reviews_count": 1594,
+          "sessions": 26
+        },
+        {
+          "id": "каират",
+          "title": "Кайрат",
+          "total_sales": 870,
+          "rating": 7.9,
+          "reviews_count": 1066,
+          "sessions": 20
+        },
+        {
+          "id": "таина-дракона",
+          "title": "Тайна дракона",
+          "total_sales": 802,
+          "rating": 7.2,
+          "reviews_count": 804,
+          "sessions": 19
+        },
+        {
+          "id": "зомбилэнд-3",
+          "title": "Зомбилэнд 3",
+          "total_sales": 785,
+          "rating": 6.8,
+          "reviews_count": 627,
+          "sessions": 20
+        },
+        {
+          "id": "последнии-рубеж",
+          "title": "Последний рубеж",
+          "total_sales": 597,
+          "rating": 7.0,
+          "reviews_count": 343,
+          "sessions": 13
+        },
+        {
+          "id": "формула-мести",
+          "title": "Формула мести",
+          "total_sales": 591,
+          "rating": 6.5,
+          "reviews_count": 450,
+          "sessions": 15
+        },
+        {
+          "id": "астана-ночнои-реис",
+          "title": "Астана: Ночной рейс",
+          "total_sales": 544,
+          "rating": 7.5,
+          "reviews_count": 542,
+          "sessions": 16
+        },
+        {
+          "id": "операция-алатау",
+          "title": "Операция «Алатау»",
+          "total_sales": 519,
+          "rating": 7.7,
+          "reviews_count": 650,
+          "sessions": 13
+        },
+        {
+          "id": "ледяное-сердце",
+          "title": "Ледяное сердце",
+          "total_sales": 505,
+          "rating": 7.1,
+          "reviews_count": 284,
+          "sessions": 12
+        },
+        {
+          "id": "головоломка-3",
+          "title": "Головоломка 3",
+          "total_sales": 468,
+          "rating": 8.4,
+          "reviews_count": 1356,
+          "sessions": 17
+        },
+        {
+          "id": "свадьба-по-казахски",
+          "title": "Свадьба по-казахски",
+          "total_sales": 325,
+          "rating": 7.8,
+          "reviews_count": 973,
+          "sessions": 11
+        }
+      ]
+    },
+    {
+      "date": "2026-08-21",
+      "is_demo": true,
+      "totals": {
+        "movies": 12,
+        "total_sales": 7661,
+        "avg_rating": 7.51,
+        "reviews": 11231,
+        "sessions": 210
+      },
+      "movies": [
+        {
+          "id": "аватар-огонь-и-пепел",
+          "title": "Аватар: Огонь и пепел",
+          "total_sales": 1122,
+          "rating": 8.2,
+          "reviews_count": 2146,
+          "sessions": 25
+        },
+        {
+          "id": "астана-ночнои-реис",
+          "title": "Астана: Ночной рейс",
+          "total_sales": 834,
+          "rating": 7.3,
+          "reviews_count": 562,
+          "sessions": 18
+        },
+        {
+          "id": "зомбилэнд-3",
+          "title": "Зомбилэнд 3",
+          "total_sales": 813,
+          "rating": 7.0,
+          "reviews_count": 631,
+          "sessions": 14
+        },
+        {
+          "id": "дюна-часть-третья",
+          "title": "Дюна: Часть третья",
+          "total_sales": 783,
+          "rating": 8.5,
+          "reviews_count": 1680,
+          "sessions": 25
+        },
+        {
+          "id": "последнии-рубеж",
+          "title": "Последний рубеж",
+          "total_sales": 662,
+          "rating": 6.9,
+          "reviews_count": 382,
+          "sessions": 16
+        },
+        {
+          "id": "головоломка-3",
+          "title": "Головоломка 3",
+          "total_sales": 653,
+          "rating": 8.4,
+          "reviews_count": 1433,
+          "sessions": 21
+        },
+        {
+          "id": "таина-дракона",
+          "title": "Тайна дракона",
+          "total_sales": 629,
+          "rating": 7.4,
+          "reviews_count": 823,
+          "sessions": 21
+        },
+        {
+          "id": "формула-мести",
+          "title": "Формула мести",
+          "total_sales": 506,
+          "rating": 6.3,
+          "reviews_count": 469,
+          "sessions": 13
+        },
+        {
+          "id": "свадьба-по-казахски",
+          "title": "Свадьба по-казахски",
+          "total_sales": 474,
+          "rating": 7.7,
+          "reviews_count": 1002,
+          "sessions": 13
+        },
+        {
+          "id": "каират",
+          "title": "Кайрат",
+          "total_sales": 451,
+          "rating": 7.8,
+          "reviews_count": 1136,
+          "sessions": 20
+        },
+        {
+          "id": "ледяное-сердце",
+          "title": "Ледяное сердце",
+          "total_sales": 402,
+          "rating": 7.1,
+          "reviews_count": 301,
+          "sessions": 16
+        },
+        {
+          "id": "операция-алатау",
+          "title": "Операция «Алатау»",
+          "total_sales": 332,
+          "rating": 7.5,
+          "reviews_count": 666,
+          "sessions": 8
+        }
+      ]
+    },
+    {
+      "date": "2026-08-22",
+      "is_demo": true,
+      "totals": {
+        "movies": 12,
+        "total_sales": 12134,
+        "avg_rating": 7.57,
+        "reviews": 11758,
+        "sessions": 210
+      },
+      "movies": [
+        {
+          "id": "зомбилэнд-3",
+          "title": "Зомбилэнд 3",
+          "total_sales": 1687,
+          "rating": 6.8,
+          "reviews_count": 677,
+          "sessions": 24
+        },
+        {
+          "id": "аватар-огонь-и-пепел",
+          "title": "Аватар: Огонь и пепел",
+          "total_sales": 1586,
+          "rating": 8.2,
+          "reviews_count": 2237,
+          "sessions": 27
+        },
+        {
+          "id": "дюна-часть-третья",
+          "title": "Дюна: Часть третья",
+          "total_sales": 1355,
+          "rating": 8.6,
+          "reviews_count": 1753,
+          "sessions": 22
+        },
+        {
+          "id": "каират",
+          "title": "Кайрат",
+          "total_sales": 1285,
+          "rating": 7.9,
+          "reviews_count": 1173,
+          "sessions": 19
+        },
+        {
+          "id": "астана-ночнои-реис",
+          "title": "Астана: Ночной рейс",
+          "total_sales": 1256,
+          "rating": 7.6,
+          "reviews_count": 592,
+          "sessions": 22
+        },
+        {
+          "id": "таина-дракона",
+          "title": "Тайна дракона",
+          "total_sales": 1211,
+          "rating": 7.3,
+          "reviews_count": 891,
+          "sessions": 25
+        },
+        {
+          "id": "головоломка-3",
+          "title": "Головоломка 3",
+          "total_sales": 957,
+          "rating": 8.2,
+          "reviews_count": 1484,
+          "sessions": 17
+        },
+        {
+          "id": "ледяное-сердце",
+          "title": "Ледяное сердце",
+          "total_sales": 681,
+          "rating": 7.1,
+          "reviews_count": 320,
+          "sessions": 12
+        },
+        {
+          "id": "последнии-рубеж",
+          "title": "Последний рубеж",
+          "total_sales": 675,
+          "rating": 7.0,
+          "reviews_count": 377,
+          "sessions": 12
+        },
+        {
+          "id": "формула-мести",
+          "title": "Формула мести",
+          "total_sales": 583,
+          "rating": 6.5,
+          "reviews_count": 486,
+          "sessions": 13
+        },
+        {
+          "id": "свадьба-по-казахски",
+          "title": "Свадьба по-казахски",
+          "total_sales": 478,
+          "rating": 7.9,
+          "reviews_count": 1065,
+          "sessions": 10
+        },
+        {
+          "id": "операция-алатау",
+          "title": "Операция «Алатау»",
+          "total_sales": 380,
+          "rating": 7.7,
+          "reviews_count": 703,
+          "sessions": 7
+        }
+      ]
+    },
+    {
+      "date": "2026-08-23",
+      "is_demo": true,
+      "totals": {
+        "movies": 12,
+        "total_sales": 12966,
+        "avg_rating": 7.53,
+        "reviews": 12209,
+        "sessions": 216
+      },
+      "movies": [
+        {
+          "id": "зомбилэнд-3",
+          "title": "Зомбилэнд 3",
+          "total_sales": 2154,
+          "rating": 6.7,
+          "reviews_count": 682,
+          "sessions": 24
+        },
+        {
+          "id": "дюна-часть-третья",
+          "title": "Дюна: Часть третья",
+          "total_sales": 2134,
+          "rating": 8.6,
+          "reviews_count": 1796,
+          "sessions": 30
+        },
+        {
+          "id": "каират",
+          "title": "Кайрат",
+          "total_sales": 1768,
+          "rating": 7.7,
+          "reviews_count": 1225,
+          "sessions": 21
+        },
+        {
+          "id": "головоломка-3",
+          "title": "Головоломка 3",
+          "total_sales": 1203,
+          "rating": 8.4,
+          "reviews_count": 1549,
+          "sessions": 24
+        },
+        {
+          "id": "астана-ночнои-реис",
+          "title": "Астана: Ночной рейс",
+          "total_sales": 1121,
+          "rating": 7.5,
+          "reviews_count": 609,
+          "sessions": 20
+        },
+        {
+          "id": "аватар-огонь-и-пепел",
+          "title": "Аватар: Огонь и пепел",
+          "total_sales": 899,
+          "rating": 8.0,
+          "reviews_count": 2325,
+          "sessions": 18
+        },
+        {
+          "id": "последнии-рубеж",
+          "title": "Последний рубеж",
+          "total_sales": 830,
+          "rating": 7.0,
+          "reviews_count": 417,
+          "sessions": 16
+        },
+        {
+          "id": "свадьба-по-казахски",
+          "title": "Свадьба по-казахски",
+          "total_sales": 752,
+          "rating": 7.9,
+          "reviews_count": 1110,
+          "sessions": 17
+        },
+        {
+          "id": "таина-дракона",
+          "title": "Тайна дракона",
+          "total_sales": 697,
+          "rating": 7.3,
+          "reviews_count": 921,
+          "sessions": 17
+        },
+        {
+          "id": "формула-мести",
+          "title": "Формула мести",
+          "total_sales": 636,
+          "rating": 6.5,
+          "reviews_count": 508,
+          "sessions": 11
+        },
+        {
+          "id": "ледяное-сердце",
+          "title": "Ледяное сердце",
+          "total_sales": 492,
+          "rating": 7.2,
+          "reviews_count": 334,
+          "sessions": 11
+        },
+        {
+          "id": "операция-алатау",
+          "title": "Операция «Алатау»",
+          "total_sales": 280,
+          "rating": 7.6,
+          "reviews_count": 733,
+          "sessions": 7
+        }
+      ]
+    },
+    {
+      "date": "2026-08-24",
+      "is_demo": true,
+      "totals": {
+        "movies": 12,
+        "total_sales": 12727,
+        "avg_rating": 7.53,
+        "reviews": 12529,
+        "sessions": 233
+      },
+      "movies": [
+        {
+          "id": "аватар-огонь-и-пепел",
+          "title": "Аватар: Огонь и пепел",
+          "total_sales": 2487,
+          "rating": 8.0,
+          "reviews_count": 2415,
+          "sessions": 28
+        },
+        {
+          "id": "дюна-часть-третья",
+          "title": "Дюна: Часть третья",
+          "total_sales": 1709,
+          "rating": 8.6,
+          "reviews_count": 1870,
+          "sessions": 27
+        },
+        {
+          "id": "каират",
+          "title": "Кайрат",
+          "total_sales": 1467,
+          "rating": 7.8,
+          "reviews_count": 1248,
+          "sessions": 21
+        },
+        {
+          "id": "формула-мести",
+          "title": "Формула мести",
+          "total_sales": 1292,
+          "rating": 6.5,
+          "reviews_count": 503,
+          "sessions": 24
+        },
+        {
+          "id": "головоломка-3",
+          "title": "Головоломка 3",
+          "total_sales": 1223,
+          "rating": 8.5,
+          "reviews_count": 1588,
+          "sessions": 25
+        },
+        {
+          "id": "таина-дракона",
+          "title": "Тайна дракона",
+          "total_sales": 1156,
+          "rating": 7.2,
+          "reviews_count": 953,
+          "sessions": 20
+        },
+        {
+          "id": "зомбилэнд-3",
+          "title": "Зомбилэнд 3",
+          "total_sales": 1042,
+          "rating": 6.7,
+          "reviews_count": 734,
+          "sessions": 28
+        },
+        {
+          "id": "последнии-рубеж",
+          "title": "Последний рубеж",
+          "total_sales": 572,
+          "rating": 7.0,
+          "reviews_count": 411,
+          "sessions": 13
+        },
+        {
+          "id": "операция-алатау",
+          "title": "Операция «Алатау»",
+          "total_sales": 542,
+          "rating": 7.5,
+          "reviews_count": 742,
+          "sessions": 13
+        },
+        {
+          "id": "свадьба-по-казахски",
+          "title": "Свадьба по-казахски",
+          "total_sales": 511,
+          "rating": 7.9,
+          "reviews_count": 1136,
+          "sessions": 13
+        },
+        {
+          "id": "ледяное-сердце",
+          "title": "Ледяное сердце",
+          "total_sales": 463,
+          "rating": 7.1,
+          "reviews_count": 326,
+          "sessions": 11
+        },
+        {
+          "id": "астана-ночнои-реис",
+          "title": "Астана: Ночной рейс",
+          "total_sales": 263,
+          "rating": 7.5,
+          "reviews_count": 603,
+          "sessions": 10
+        }
+      ]
+    },
+    {
+      "date": "2026-08-25",
+      "is_demo": true,
+      "totals": {
+        "movies": 12,
+        "total_sales": 8626,
+        "avg_rating": 7.47,
+        "reviews": 13020,
+        "sessions": 212
+      },
+      "movies": [
+        {
+          "id": "дюна-часть-третья",
+          "title": "Дюна: Часть третья",
+          "total_sales": 1562,
+          "rating": 8.5,
+          "reviews_count": 1946,
+          "sessions": 26
+        },
+        {
+          "id": "зомбилэнд-3",
+          "title": "Зомбилэнд 3",
+          "total_sales": 1102,
+          "rating": 6.7,
+          "reviews_count": 746,
+          "sessions": 18
+        },
+        {
+          "id": "каират",
+          "title": "Кайрат",
+          "total_sales": 1002,
+          "rating": 7.9,
+          "reviews_count": 1285,
+          "sessions": 22
+        },
+        {
+          "id": "аватар-огонь-и-пепел",
+          "title": "Аватар: Огонь и пепел",
+          "total_sales": 954,
+          "rating": 8.1,
+          "reviews_count": 2507,
+          "sessions": 21
+        },
+        {
+          "id": "астана-ночнои-реис",
+          "title": "Астана: Ночной рейс",
+          "total_sales": 945,
+          "rating": 7.4,
+          "reviews_count": 651,
+          "sessions": 22
+        },
+        {
+          "id": "формула-мести",
+          "title": "Формула мести",
+          "total_sales": 720,
+          "rating": 6.2,
+          "reviews_count": 514,
+          "sessions": 21
+        },
+        {
+          "id": "головоломка-3",
+          "title": "Головоломка 3",
+          "total_sales": 695,
+          "rating": 8.4,
+          "reviews_count": 1640,
+          "sessions": 20
+        },
+        {
+          "id": "таина-дракона",
+          "title": "Тайна дракона",
+          "total_sales": 649,
+          "rating": 7.2,
+          "reviews_count": 1000,
+          "sessions": 19
+        },
+        {
+          "id": "ледяное-сердце",
+          "title": "Ледяное сердце",
+          "total_sales": 415,
+          "rating": 7.0,
+          "reviews_count": 337,
+          "sessions": 14
+        },
+        {
+          "id": "свадьба-по-казахски",
+          "title": "Свадьба по-казахски",
+          "total_sales": 217,
+          "rating": 7.7,
+          "reviews_count": 1194,
+          "sessions": 7
+        },
+        {
+          "id": "последнии-рубеж",
+          "title": "Последний рубеж",
+          "total_sales": 213,
+          "rating": 6.9,
+          "reviews_count": 431,
+          "sessions": 11
+        },
+        {
+          "id": "операция-алатау",
+          "title": "Операция «Алатау»",
+          "total_sales": 152,
+          "rating": 7.6,
+          "reviews_count": 769,
+          "sessions": 11
+        }
+      ]
+    },
+    {
+      "date": "2026-08-26",
+      "is_demo": true,
+      "totals": {
+        "movies": 12,
+        "total_sales": 8631,
+        "avg_rating": 7.53,
+        "reviews": 13458,
+        "sessions": 219
+      },
+      "movies": [
+        {
+          "id": "дюна-часть-третья",
+          "title": "Дюна: Часть третья",
+          "total_sales": 1463,
+          "rating": 8.6,
+          "reviews_count": 2008,
+          "sessions": 27
+        },
+        {
+          "id": "аватар-огонь-и-пепел",
+          "title": "Аватар: Огонь и пепел",
+          "total_sales": 1153,
+          "rating": 8.0,
+          "reviews_count": 2575,
+          "sessions": 26
+        },
+        {
+          "id": "таина-дракона",
+          "title": "Тайна дракона",
+          "total_sales": 1121,
+          "rating": 7.2,
+          "reviews_count": 994,
+          "sessions": 23
+        },
+        {
+          "id": "зомбилэнд-3",
+          "title": "Зомбилэнд 3",
+          "total_sales": 974,
+          "rating": 7.0,
+          "reviews_count": 764,
+          "sessions": 23
+        },
+        {
+          "id": "каират",
+          "title": "Кайрат",
+          "total_sales": 904,
+          "rating": 8.0,
+          "reviews_count": 1361,
+          "sessions": 19
+        },
+        {
+          "id": "головоломка-3",
+          "title": "Головоломка 3",
+          "total_sales": 649,
+          "rating": 8.4,
+          "reviews_count": 1718,
+          "sessions": 22
+        },
+        {
+          "id": "операция-алатау",
+          "title": "Операция «Алатау»",
+          "total_sales": 513,
+          "rating": 7.5,
+          "reviews_count": 821,
+          "sessions": 13
+        },
+        {
+          "id": "последнии-рубеж",
+          "title": "Последний рубеж",
+          "total_sales": 477,
+          "rating": 6.9,
+          "reviews_count": 453,
+          "sessions": 15
+        },
+        {
+          "id": "свадьба-по-казахски",
+          "title": "Свадьба по-казахски",
+          "total_sales": 416,
+          "rating": 7.8,
+          "reviews_count": 1204,
+          "sessions": 13
+        },
+        {
+          "id": "формула-мести",
+          "title": "Формула мести",
+          "total_sales": 371,
+          "rating": 6.4,
+          "reviews_count": 536,
+          "sessions": 12
+        },
+        {
+          "id": "астана-ночнои-реис",
+          "title": "Астана: Ночной рейс",
+          "total_sales": 315,
+          "rating": 7.5,
+          "reviews_count": 654,
+          "sessions": 16
+        },
+        {
+          "id": "ледяное-сердце",
+          "title": "Ледяное сердце",
+          "total_sales": 275,
+          "rating": 7.1,
+          "reviews_count": 370,
+          "sessions": 10
+        }
+      ]
+    },
+    {
+      "date": "2026-08-27",
+      "is_demo": true,
+      "totals": {
+        "movies": 12,
+        "total_sales": 8235,
+        "avg_rating": 7.53,
+        "reviews": 13928,
+        "sessions": 225
+      },
+      "movies": [
+        {
+          "id": "зомбилэнд-3",
+          "title": "Зомбилэнд 3",
+          "total_sales": 1838,
+          "rating": 6.8,
+          "reviews_count": 802,
+          "sessions": 27
+        },
+        {
+          "id": "аватар-огонь-и-пепел",
+          "title": "Аватар: Огонь и пепел",
+          "total_sales": 1045,
+          "rating": 8.1,
+          "reviews_count": 2680,
+          "sessions": 23
+        },
+        {
+          "id": "каират",
+          "title": "Кайрат",
+          "total_sales": 932,
+          "rating": 7.8,
+          "reviews_count": 1383,
+          "sessions": 23
+        },
+        {
+          "id": "дюна-часть-третья",
+          "title": "Дюна: Часть третья",
+          "total_sales": 833,
+          "rating": 8.6,
+          "reviews_count": 2061,
+          "sessions": 24
+        },
+        {
+          "id": "астана-ночнои-реис",
+          "title": "Астана: Ночной рейс",
+          "total_sales": 651,
+          "rating": 7.6,
+          "reviews_count": 692,
+          "sessions": 21
+        },
+        {
+          "id": "головоломка-3",
+          "title": "Головоломка 3",
+          "total_sales": 620,
+          "rating": 8.4,
+          "reviews_count": 1759,
+          "sessions": 21
+        },
+        {
+          "id": "формула-мести",
+          "title": "Формула мести",
+          "total_sales": 549,
+          "rating": 6.3,
+          "reviews_count": 553,
+          "sessions": 19
+        },
+        {
+          "id": "ледяное-сердце",
+          "title": "Ледяное сердце",
+          "total_sales": 437,
+          "rating": 7.2,
+          "reviews_count": 369,
+          "sessions": 13
+        },
+        {
+          "id": "последнии-рубеж",
+          "title": "Последний рубеж",
+          "total_sales": 424,
+          "rating": 7.0,
+          "reviews_count": 463,
+          "sessions": 11
+        },
+        {
+          "id": "таина-дракона",
+          "title": "Тайна дракона",
+          "total_sales": 386,
+          "rating": 7.2,
+          "reviews_count": 1046,
+          "sessions": 18
+        },
+        {
+          "id": "свадьба-по-казахски",
+          "title": "Свадьба по-казахски",
+          "total_sales": 301,
+          "rating": 7.8,
+          "reviews_count": 1270,
+          "sessions": 18
+        },
+        {
+          "id": "операция-алатау",
+          "title": "Операция «Алатау»",
+          "total_sales": 219,
+          "rating": 7.6,
+          "reviews_count": 850,
+          "sessions": 7
+        }
+      ]
+    },
+    {
+      "date": "2026-08-28",
+      "is_demo": true,
+      "totals": {
+        "movies": 12,
+        "total_sales": 8821,
+        "avg_rating": 7.54,
+        "reviews": 14402,
+        "sessions": 210
+      },
+      "movies": [
+        {
+          "id": "дюна-часть-третья",
+          "title": "Дюна: Часть третья",
+          "total_sales": 1679,
+          "rating": 8.6,
+          "reviews_count": 2136,
+          "sessions": 25
+        },
+        {
+          "id": "аватар-огонь-и-пепел",
+          "title": "Аватар: Огонь и пепел",
+          "total_sales": 1161,
+          "rating": 8.1,
+          "reviews_count": 2767,
+          "sessions": 22
+        },
+        {
+          "id": "каират",
+          "title": "Кайрат",
+          "total_sales": 1087,
+          "rating": 7.9,
+          "reviews_count": 1422,
+          "sessions": 20
+        },
+        {
+          "id": "зомбилэнд-3",
+          "title": "Зомбилэнд 3",
+          "total_sales": 862,
+          "rating": 6.9,
+          "reviews_count": 825,
+          "sessions": 15
+        },
+        {
+          "id": "формула-мести",
+          "title": "Формула мести",
+          "total_sales": 725,
+          "rating": 6.4,
+          "reviews_count": 597,
+          "sessions": 19
+        },
+        {
+          "id": "головоломка-3",
+          "title": "Головоломка 3",
+          "total_sales": 605,
+          "rating": 8.5,
+          "reviews_count": 1834,
+          "sessions": 20
+        },
+        {
+          "id": "астана-ночнои-реис",
+          "title": "Астана: Ночной рейс",
+          "total_sales": 600,
+          "rating": 7.6,
+          "reviews_count": 705,
+          "sessions": 14
+        },
+        {
+          "id": "таина-дракона",
+          "title": "Тайна дракона",
+          "total_sales": 549,
+          "rating": 7.2,
+          "reviews_count": 1101,
+          "sessions": 21
+        },
+        {
+          "id": "свадьба-по-казахски",
+          "title": "Свадьба по-казахски",
+          "total_sales": 477,
+          "rating": 7.8,
+          "reviews_count": 1288,
+          "sessions": 15
+        },
+        {
+          "id": "последнии-рубеж",
+          "title": "Последний рубеж",
+          "total_sales": 477,
+          "rating": 7.0,
+          "reviews_count": 480,
+          "sessions": 15
+        },
+        {
+          "id": "операция-алатау",
+          "title": "Операция «Алатау»",
+          "total_sales": 419,
+          "rating": 7.5,
+          "reviews_count": 853,
+          "sessions": 12
+        },
+        {
+          "id": "ледяное-сердце",
+          "title": "Ледяное сердце",
+          "total_sales": 180,
+          "rating": 7.0,
+          "reviews_count": 394,
+          "sessions": 12
+        }
+      ]
+    },
+    {
+      "date": "2026-08-29",
+      "is_demo": true,
+      "totals": {
+        "movies": 12,
+        "total_sales": 12505,
+        "avg_rating": 7.53,
+        "reviews": 14843,
+        "sessions": 232
+      },
+      "movies": [
+        {
+          "id": "дюна-часть-третья",
+          "title": "Дюна: Часть третья",
+          "total_sales": 2638,
+          "rating": 8.7,
+          "reviews_count": 2201,
+          "sessions": 27
+        },
+        {
+          "id": "каират",
+          "title": "Кайрат",
+          "total_sales": 1536,
+          "rating": 8.0,
+          "reviews_count": 1481,
+          "sessions": 27
+        },
+        {
+          "id": "аватар-огонь-и-пепел",
+          "title": "Аватар: Огонь и пепел",
+          "total_sales": 1529,
+          "rating": 8.1,
+          "reviews_count": 2864,
+          "sessions": 22
+        },
+        {
+          "id": "зомбилэнд-3",
+          "title": "Зомбилэнд 3",
+          "total_sales": 1046,
+          "rating": 6.8,
+          "reviews_count": 836,
+          "sessions": 17
+        },
+        {
+          "id": "формула-мести",
+          "title": "Формула мести",
+          "total_sales": 1036,
+          "rating": 6.4,
+          "reviews_count": 605,
+          "sessions": 20
+        },
+        {
+          "id": "таина-дракона",
+          "title": "Тайна дракона",
+          "total_sales": 1010,
+          "rating": 7.2,
+          "reviews_count": 1135,
+          "sessions": 20
+        },
+        {
+          "id": "астана-ночнои-реис",
+          "title": "Астана: Ночной рейс",
+          "total_sales": 780,
+          "rating": 7.5,
+          "reviews_count": 737,
+          "sessions": 19
+        },
+        {
+          "id": "головоломка-3",
+          "title": "Головоломка 3",
+          "total_sales": 708,
+          "rating": 8.4,
+          "reviews_count": 1875,
+          "sessions": 20
+        },
+        {
+          "id": "последнии-рубеж",
+          "title": "Последний рубеж",
+          "total_sales": 651,
+          "rating": 6.9,
+          "reviews_count": 480,
+          "sessions": 16
+        },
+        {
+          "id": "ледяное-сердце",
+          "title": "Ледяное сердце",
+          "total_sales": 589,
+          "rating": 7.1,
+          "reviews_count": 394,
+          "sessions": 15
+        },
+        {
+          "id": "операция-алатау",
+          "title": "Операция «Алатау»",
+          "total_sales": 492,
+          "rating": 7.5,
+          "reviews_count": 885,
+          "sessions": 12
+        },
+        {
+          "id": "свадьба-по-казахски",
+          "title": "Свадьба по-казахски",
+          "total_sales": 490,
+          "rating": 7.8,
+          "reviews_count": 1350,
+          "sessions": 17
+        }
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "is_demo": true,
+      "totals": {
+        "movies": 12,
+        "total_sales": 11024,
+        "avg_rating": 7.51,
+        "reviews": 15296,
+        "sessions": 194
+      },
+      "movies": [
+        {
+          "id": "каират",
+          "title": "Кайрат",
+          "total_sales": 1786,
+          "rating": 8.0,
+          "reviews_count": 1517,
+          "sessions": 23
+        },
+        {
+          "id": "дюна-часть-третья",
+          "title": "Дюна: Часть третья",
+          "total_sales": 1759,
+          "rating": 8.6,
+          "reviews_count": 2285,
+          "sessions": 21
+        },
+        {
+          "id": "аватар-огонь-и-пепел",
+          "title": "Аватар: Огонь и пепел",
+          "total_sales": 1683,
+          "rating": 8.2,
+          "reviews_count": 2925,
+          "sessions": 21
+        },
+        {
+          "id": "зомбилэнд-3",
+          "title": "Зомбилэнд 3",
+          "total_sales": 1268,
+          "rating": 6.7,
+          "reviews_count": 851,
+          "sessions": 16
+        },
+        {
+          "id": "таина-дракона",
+          "title": "Тайна дракона",
+          "total_sales": 851,
+          "rating": 7.1,
+          "reviews_count": 1167,
+          "sessions": 21
+        },
+        {
+          "id": "головоломка-3",
+          "title": "Головоломка 3",
+          "total_sales": 755,
+          "rating": 8.4,
+          "reviews_count": 1946,
+          "sessions": 16
+        },
+        {
+          "id": "астана-ночнои-реис",
+          "title": "Астана: Ночной рейс",
+          "total_sales": 709,
+          "rating": 7.6,
+          "reviews_count": 767,
+          "sessions": 19
+        },
+        {
+          "id": "последнии-рубеж",
+          "title": "Последний рубеж",
+          "total_sales": 658,
+          "rating": 6.7,
+          "reviews_count": 515,
+          "sessions": 16
+        },
+        {
+          "id": "ледяное-сердце",
+          "title": "Ледяное сердце",
+          "total_sales": 418,
+          "rating": 7.0,
+          "reviews_count": 387,
+          "sessions": 14
+        },
+        {
+          "id": "формула-мести",
+          "title": "Формула мести",
+          "total_sales": 416,
+          "rating": 6.5,
+          "reviews_count": 618,
+          "sessions": 9
+        },
+        {
+          "id": "свадьба-по-казахски",
+          "title": "Свадьба по-казахски",
+          "total_sales": 400,
+          "rating": 7.8,
+          "reviews_count": 1399,
+          "sessions": 10
+        },
+        {
+          "id": "операция-алатау",
+          "title": "Операция «Алатау»",
+          "total_sales": 321,
+          "rating": 7.5,
+          "reviews_count": 919,
+          "sessions": 8
+        }
+      ]
+    },
+    {
+      "date": "2026-08-31",
+      "is_demo": true,
+      "totals": {
+        "movies": 12,
+        "total_sales": 13475,
+        "avg_rating": 7.49,
+        "reviews": 15854,
+        "sessions": 232
+      },
+      "movies": [
+        {
+          "id": "дюна-часть-третья",
+          "title": "Дюна: Часть третья",
+          "total_sales": 2731,
+          "rating": 8.5,
+          "reviews_count": 2357,
+          "sessions": 28
+        },
+        {
+          "id": "аватар-огонь-и-пепел",
+          "title": "Аватар: Огонь и пепел",
+          "total_sales": 2188,
+          "rating": 8.0,
+          "reviews_count": 3045,
+          "sessions": 25
+        },
+        {
+          "id": "зомбилэнд-3",
+          "title": "Зомбилэнд 3",
+          "total_sales": 2011,
+          "rating": 6.7,
+          "reviews_count": 888,
+          "sessions": 25
+        },
+        {
+          "id": "каират",
+          "title": "Кайрат",
+          "total_sales": 1603,
+          "rating": 7.7,
+          "reviews_count": 1588,
+          "sessions": 23
+        },
+        {
+          "id": "головоломка-3",
+          "title": "Головоломка 3",
+          "total_sales": 1306,
+          "rating": 8.5,
+          "reviews_count": 2022,
+          "sessions": 26
+        },
+        {
+          "id": "формула-мести",
+          "title": "Формула мести",
+          "total_sales": 746,
+          "rating": 6.4,
+          "reviews_count": 634,
+          "sessions": 19
+        },
+        {
+          "id": "таина-дракона",
+          "title": "Тайна дракона",
+          "total_sales": 719,
+          "rating": 7.2,
+          "reviews_count": 1200,
+          "sessions": 21
+        },
+        {
+          "id": "свадьба-по-казахски",
+          "title": "Свадьба по-казахски",
+          "total_sales": 635,
+          "rating": 7.9,
+          "reviews_count": 1441,
+          "sessions": 14
+        },
+        {
+          "id": "астана-ночнои-реис",
+          "title": "Астана: Ночной рейс",
+          "total_sales": 500,
+          "rating": 7.5,
+          "reviews_count": 787,
+          "sessions": 19
+        },
+        {
+          "id": "последнии-рубеж",
+          "title": "Последний рубеж",
+          "total_sales": 428,
+          "rating": 6.7,
+          "reviews_count": 521,
+          "sessions": 12
+        },
+        {
+          "id": "ледяное-сердце",
+          "title": "Ледяное сердце",
+          "total_sales": 339,
+          "rating": 7.1,
+          "reviews_count": 433,
+          "sessions": 12
+        },
+        {
+          "id": "операция-алатау",
+          "title": "Операция «Алатау»",
+          "total_sales": 269,
+          "rating": 7.7,
+          "reviews_count": 938,
+          "sessions": 8
+        }
+      ]
+    }
+  ]
+}

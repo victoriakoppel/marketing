@@ -1,0 +1,53 @@
+name: Kino Pulse — ежедневный сбор
+
+# 06:00 по Алматы (UTC+6) = 00:00 UTC.
+# Ровно эта строка отвечает за фразу «новая точка появляется после сбора в 06:00».
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+    inputs:
+      source:
+        description: "Источник данных"
+        type: choice
+        options: [ticketon, kino, kinopark]
+        default: ticketon
+      city:
+        description: "Город"
+        default: almaty
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Установить зависимости
+        run: pip install -r kino-pulse/collector/requirements.txt
+
+      - name: Собрать срез
+        working-directory: kino-pulse
+        run: |
+          python collector/collect.py \
+            --source "${{ inputs.source || 'ticketon' }}" \
+            --city "${{ inputs.city || 'almaty' }}"
+
+      - name: Закоммитить снимок
+        run: |
+          git config user.name "kino-pulse-bot"
+          git config user.email "actions@github.com"
+          git add kino-pulse/data
+          if git diff --staged --quiet; then
+            echo "Данные не изменились — коммит не нужен."
+          else
+            git commit -m "Снимок афиши за $(date -u -d '+6 hours' +%Y-%m-%d)"
+            git push
+          fi

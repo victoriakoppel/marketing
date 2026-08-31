@@ -1,0 +1,292 @@
+{
+  "date": "2026-08-20",
+  "collected_at": "2026-08-20T06:00:00+06:00",
+  "city": "almaty",
+  "source": "демо-данные",
+  "source_url": null,
+  "strategy": "demo",
+  "is_demo": true,
+  "movies": [
+    {
+      "id": "аватар-огонь-и-пепел",
+      "title": "Аватар: Огонь и пепел",
+      "rating": 8.1,
+      "rating_votes": 6159,
+      "reviews_count": 2053,
+      "sessions": 25,
+      "price_from": 2500,
+      "total_sales": 1069,
+      "sales_basis": "demo",
+      "poster": null,
+      "url": null,
+      "genres": [
+        "фантастика",
+        "приключения"
+      ],
+      "reactions": {
+        "🔥": 234,
+        "😍": 198,
+        "😂": 48,
+        "😢": 39,
+        "😱": 192
+      }
+    },
+    {
+      "id": "дюна-часть-третья",
+      "title": "Дюна: Часть третья",
+      "rating": 8.6,
+      "rating_votes": 6376,
+      "reviews_count": 1594,
+      "sessions": 26,
+      "price_from": 1800,
+      "total_sales": 1008,
+      "sales_basis": "demo",
+      "poster": null,
+      "url": null,
+      "genres": [
+        "фантастика",
+        "драма"
+      ],
+      "reactions": {
+        "🔥": 60,
+        "😍": 199,
+        "😂": 112,
+        "😢": 75,
+        "😱": 214
+      }
+    },
+    {
+      "id": "каират",
+      "title": "Кайрат",
+      "rating": 7.9,
+      "rating_votes": 6396,
+      "reviews_count": 1066,
+      "sessions": 20,
+      "price_from": 2200,
+      "total_sales": 870,
+      "sales_basis": "demo",
+      "poster": null,
+      "url": null,
+      "genres": [
+        "драма"
+      ],
+      "reactions": {
+        "🔥": 109,
+        "😍": 120,
+        "😂": 133,
+        "😢": 173,
+        "😱": 154
+      }
+    },
+    {
+      "id": "таина-дракона",
+      "title": "Тайна дракона",
+      "rating": 7.2,
+      "rating_votes": 4020,
+      "reviews_count": 804,
+      "sessions": 19,
+      "price_from": 1600,
+      "total_sales": 802,
+      "sales_basis": "demo",
+      "poster": null,
+      "url": null,
+      "genres": [
+        "мультфильм"
+      ],
+      "reactions": {
+        "🔥": 188,
+        "😍": 224,
+        "😂": 145,
+        "😢": 199,
+        "😱": 60
+      }
+    },
+    {
+      "id": "зомбилэнд-3",
+      "title": "Зомбилэнд 3",
+      "rating": 6.8,
+      "rating_votes": 3762,
+      "reviews_count": 627,
+      "sessions": 20,
+      "price_from": 1600,
+      "total_sales": 785,
+      "sales_basis": "demo",
+      "poster": null,
+      "url": null,
+      "genres": [
+        "комедия",
+        "ужасы"
+      ],
+      "reactions": {
+        "🔥": 36,
+        "😍": 105,
+        "😂": 41,
+        "😢": 74,
+        "😱": 118
+      }
+    },
+    {
+      "id": "последнии-рубеж",
+      "title": "Последний рубеж",
+      "rating": 7.0,
+      "rating_votes": 1715,
+      "reviews_count": 343,
+      "sessions": 13,
+      "price_from": 2500,
+      "total_sales": 597,
+      "sales_basis": "demo",
+      "poster": null,
+      "url": null,
+      "genres": [
+        "боевик",
+        "драма"
+      ],
+      "reactions": {
+        "🔥": 67,
+        "😍": 135,
+        "😂": 114,
+        "😢": 64,
+        "😱": 232
+      }
+    },
+    {
+      "id": "формула-мести",
+      "title": "Формула мести",
+      "rating": 6.5,
+      "rating_votes": 1800,
+      "reviews_count": 450,
+      "sessions": 15,
+      "price_from": 1400,
+      "total_sales": 591,
+      "sales_basis": "demo",
+      "poster": null,
+      "url": null,
+      "genres": [
+        "боевик"
+      ],
+      "reactions": {
+        "🔥": 6,
+        "😍": 43,
+        "😂": 167,
+        "😢": 225,
+        "😱": 232
+      }
+    },
+    {
+      "id": "астана-ночнои-реис",
+      "title": "Астана: Ночной рейс",
+      "rating": 7.5,
+      "rating_votes": 1626,
+      "reviews_count": 542,
+      "sessions": 16,
+      "price_from": 2500,
+      "total_sales": 544,
+      "sales_basis": "demo",
+      "poster": null,
+      "url": null,
+      "genres": [
+        "триллер"
+      ],
+      "reactions": {
+        "🔥": 22,
+        "😍": 46,
+        "😂": 155,
+        "😢": 172,
+        "😱": 111
+      }
+    },
+    {
+      "id": "операция-алатау",
+      "title": "Операция «Алатау»",
+      "rating": 7.7,
+      "rating_votes": 3900,
+      "reviews_count": 650,
+      "sessions": 13,
+      "price_from": 2000,
+      "total_sales": 519,
+      "sales_basis": "demo",
+      "poster": null,
+      "url": null,
+      "genres": [
+        "боевик"
+      ],
+      "reactions": {
+        "🔥": 120,
+        "😍": 32,
+        "😂": 48,
+        "😢": 128,
+        "😱": 166
+      }
+    },
+    {
+      "id": "ледяное-сердце",
+      "title": "Ледяное сердце",
+      "rating": 7.1,
+      "rating_votes": 1704,
+      "reviews_count": 284,
+      "sessions": 12,
+      "price_from": 1400,
+      "total_sales": 505,
+      "sales_basis": "demo",
+      "poster": null,
+      "url": null,
+      "genres": [
+        "мелодрама"
+      ],
+      "reactions": {
+        "🔥": 158,
+        "😍": 170,
+        "😂": 116,
+        "😢": 199,
+        "😱": 137
+      }
+    },
+    {
+      "id": "головоломка-3",
+      "title": "Головоломка 3",
+      "rating": 8.4,
+      "rating_votes": 5424,
+      "reviews_count": 1356,
+      "sessions": 17,
+      "price_from": 1800,
+      "total_sales": 468,
+      "sales_basis": "demo",
+      "poster": null,
+      "url": null,
+      "genres": [
+        "мультфильм",
+        "семейный"
+      ],
+      "reactions": {
+        "🔥": 103,
+        "😍": 130,
+        "😂": 191,
+        "😢": 42,
+        "😱": 196
+      }
+    },
+    {
+      "id": "свадьба-по-казахски",
+      "title": "Свадьба по-казахски",
+      "rating": 7.8,
+      "rating_votes": 4865,
+      "reviews_count": 973,
+      "sessions": 11,
+      "price_from": 2500,
+      "total_sales": 325,
+      "sales_basis": "demo",
+      "poster": null,
+      "url": null,
+      "genres": [
+        "комедия"
+      ],
+      "reactions": {
+        "🔥": 90,
+        "😍": 89,
+        "😂": 42,
+        "😢": 190,
+        "😱": 109
+      }
+    }
+  ]
+}
