@@ -361,6 +361,11 @@ function plural(count, one, few, many) {
 
 /* ───────────────────────────  графики  ─────────────────────────── */
 
+function cssVar(name, fallback) {
+  const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  return value || fallback;
+}
+
 function drawChart(canvas, points, options = {}) {
   const empty = document.getElementById(options.emptyId);
   const valid = points.filter((p) => p.value !== null && p.value !== undefined);
@@ -410,13 +415,13 @@ function drawChart(canvas, points, options = {}) {
   for (let tick = 0; tick <= 4; tick += 1) {
     const value = min + ((max - min) * tick) / 4;
     const y = yAt(value);
-    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    ctx.strokeStyle = cssVar('--rule-soft', '#efece8');
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(pad.left, y + 0.5);
     ctx.lineTo(width - pad.right, y + 0.5);
     ctx.stroke();
-    ctx.fillStyle = '#8b909a';
+    ctx.fillStyle = cssVar('--ink-faint', '#9b979d');
     ctx.textAlign = 'right';
     ctx.fillText(options.formatY ? options.formatY(value) : num(value), pad.left - 10, y);
   }
@@ -427,14 +432,14 @@ function drawChart(canvas, points, options = {}) {
   ctx.textBaseline = 'top';
   valid.forEach((point, i) => {
     if (i % step && i !== valid.length - 1) return;
-    ctx.fillStyle = '#8b909a';
+    ctx.fillStyle = cssVar('--ink-faint', '#9b979d');
     ctx.fillText(shortDate(point.date), xAt(i), height - pad.bottom + 9);
   });
 
   // заливка под линией
   const gradient = ctx.createLinearGradient(0, pad.top, 0, pad.top + plotH);
-  gradient.addColorStop(0, options.fill || 'rgba(255,84,112,0.28)');
-  gradient.addColorStop(1, 'rgba(255,84,112,0)');
+  gradient.addColorStop(0, options.fill || cssVar('--accent-wash', 'rgba(158,27,50,0.08)'));
+  gradient.addColorStop(1, 'transparent');
   ctx.beginPath();
   ctx.moveTo(xAt(0), pad.top + plotH);
   valid.forEach((point, i) => ctx.lineTo(xAt(i), yAt(point.value)));
@@ -446,7 +451,7 @@ function drawChart(canvas, points, options = {}) {
   // линия
   ctx.beginPath();
   valid.forEach((point, i) => (i ? ctx.lineTo(xAt(i), yAt(point.value)) : ctx.moveTo(xAt(i), yAt(point.value))));
-  ctx.strokeStyle = options.stroke || '#ff5470';
+  ctx.strokeStyle = options.stroke || cssVar('--accent', '#9e1b32');
   ctx.lineWidth = 2.5;
   ctx.lineJoin = 'round';
   ctx.stroke();
@@ -455,9 +460,9 @@ function drawChart(canvas, points, options = {}) {
   valid.forEach((point, i) => {
     ctx.beginPath();
     ctx.arc(xAt(i), yAt(point.value), 3.5, 0, Math.PI * 2);
-    ctx.fillStyle = '#0c0d0f';
+    ctx.fillStyle = cssVar('--surface', '#ffffff');
     ctx.fill();
-    ctx.strokeStyle = options.stroke || '#ff5470';
+    ctx.strokeStyle = options.stroke || cssVar('--accent', '#9e1b32');
     ctx.lineWidth = 2;
     ctx.stroke();
   });
@@ -560,18 +565,19 @@ function renderMovieSelector() {
     .join('');
 }
 
-const METRIC_COLORS = {
-  total_sales: { stroke: '#ff5470', fill: 'rgba(255,84,112,0.28)' },
-  rating: { stroke: '#ffa62b', fill: 'rgba(255,166,43,0.26)' },
-  reviews_count: { stroke: '#4dd4ff', fill: 'rgba(77,212,255,0.24)' },
-};
+// каждому показателю — свой цвет, оба из палитры страницы
+function metricColors(metric) {
+  if (metric === 'rating') return { stroke: cssVar('--warn', '#9a6a12'), fill: cssVar('--warn-wash', 'rgba(154,106,18,0.08)') };
+  if (metric === 'reviews_count') return { stroke: cssVar('--data', '#2f4b6e'), fill: cssVar('--data-wash', 'rgba(47,75,110,0.1)') };
+  return { stroke: cssVar('--accent', '#9e1b32'), fill: cssVar('--accent-wash', 'rgba(158,27,50,0.08)') };
+}
 
 function renderMovieChart() {
   const points = state.history.days.map((day) => {
     const entry = day.movies.find((movie) => movie.id === state.movieId);
     return { date: day.date, value: entry ? entry[state.metric] : null };
   });
-  const colors = METRIC_COLORS[state.metric] || METRIC_COLORS.total_sales;
+  const colors = metricColors(state.metric);
   drawChart($('#movieChart'), points, {
     emptyId: 'movieEmpty',
     stroke: colors.stroke,
