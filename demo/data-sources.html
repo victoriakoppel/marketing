@@ -1,0 +1,226 @@
+<title>Откуда берётся Fmedia Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F2ED; --card:#FFFFFF; --sunk:#EAE7E0; --rule:#D8D3C9;
+  --ink:#1A1B22; --dim:#6A6B76; --accent:#2F4B7C; --accent-soft:rgba(47,75,124,.10);
+  --fact:#2E6B4F; --fact-soft:rgba(46,107,79,.12);
+  --guess:#8A5A12; --guess-soft:rgba(138,90,18,.13);
+  --shadow:0 1px 2px rgba(26,27,34,.05), 0 10px 30px rgba(26,27,34,.06);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#14151A; --card:#1C1E25; --sunk:#23262E; --rule:#333741;
+    --ink:#E8E7E2; --dim:#9B9CA6; --accent:#8FAEE0; --accent-soft:rgba(143,174,224,.14);
+    --fact:#6FC49A; --fact-soft:rgba(111,196,154,.15);
+    --guess:#E0AE5C; --guess-soft:rgba(224,174,92,.15);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 34px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#14151A; --card:#1C1E25; --sunk:#23262E; --rule:#333741;
+  --ink:#E8E7E2; --dim:#9B9CA6; --accent:#8FAEE0; --accent-soft:rgba(143,174,224,.14);
+  --fact:#6FC49A; --fact-soft:rgba(111,196,154,.15);
+  --guess:#E0AE5C; --guess-soft:rgba(224,174,92,.15);
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 34px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Source Sans 3',system-ui,sans-serif;font-size:16px;line-height:1.6}
+.wrap{max-width:940px;margin:0 auto;padding:56px 24px 80px}
+h1,h2,h3{font-family:'Newsreader',Georgia,serif;font-weight:600;text-wrap:balance;margin:0;letter-spacing:-.01em}
+h1{font-size:40px;line-height:1.12}
+h2{font-size:26px;margin:56px 0 6px}
+h3{font-size:19px}
+p{margin:12px 0}
+.lede{font-size:19px;color:var(--dim);max-width:62ch;margin-top:14px}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+code,.mono{font-family:'JetBrains Mono',monospace;font-size:.86em;background:var(--sunk);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere;word-break:break-word}
+hr{border:0;border-top:1px solid var(--rule);margin:0}
+
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden;margin:32px 0 8px}
+@media(max-width:700px){.facts{grid-template-columns:repeat(2,1fr)}}
+.facts div{background:var(--card);padding:14px 16px}
+.facts b{display:block;font-family:'JetBrains Mono',monospace;font-size:21px;font-weight:500}
+.facts span{font-size:12.5px;color:var(--dim)}
+
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:12px;margin:26px 0 0;background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:20px;box-shadow:var(--shadow)}
+@media(max-width:760px){.flow{grid-template-columns:1fr;text-align:center}.flow .arrow{transform:rotate(90deg)}}
+.flow ul{margin:0;padding-left:18px;font-size:13.5px;line-height:1.75}
+.flow .arrow{color:var(--accent);font-size:20px;text-align:center}
+.flow .step b{display:block;font-family:'Newsreader',serif;font-size:17px;margin-bottom:4px}
+.flow .step small{color:var(--dim);font-size:12.5px}
+
+.src{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:20px 22px;margin:16px 0;box-shadow:var(--shadow)}
+.srchead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+.tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;padding:3px 9px;border-radius:99px;white-space:nowrap}
+.t-fact{color:var(--fact);background:var(--fact-soft)}
+.t-guess{color:var(--guess);background:var(--guess-soft)}
+.why{font-size:14px;color:var(--dim);border-left:2px solid var(--rule);padding-left:12px;margin:12px 0}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0 0}
+th{text-align:left;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);font-weight:500;padding:0 12px 7px 0;border-bottom:1px solid var(--rule)}
+td{padding:8px 12px 8px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td:first-child{font-family:'JetBrains Mono',monospace;font-size:12.5px;white-space:nowrap}
+.scroll{overflow-x:auto}
+.take{background:var(--accent-soft);border-radius:10px;padding:14px 18px;margin:14px 0;font-size:15px}
+ol.steps{counter-reset:s;list-style:none;padding:0;margin:18px 0}
+ol.steps li{counter-increment:s;position:relative;padding-left:44px;margin-bottom:18px}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--paper);display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:13px}
+ol.steps b{font-family:'Newsreader',serif;font-size:17px}
+.foot{margin-top:56px;padding-top:18px;border-top:1px solid var(--rule);font-size:13.5px;color:var(--dim)}
+</style>
+
+<div class="wrap">
+<div class="eyebrow">Разбор исходника · дэшборд просмотров Fmedia</div>
+<h1>Откуда в дэшборд приходят данные</h1>
+<p class="lede">Страница не обращается ни к одному API. Всё, что она показывает, кто-то собрал руками из семи разных мест и вложил в файл. Ниже — что это за места, по каким признакам они опознаются и что понадобится, чтобы собрать такой дэшборд заново.</p>
+
+<div class="facts">
+  <div><b>7</b><span>проектов</span></div>
+  <div><b>52</b><span>серии</span></div>
+  <div><b>5 074</b><span>дневных точки</span></div>
+  <div><b>10 мес</b><span>22.10.25 – 21.08.26</span></div>
+</div>
+
+<h2>Как это устроено сегодня</h2>
+<div class="flow">
+  <div class="step"><b>Источники</b><small>YouTube, платформа, трекеры, Excel, Wordstat, Threads</small></div>
+  <div class="arrow">→</div>
+  <div class="step"><b>Ручная сборка</b><small>выгрузки → скрипт → один JSON</small>
+    <ul><li>склейка по проект/серия</li><li>снимок на дату</li></ul></div>
+  <div class="arrow">→</div>
+  <div class="step"><b>Файл</b><small><span class="mono">DASHBOARD_DATA</span> вшит в HTML, ~187 700 строк</small></div>
+</div>
+<p>Обновление = пересобрать файл. Кнопки «Выгрузить» и «Безопасная выгрузка» скачивают новый самодостаточный <code>.html</code> с именем вида <code>префикс-дата-время.html</code>. Базы нет, сервера нет, живых данных нет.</p>
+
+<h2>Источник 1. YouTube Analytics</h2>
+<div class="src">
+  <div class="srchead"><h3>Ядро дэшборда — примерно 95% объёма данных</h3><span class="tag t-fact">установлено по коду</span></div>
+  <p class="why">Опознаётся однозначно: подписи категорий лежат в данных на английском ровно в формулировках YouTube Studio — <span class="mono">Browse features</span>, <span class="mono">Suggested videos</span>, <span class="mono">End screens</span>, <span class="mono">Hashtag pages</span>, <span class="mono">Related Shorts</span>, <span class="mono">Mobile phone</span>, <span class="mono">User specified</span>. Плюс у каждой серии лежит <span class="mono">channelId</span> вида <span class="mono">UCgMG7Rs…</span> и <span class="mono">seriesId</span> — это идентификатор видео.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Поле в данных</th><th>Что это в YouTube</th><th>Покрытие</th></tr></thead>
+    <tbody>
+      <tr><td>data[]</td><td>Просмотры по дням (date, views)</td><td>52/52</td></tr>
+      <tr><td>reachTimeline[]</td><td>Показы (Impressions) по дням</td><td>52/52</td></tr>
+      <tr><td>reach, totalViews</td><td>Показы и просмотры за период</td><td>11 / 29</td></tr>
+      <tr><td>uniqueViewers90d</td><td>Уникальные зрители за 90 дней</td><td>29/52</td></tr>
+      <tr><td>avgWatchDuration</td><td>Средняя длительность просмотра, «15:31»</td><td>29/52</td></tr>
+      <tr><td>avgRetentionPercent</td><td>Средний % досмотра</td><td>29/52</td></tr>
+      <tr><td>demographics[]</td><td>Возраст, 7 групп, доля просмотров</td><td>52/52</td></tr>
+      <tr><td>gender[]</td><td>Female / Male / User specified</td><td>52/52</td></tr>
+      <tr><td>devices[]</td><td>Mobile phone / TV / Computer / Tablet</td><td>52/52</td></tr>
+      <tr><td>sources[], sourcesTimeline[]</td><td>Источники трафика, 14 категорий, в динамике</td><td>52/52</td></tr>
+      <tr><td>cities[], citiesFull[]</td><td>Города, «Almaty, Kazakhstan», топ-5 и все 70</td><td>52/52</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Как забирать:</b> YouTube Analytics API (<code>reports.query</code>) по каждому <span class="mono">videoId</span> с разбивкой по дню, возрасту, полу, устройству, источнику и городу. Ровно те же цифры руками выгружаются из Studio в CSV — судя по наличию английских подписей и неполному покрытию полей, сейчас именно CSV.</p>
+</div>
+
+<h2>Источник 2. Продуктовая аналитика платформы Freedom Media</h2>
+<div class="src">
+  <div class="srchead"><h3>Всё, ради чего дэшборд существует: драйверы, уники, подписки, CPA</h3><span class="tag t-guess">предположение о системе</span></div>
+  <p class="why">Сами поля и их значения — факт из данных. Из какой системы они выгружены, в коде не указано: это внутренние продуктовые метрики платформы, значит BI / хранилище / продуктовая аналитика (GA4, Amplitude или собственный DWH). Ключевая улика — у каждого показателя рядом лежит дата снимка вида <span class="mono">driversDate: "12.04"</span> или <span class="mono">"2026-05-12"</span>. Так выглядит цифра, переписанная из отчёта на конкретный день, а не поток из API.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Поле</th><th>Смысл</th><th>Покрытие</th></tr></thead>
+    <tbody>
+      <tr><td>youtubeUniques</td><td>Уники YouTube — знаменатель всех коэффициентов</td><td>29</td></tr>
+      <tr><td>drivers</td><td>Драйверы: пришедшие на платформу от сериала</td><td>51</td></tr>
+      <tr><td>platformUniques</td><td>Уники на платформе</td><td>49</td></tr>
+      <tr><td>retained</td><td>Удержанные</td><td>3</td></tr>
+      <tr><td>subscribers, subscriptionActivations</td><td>Подписки и активации</td><td>5 / 21</td></tr>
+      <tr><td>homePageViews, titleCardViews</td><td>Заходы на главную и карточку тайтла</td><td>21 / 21</td></tr>
+      <tr><td>cpa</td><td>Стоимость привлечения</td><td>49</td></tr>
+      <tr><td>kpd, kpu, kpp</td><td>Коэффициенты — <b>считаются из тех же чисел</b>, не источник</td><td>52 / 49 / 6</td></tr>
+      <tr><td>platformMetricsTimeline[]</td><td>Драйверы по дням — единственный дневной ряд платформы</td><td>51</td></tr>
+    </tbody>
+  </table></div>
+  <div class="take"><b>Главный вывод по этому блоку.</b> Дневная динамика есть только у драйверов. Подписки, уники платформы, CPA — точечные снимки. Именно поэтому в дэшборде «релизный режим» строится на драйверах, а всё остальное показано карточками с датой.</div>
+</div>
+
+<h2>Источник 3. Трекер ссылок и атрибуция установок</h2>
+<div class="src">
+  <div class="srchead"><h3>Путь «ссылка под видео → установка приложения»</h3><span class="tag t-guess">предположение о системе</span></div>
+  <p class="why">В данных лежит готовая разбивка по четырём точкам назначения — это выгрузка трекера, а не YouTube:</p>
+  <p><code>destinations: { superapp: {clicks 2643, installs 123}, standalone: {clicks 42011, installs 12820}, website: {clicks 6300}, landing: null }</code></p>
+  <p>Клики по ссылкам может отдавать сокращатель или UTM-разметка в GA4; установки с разделением на Freedom SuperApp и отдельное приложение — это уже мобильная атрибуция (AppsFlyer, Adjust или внутренняя система). Поля <span class="mono">linkClicks</span> / <span class="mono">appInstalls</span> есть у 22 серий из 52 и снабжены датой в формате <span class="mono">"12.04"</span> — снова ручной перенос.</p>
+</div>
+
+<h2>Источник 4. Медиаплан и промо</h2>
+<div class="src">
+  <div class="srchead"><h3>Сколько промо-охвата купили и получили</h3><span class="tag t-guess">предположение о системе</span></div>
+  <p class="why">Блок <span class="mono">promoMetrics</span> есть всего у 6 серий из 52 и содержит ровно четыре числа — так выглядит строка из сводной таблицы медиаплана, которую ведёт команда маркетинга:</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Поле</th><th>Смысл</th></tr></thead>
+    <tbody>
+      <tr><td>promo_total</td><td>Сумма промо-просмотров (в примере — 465 млн)</td></tr>
+      <tr><td>promo_organic</td><td>Органическое промо</td></tr>
+      <tr><td>promo_paid_pr</td><td>Платное промо и PR</td></tr>
+      <tr><td>promo_digital_outdoor</td><td>Платный digital и наружная реклама</td></tr>
+    </tbody>
+  </table></div>
+  <p>Источник — отчёты подрядчиков и медиазакупки, сведённые в Excel или Google Sheets. Автоматизируемо только через отчётность агентства.</p>
+</div>
+
+<h2>Источник 5. Яндекс Wordstat</h2>
+<div class="src">
+  <div class="srchead"><h3>Поисковый интерес к названию сериала</h3><span class="tag t-fact">установлено по коду</span></div>
+  <p class="why">Блок <span class="mono">__wordstat__</span> у 5 проектов из 7, структура в точности повторяет ответ Wordstat: фраза, регион, период, помесячные записи.</p>
+  <p><code>{ phrase: "Мунай сериал", regionId: 159, regionName: "Казахстан", period: "monthly", entries: [{date, count, share}], total, latestDate }</code></p>
+  <p><b>Важная деталь:</b> запросы в Google живыми данными <b>не являются</b>. В коде они при отсутствии значения вычисляются как <span class="mono">yandexQueries × googleMultiplier</span>, а множитель зашит в данные вручную (у Forever 29 — <span class="mono">2.4</span>). Запросы на YouTube лежат отдельным числом в <span class="mono">discoveryMetrics</span> — вероятно, из Studio или стороннего сервиса, но происхождение в коде не отражено.</p>
+</div>
+
+<h2>Источник 6. Калькулятор сценариев в Excel</h2>
+<div class="src">
+  <div class="srchead"><h3>Весь «релизный режим» вырастает отсюда</h3><span class="tag t-fact">путь к файлу сохранён в данных</span></div>
+  <p class="why">В блоке <span class="mono">__releaseScenarios__</span> честно записан исходник:</p>
+  <p><code>"source": "/Users/maksimsalnikov/Downloads/success_calculator_Школьная_драма_Gen_Z_Teens_raw_2026-04-22.xlsx"</code></p>
+  <p>То есть модель живёт в Excel-файле на чьём-то ноутбуке, выгружается вручную и версионируется полем <span class="mono">updatedAt</span>. Пять сценариев — «Очень хорошо», «Хорошо», «Средне», «Плохо», «Очень плохо», каждый с полями <span class="mono">hotCore</span>, <span class="mono">wideAudience</span>, <span class="mono">totalAudience</span>, <span class="mono">kpd</span>, <span class="mono">drivers</span>, <span class="mono">cpa</span>, <span class="mono">budget</span> и удвоенным вариантом. Арифметика внутри простая и проверяется: <b>драйверы = ЦА × КПД</b>, <b>бюджет = драйверы × CPA</b>.</p>
+</div>
+
+<h2>Источник 7. Threads + разметка тональности моделью</h2>
+<div class="src">
+  <div class="srchead"><h3>Соцслушание — только у одного проекта</h3><span class="tag t-fact">установлено по коду</span></div>
+  <p class="why">Блок <span class="mono">__threadsPosts__</span> есть только у «140 баллов». Внутри — посты со ссылками на <span class="mono">threads.net</span>, метриками (likes, replies, reposts, forwards), временем сбора <span class="mono">collectedAt</span> и, что показательно, полями <span class="mono">sentiment</span> и <span class="mono">reason</span> — текстовым объяснением оценки на русском. Так выглядит разметка языковой моделью, а не счётчик площадки. Источник подписан как <span class="mono">viral_posts_140_балл.xlsx</span>: сначала парсинг, потом ручная сводка в Excel.</p>
+</div>
+
+<h2>Что источником не является</h2>
+<p>Часть цифр в дэшборде выглядит как данные, но считается на месте — их не нужно нигде брать:</p>
+<div class="scroll"><table>
+  <thead><tr><th>Блок</th><th>Из чего получается</th></tr></thead>
+  <tbody>
+    <tr><td>Карта регионов</td><td>Из <span class="mono">citiesFull</span> через зашитый справочник <span class="mono">REGION_CITY_MAP</span>: города складываются в области. Отдельного источника по регионам нет.</td></tr>
+    <tr><td>CTR</td><td>views / impressions</td></tr>
+    <tr><td>КПД, КПУ, КПП</td><td>Проценты от уников YouTube: <span class="mono">драйверы = уники × КПД/100</span> и так далее</td></tr>
+    <tr><td>Эталонная кривая</td><td><span class="mono">PRED_REF_CURVES</span> — зашитые контрольные точки: день 7 — 29,2% итога, 14 — 55,7%, 21 — 70,3%, 30 — 82,1%, 56 — 95%</td></tr>
+    <tr><td>Отклик релиза</td><td><span class="mono">RELEASE_RESPONSE</span> — ядро на 14 дней и затухание по 9 сериям, зашито в код</td></tr>
+    <tr><td>«Наш движок»</td><td>Считается в браузере: таблицы <span class="mono">ENG_FD</span> / <span class="mono">ENG_FE</span> — доли финала к дню N, в комментарии указано «по 6 завершённым». Приор <span class="mono">ENGINE_PRIOR</span> задан вручную и только для «Умай»</td></tr>
+    <tr><td>KNN, Ridge, Tree</td><td>Модели <b>не обучаются в браузере</b>. Страница читает готовые числа из <span class="mono">__modelForecasts__</span>; в присланном снимке этого блока нет, поэтому три из четырёх моделей молчат. Значит, есть внешний скрипт (почти наверняка Python), который считает прогноз офлайн</td></tr>
+    <tr><td>Чужие проекты</td><td>Отдельный файл <span class="mono">external-projects-data.js</span> рядом со страницей, режим включается ссылкой <span class="mono">?externalProjects=1</span>. Где брали цифры конкурентов — в коде не сказано; недостающие коэффициенты подставляются заглушками <span class="mono">kpd 4, kpu 8, kpp 2</span></td></tr>
+  </tbody>
+</table></div>
+
+<h2>Признаки того, что сборка ручная</h2>
+<p>Это не придирка — от этого зависит, что чинить в первую очередь:</p>
+<ul>
+  <li><b>Серии названы по-разному в каждом проекте:</b> <span class="mono">«140 балл | 1 серия»</span>, <span class="mono">«Мунай_s01_e01»</span>, <span class="mono">«Улжан — 1 серия»</span>, <span class="mono">«Умай - Серия 1»</span>. Единого справочника контента нет, ключ собирается вручную.</li>
+  <li><b>Дыры в покрытии:</b> <span class="mono">releaseDate</span> есть у 29 серий из 52, <span class="mono">reach</span> — у 11, промо — у 6. Значит, часть выгрузок делали один раз и не повторяли.</li>
+  <li><b>Даты снимков в разных форматах</b> — <span class="mono">"12.04"</span> рядом с <span class="mono">"2026-05-12"</span>.</li>
+  <li><b>Платформа всегда одна</b> — ключ <span class="mono">"All"</span>. Селектор платформы в интерфейсе есть, а разделения данных по платформам нет.</li>
+</ul>
+
+<h2>Что нужно, чтобы собрать это заново</h2>
+<ol class="steps">
+  <li><b>YouTube Analytics API</b><br>Даёт сразу 95% содержимого: просмотры, показы, удержание, демографию, источники, города, а через города — и карту регионов. Нужен доступ к каналу и список <span class="mono">videoId</span> по сериям. Единственный блок, который автоматизируется полностью и сразу.</li>
+  <li><b>Выгрузка продуктовых метрик платформы</b><br>Драйверы, уники, подписки, CPA. Здесь главный вопрос не технический, а организационный: <b>нужна дневная гранулярность</b>, а не снимок на дату — иначе «релизный режим» так и останется одной кривой драйверов.</li>
+  <li><b>Справочник контента</b><br>Одна таблица: проект, сезон, серия, дата релиза, videoId, id тайтла на платформе. Без неё любые две системы придётся склеивать руками, как сейчас.</li>
+  <li><b>Трекер ссылок и атрибуция установок</b><br>Клики и установки с разбивкой superapp / отдельное приложение / сайт / лендинг.</li>
+  <li><b>Медиаплан и Wordstat</b><br>Промо-охваты из отчётности агентства, поисковый интерес — из Wordstat. Оба спокойно живут в Google Sheets и обновляются раз в неделю: дневная точность здесь не нужна.</li>
+  <li><b>Модель сценариев</b><br>Перенести <span class="mono">success_calculator.xlsx</span> из чьих-то «Загрузок» в общую таблицу с версией. Формулы там простые, весь риск — в том, что файл существует в одном экземпляре у одного человека.</li>
+</ol>
+
+<div class="take"><b>Если коротко:</b> данных из внешних систем всего два вида — YouTube и продуктовая аналитика платформы. Всё остальное — таблицы, которые ведут люди. Автоматизация первых двух закрывает большую часть дэшборда, остальному достаточно одной общей Google-таблицы вместо файлов на ноутбуках.</div>
+
+<p class="foot">Разбор сделан по исходнику страницы, присланному в .docx. Пометка «установлено по коду» означает, что вывод следует прямо из данных или логики файла; «предположение о системе» — что состав полей известен точно, а конкретный продукт-источник в коде не назван и восстановлен по характеру данных.</p>
+</div>
