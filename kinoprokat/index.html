@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#faf9f7">
-  <title>Kino Pulse — аналитика проката</title>
+  <title>Текущий кинопрокат</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230c0d0f'/%3E%3Crect x='7' y='17' width='4' height='8' rx='2' fill='%23ffa62b'/%3E%3Crect x='14' y='8' width='4' height='17' rx='2' fill='%23ff5470'/%3E%3Crect x='21' y='13' width='4' height='12' rx='2' fill='%234dd4ff'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Golos+Text:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -13,9 +13,9 @@
 <body>
   <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
   <header class="topbar">
-    <a class="brand" href="/" aria-label="Kino Pulse — главная">
+    <a class="brand" href="/" aria-label="Текущий кинопрокат — главная">
       <span class="brand-mark"><i></i><i></i><i></i></span>
-      <span><b>KINO</b><em>PULSE</em></span>
+      <span><b>ТЕКУЩИЙ</b> <em>КИНОПРОКАТ</em></span>
     </a>
     <div class="top-meta">
       <span class="live"><i></i> <span id="liveLabel">Данные актуальны</span></span>
@@ -39,7 +39,7 @@
     <section class="hero">
       <div>
         <p class="eyebrow" id="heroEyebrow">АЛМАТЫ · ЕЖЕДНЕВНАЯ АНАЛИТИКА</p>
-        <h1>Пульс кинопроката<br><span>в одном экране</span></h1>
+        <h1>Что смотрят<br><span>прямо сейчас</span></h1>
         <p class="hero-copy">Продажи, зрительские оценки и живые реакции на фильмы — без ручных отчётов.</p>
       </div>
       <div class="hero-badge"><span id="heroMovies">—</span><small>фильмов<br>в афише</small></div>
@@ -58,7 +58,7 @@
         <div id="salesChart" class="bar-chart"></div>
       </article>
       <article class="panel pulse-panel">
-        <div class="panel-head"><div><p class="eyebrow">НАСТРОЕНИЕ ЗАЛА</p><h2>Пульс зрителей</h2></div></div>
+        <div class="panel-head"><div><p class="eyebrow">НАСТРОЕНИЕ ЗАЛА</p><h2>Реакции зрителей</h2></div></div>
         <div id="reactionPulse" class="reaction-pulse"></div>
         <p class="pulse-note">Суммарные emoji-реакции по текущей афише</p>
       </article>

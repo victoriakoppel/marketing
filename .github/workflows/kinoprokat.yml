@@ -1,4 +1,4 @@
-name: Kino Pulse — ежедневный сбор
+name: Текущий кинопрокат — ежедневный сбор
 
 # 06:00 по Алматы (UTC+6) = 00:00 UTC.
 # Ровно эта строка отвечает за фразу «новая точка появляется после сбора в 06:00».
@@ -10,8 +10,13 @@ on:
       source:
         description: "Источник данных"
         type: choice
-        options: [ticketon, kino, kinopark]
-        default: ticketon
+        options: [kino, ticketon, kinopark]
+        default: kino
+      mode:
+        description: "Что сделать"
+        type: choice
+        options: [собрать данные, только разведка]
+        default: собрать данные
       city:
         description: "Город"
         default: almaty
@@ -31,20 +36,21 @@ jobs:
           cache: pip
 
       - name: Установить зависимости
-        run: pip install -r kino-pulse/collector/requirements.txt
+        run: pip install -r kinoprokat/collector/requirements.txt
 
       - name: Собрать срез
-        working-directory: kino-pulse
+        working-directory: kinoprokat
         run: |
           python collector/collect.py \
-            --source "${{ inputs.source || 'ticketon' }}" \
+            --source "${{ inputs.source || 'kino' }}" \
             --city "${{ inputs.city || 'almaty' }}"
 
       - name: Закоммитить снимок
+        if: inputs.mode != 'только разведка'
         run: |
-          git config user.name "kino-pulse-bot"
+          git config user.name "kinoprokat-bot"
           git config user.email "actions@github.com"
-          git add kino-pulse/data
+          git add kinoprokat/data
           if git diff --staged --quiet; then
             echo "Данные не изменились — коммит не нужен."
           else

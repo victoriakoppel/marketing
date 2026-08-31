@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Kino Pulse — сборщик открытых данных по кинопрокату.
+Текущий кинопрокат — сборщик открытых данных.
 
 Забирает афишу города с публичного сайта и складывает ежедневный снимок
 в data/snapshots/YYYY-MM-DD.json, после чего пересобирает data/latest.json
@@ -28,6 +28,7 @@ import json
 import os
 import re
 import sys
+import time
 import unicodedata
 from collections import defaultdict
 from pathlib import Path
@@ -52,9 +53,10 @@ SOURCES = {
     "kino": {
         "title": "Kino.kz",
         "base": "https://kino.kz",
-        "listing": "https://kino.kz/{city}/movies",
+        "listing": "https://kino.kz/ru/movies",
+        "detail": True,          # цифры живут на карточке фильма, не в афише
         "css": {
-            "card": ".movie-card, [class*='movieCard'], article[class*='movie']",
+            "card": "[class*='movie'], article",
             "title": "h3, h2, [class*='title']",
             "rating": "[class*='rating'], [class*='score']",
             "reviews": "[class*='review'], [class*='comment']",
@@ -327,17 +329,142 @@ def from_css(soup: BeautifulSoup, cfg: dict) -> list[dict]:
     return movies
 
 
+# ─────────────────────  карточка фильма Kino.kz  ─────────────────────
+#
+# Разбор опирается на то, что напечатано на странице человеческим текстом,
+# а не на имена классов: вёрстку переделывают часто, а подпись «билетов
+# продано» рядом с числом — почти никогда. Поэтому здесь регулярные
+# выражения по тексту, а не CSS-селекторы.
+
+MOVIE_HREF_RE = re.compile(r"/(?:ru|kk)/movie/(\d+)")
+# «632 836 билетов продано» — пробелы внутри числа бывают неразрывными
+TICKETS_RE = re.compile(r"(\d[\d\s\u00a0\u202f]*)\s*билет", re.IGNORECASE)
+PRICE_RE = re.compile(r"(\d[\d\s\u00a0\u202f]*)\s*₸")
+# эмодзи-реакция и число рядом с ней
+REACTION_RE = re.compile(
+    r"([\U0001F300-\U0001FAFF\u2600-\u27BF\u2B00-\u2BFF])\uFE0F?\s*(\d[\d\s\u00a0\u202f]*)"
+)
+SESSION_TIME_RE = re.compile(r"\b(?:[01]\d|2[0-3]):[0-5]\d\b")
+REVIEWS_RE = re.compile(r"Рецензии\s*\(?\s*(\d[\d\s\u00a0\u202f]*)", re.IGNORECASE)
+RATING_RE = re.compile(r"\b([0-9](?:[.,][0-9])?)\s*/\s*10\b")
+
+
+def page_text(soup: BeautifulSoup) -> str:
+    """Видимый текст страницы одной строкой — по нему и ищем цифры."""
+    for tag in soup(["script", "style", "noscript"]):
+        tag.decompose()
+    return " ".join(soup.get_text(" ", strip=True).split())
+
+
+def parse_kino_movie(html: str, url: str) -> dict | None:
+    """Достать из карточки фильма всё, что на ней напечатано."""
+    soup = BeautifulSoup(html, "html.parser")
+    heading = soup.find("h1")
+    title = heading.get_text(strip=True) if heading else None
+    if not title:
+        return None
+
+    movie = blank_movie(title)
+    movie["url"] = url
+    text = page_text(soup)
+
+    # на странице может встретиться и «осталось N билетов»; счётчик продаж —
+    # заведомо самое большое из таких чисел, поэтому берём максимум
+    sold = [to_number(m.group(1)) for m in TICKETS_RE.finditer(text)]
+    sold = [value for value in sold if value]
+    if sold:
+        movie["total_sales"] = int(max(sold))
+        movie["sales_basis"] = "kino_kz_counter"
+
+    # самый дешёвый билет из всех категорий — детский и студенческий тоже
+    prices = [to_number(m.group(1)) for m in PRICE_RE.finditer(text)]
+    prices = [price for price in prices if price]
+    if prices:
+        movie["price_from"] = min(prices)
+
+    movie["sessions"] = len(SESSION_TIME_RE.findall(text))
+
+    reviews = REVIEWS_RE.search(text)
+    if reviews:
+        count = to_number(reviews.group(1))
+        if count:
+            movie["reviews_count"] = int(count)
+
+    rating = RATING_RE.search(text)
+    if rating:
+        movie["rating"] = to_number(rating.group(1))
+
+    # реакции считаем только у эмодзи с непустым числом
+    for emoji, raw in REACTION_RE.findall(text):
+        count = to_number(raw)
+        if count and count >= 1:
+            movie["reactions"][emoji] = int(count)
+
+    poster = soup.find("img")
+    if poster:
+        movie["poster"] = poster.get("src") or poster.get("data-src")
+
+    genres = [chip.get_text(strip=True) for chip in soup.select("[class*='genre'] a, [class*='genre'] span")]
+    movie["genres"] = [g for g in genres if g][:4]
+    return movie
+
+
+def movie_links(soup: BeautifulSoup, base: str) -> list[str]:
+    """Ссылки на карточки фильмов со страницы афиши, без повторов."""
+    seen = {}
+    for link in soup.find_all("a", href=True):
+        match = MOVIE_HREF_RE.search(link["href"])
+        if not match:
+            continue
+        href = link["href"]
+        seen.setdefault(match.group(1), href if href.startswith("http") else base.rstrip("/") + href)
+    return list(seen.values())
+
+
+def collect_with_detail(cfg: dict, listing_html: str, pause: float = 1.5) -> list[dict]:
+    """
+    Обойти карточки фильмов по одной.
+
+    Пауза между запросами не для красоты: сбор идёт раз в сутки, спешить
+    некуда, а нагружать чужой сайт очередью запросов — плохой тон.
+    """
+    soup = BeautifulSoup(listing_html, "html.parser")
+    links = movie_links(soup, cfg["base"])
+    if not links:
+        return []
+
+    print(f"  Найдено карточек фильмов: {len(links)}")
+    movies = []
+    for index, url in enumerate(links, 1):
+        try:
+            movie = parse_kino_movie(fetch(url), url)
+        except requests.exceptions.RequestException as error:
+            print(f"  [{index}/{len(links)}] пропуск {url}: {error.__class__.__name__}")
+            continue
+        if movie:
+            movies.append(movie)
+            print(f"  [{index}/{len(links)}] {movie['title']}: "
+                  f"билетов {movie['total_sales']}, сеансов {movie['sessions']}")
+        time.sleep(pause)
+    return movies
+
+
 def finalize(movies: list[dict]) -> list[dict]:
     """
     Досчитать производные поля.
 
-    total_sales заполняется ТОЛЬКО если источник отдал занятость зала.
-    Продажи билетов нигде не публикуются как открытые данные, поэтому
-    единственная честная опора — число занятых мест в схемах сеансов.
-    Нет данных о местах — остаётся null, и дашборд честно покажет прочерк.
+    total_sales берётся из того, что опубликовал сам источник:
+
+    * Kino.kz печатает на карточке фильма счётчик «N билетов продано» —
+      это накопительный итог по площадке за весь прокат фильма, поэтому
+      продажи за день считаются как разница двух соседних снимков;
+    * если счётчика нет, но сайт отдаёт занятость зала по сеансам,
+      опорой становится число занятых мест;
+    * если нет ни того, ни другого — остаётся null, и дашборд честно
+      покажет прочерк вместо выдуманного числа.
     """
     for movie in movies:
-        if movie["seats_taken"] > 0:
+        if movie["total_sales"] is None and movie["seats_taken"] > 0:
             movie["total_sales"] = movie["seats_taken"]
             movie["sales_basis"] = "seats_taken"
         movie.pop("seats_total", None)
@@ -359,6 +486,10 @@ def collect(source_key: str, city: str) -> dict:
 
     strategy = "json-ld"
     movies = finalize(from_jsonld(extract_jsonld(soup), cfg["base"]))
+
+    if not movies and cfg.get("detail"):
+        strategy = "карточки фильмов"
+        movies = finalize(collect_with_detail(cfg, html))
 
     if not movies:
         name, state = extract_spa_state(html)
@@ -485,7 +616,7 @@ def rebuild() -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Сборщик открытых данных Kino Pulse")
+    parser = argparse.ArgumentParser(description="Сборщик открытых данных «Текущий кинопрокат»")
     parser.add_argument("--source", default="ticketon", choices=sorted(SOURCES))
     parser.add_argument("--city", default="almaty")
     parser.add_argument("--probe", action="store_true", help="разведка источника без записи")
